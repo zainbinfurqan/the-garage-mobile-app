@@ -23,12 +23,16 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Login from './src/screens/login'
+import Registration from './src/screens/registration'
 
-const App: () => React$Node = () => {
+function App() {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <StatusBar backgroundColor="#5558F0" />
+      {/* <Login /> */}
+      <Registration />
+      {/* <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
@@ -67,7 +71,8 @@ const App: () => React$Node = () => {
             <LearnMoreLinks />
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </SafeAreaView> */}
+
     </>
   );
 };
