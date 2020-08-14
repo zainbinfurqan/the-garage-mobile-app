@@ -26,6 +26,7 @@ import {
 import Login from './src/screens/login'
 import Registration from './src/screens/registration'
 import PostsFeed from './src/screens/feed'
+import ProductDetailView from './src/screens/productDetail'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <StatusBar backgroundColor="#5558F0" />
       {/* <Login /> */}
       {/* <Registration /> */}
+      <ProductDetailView />
       <PostsFeed />
       {/* <SafeAreaView>
         <ScrollView
