@@ -4,7 +4,7 @@ import constants from '../../config/constants'
 
 export default Styles = StyleSheet.create({
     container: { flex: 1, justifyContent: 'center', backgroundColor: constants.BACKGROUND_1 },
-    form: { flexGrow: 2, padding: 10, justifyContent: 'center', marginTop: -50 },
+    form: { flexGrow: 2, padding: 10, justifyContent: 'center', },
     logoMain: { justifyContent: 'center', margin: 10 },
     logo: { height: 100, width: 100, alignSelf: 'center' },
     headingText: {

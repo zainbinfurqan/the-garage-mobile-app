@@ -25,13 +25,15 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Login from './src/screens/login'
 import Registration from './src/screens/registration'
+import PostsFeed from './src/screens/feed'
 
 function App() {
   return (
     <>
       <StatusBar backgroundColor="#5558F0" />
       {/* <Login /> */}
-      <Registration />
+      {/* <Registration /> */}
+      <PostsFeed />
       {/* <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
