@@ -30,4 +30,11 @@ export default Styles = StyleSheet.create({
         fontSize: constants.SMALL_FONT * 0.7,
         alignSelf: 'flex-end'
     },
+    textInput: {
+        height: 45,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: constants.LIGHT_BORDER,
+        borderRadius: constants.INPUT_TEXT_RADIUS
+    },
 });

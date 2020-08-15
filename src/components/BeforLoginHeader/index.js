@@ -6,8 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux'
 
 function BeforLoginHeader(props) {
-    console.log()
     const navigation = useNavigation();
+    console.log(navigation)
 
     function openDrawer() {
         navigation.openDrawer();
@@ -16,7 +16,7 @@ function BeforLoginHeader(props) {
     return (
         <ImageBackground source={require('../../assets/images/header.png')} style={{ height: 55, flexDirection: 'row', backgroundColor: constants.LIGHT_BLUE }}>
             {props.backButton &&
-                <TouchableOpacity onPress={openDrawer} style={{ flex: 0.1, justifyContent: 'center', }}>
+                <TouchableOpacity onPress={() => navigation.pop()} style={{ flex: 0.1, justifyContent: 'center', }}>
                     <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/back-white.png')} />
                 </TouchableOpacity>
             }
@@ -31,11 +31,6 @@ function BeforLoginHeader(props) {
                     fontFamily: constants.FONT_SAMSUNG_LIGHT
                 }}>{props.headerText}</Text>
             </View>
-            {!props.userData && !props.isLogin &&
-                <View style={{ flex: 0.1, justifyContent: 'center' }}>
-                    <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/login-white.png')} />
-                </View>
-            }
             {/* {!props.userData && !props.isLogin &&
                 <View style={{ flex: 0.1, justifyContent: 'center' }}>
                     <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/login-white.png')} />

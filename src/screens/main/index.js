@@ -23,8 +23,6 @@ function CustomDrawer(props) {
     return (
         <Drawer.Navigator initialRouteName='PostsFeed'
             drawerContent={(props) => <CustomDrawer_ />}>
-            <Drawer.Screen name="Login" component={Login} />
-            <Drawer.Screen name="Registration" component={Registration} />
             <Drawer.Screen name="PostsFeed" component={PostsFeed} />
         </Drawer.Navigator>
     )

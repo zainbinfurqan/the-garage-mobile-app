@@ -49,7 +49,7 @@ function Uploadproduct(props) {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView>
                 <BeforLoginHeader menuButton={false} backButton={true} />
                 <TouchableOpacity style={Style.uploadMain}>

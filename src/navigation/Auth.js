@@ -20,7 +20,7 @@ function Auth(props) {
         <>
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator
-                    initialRouteName='Chat'
+                    initialRouteName='MainScreen'
                     screenOptions={{
                         headerShown: false,
                         cardStyle: {

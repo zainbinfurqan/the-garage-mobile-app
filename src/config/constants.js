@@ -68,7 +68,7 @@ const constants = {
         { title: 'owais' },
     ],
     CHAT_MESSAGES: [
-        { id: 1, message: 'hye all' },
+        { id: 1, message: 'start' },
         { id: 2, message: 'hye aasd asd asd asd asd asdas dll' },
         { id: 1, message: 'hye all' },
         { id: 2, message: 'hye allasda sda sdas dasd asd asd' },
@@ -91,7 +91,7 @@ const constants = {
         { id: 1, message: 'hye all' },
         { id: 2, message: 'hye all' },
         { id: 1, message: 'hye aasd asll' },
-        { id: 2, message: 'hye aasd asd asll' },
+        { id: 2, message: 'End' },
     ],
 }
 export default constants

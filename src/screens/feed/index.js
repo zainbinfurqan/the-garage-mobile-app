@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
-import { View, SafeAreaView, Text, ScrollView, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, SafeAreaView, Text, ScrollView, FlatList, Image, TouchableOpacity, } from 'react-native';
+import Slider from '@react-native-community/slider'
 import Style from './style'
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import constants from '../../config/constants';
@@ -8,7 +9,8 @@ import moment from 'moment'
 
 const initialState = {
     lowPrice: 0,
-    highPrice: 1000
+    highPrice: 1000,
+    priceRange: 0
 }
 
 function reducer(state, action) {
@@ -31,14 +33,15 @@ function PostsFeed(props) {
         dispatch({
             type: 'ON_PRICE_CHANGE',
             payload: {
-                [label]: value.trim(),
+                [label]: Math.floor(value),
             },
         });
     }
 
     return (
         <SafeAreaView style={Style.container}>
-            <BeforLoginHeader menuButton={true} backButton={false} />
+            {console.log(state.priceRange)}
+            <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />
             <View style={Style.line} />
             <View style={{}}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
@@ -53,6 +56,16 @@ function PostsFeed(props) {
             </View>
             <View style={Style.line} />
             <View style={Style.priceRangMain}>
+                <Text style={Style.priceRangText}>Price range:  {state.priceRange}</Text>
+                <Slider minimumValue={10} maximumValue={100}
+                    onValueChange={(e) => PriceRange(e, "priceRange")}
+                    value={0}
+                    minimumTrackTintColor='green'
+                    maximumTrackTintColor='red'
+                >
+                </Slider>
+            </View>
+            {/* <View style={}>
                 <Text style={Style.priceRangText}>Price Range</Text>
                 <View style={{ flexDirection: 'row', }}>
                     <View style={Style.priceLow}>
@@ -62,7 +75,7 @@ function PostsFeed(props) {
                         <IconTextInput InputStyle={{}} value={state.highPrice} onChangeText={(e) => PriceRange(e, 'highPrice')} />
                     </View>
                 </View>
-            </View>
+            </View> */}
             <View style={Style.postListMain}>
                 <FlatList
                     data={posts}
@@ -95,6 +108,10 @@ function PostsFeed(props) {
                                             </View>
                                         )
                                     })}
+                                    <View style={[Style.intrestedPeopleMain, { marginLeft: -10 }]}>
+                                        <Image style={{ height: 25, opacity: 0.5, width: 25, alignSelf: 'center', position: 'absolute' }} source={require('../../assets/images/default-profile-1.png')} />
+                                        <Image style={{ height: 10, width: 10, alignSelf: 'center' }} source={require('../../assets/icons/add-black.png')} />
+                                    </View>
                                     <View style={Style.intrestedPeopleNumber}>
                                         <Text style={Style.intrestedText1}>{constants.INTRESTES_LIST.length}</Text>
                                         <Text style={Style.intrestedText2}> people are intrested</Text></View>
