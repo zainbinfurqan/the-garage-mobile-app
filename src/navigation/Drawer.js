@@ -29,6 +29,8 @@ function CustomDrawer(props) {
             <View style={Style.line} />
             <Item itemText='FAQ' icon={`${require('../assets/icons/faq.png')}`} navigateTo={() => navigateTo('FAQ')} />
             <View style={Style.line} />
+            <Item itemText='Upload Product' icon={`${require('../assets/icons/upload.png')}`} navigateTo={() => navigateTo('Uploadproduct')} />
+            <View style={Style.line} />
         </View>
     )
 }

@@ -8,6 +8,9 @@ import Login from '../screens/login'
 import Registration from '../screens/registration'
 import PostsFeed from '../screens/feed'
 import MainScreen from '../screens/main'
+import Uploadproduct from '../screens/uplaodProduct'
+import ProductDetailView from '../screens/productDetail'
+import MessageList from '../screens/message'
 
 const Stack = createStackNavigator();
 
@@ -17,7 +20,7 @@ function Auth(props) {
         <>
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator
-                    initialRouteName='MainScreen'
+                    initialRouteName='MessageList'
                     screenOptions={{
                         headerShown: false,
                         cardStyle: {
@@ -28,6 +31,9 @@ function Auth(props) {
                     <Stack.Screen name="Registration" component={Registration} />
                     <Stack.Screen name="PostsFeed" component={PostsFeed} />
                     <Stack.Screen name="MainScreen" component={MainScreen} />
+                    <Stack.Screen name="Uploadproduct" component={Uploadproduct} />
+                    <Stack.Screen name="ProductDetailView" component={ProductDetailView} />
+                    <Stack.Screen name="MessageList" component={MessageList} />
 
                 </Stack.Navigator>
             </SafeAreaView>

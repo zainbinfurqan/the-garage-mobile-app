@@ -5,10 +5,11 @@ function TextInput_(props) {
     return (
         <View>
             <TextInput
+                multiline={props.multiline}
+                numberOfLines={props.numberOfLines}
                 placeholder={props.placeholder}
                 underlineColorAndroid="transparent"
-                style={[{}]}
-                style={props.InputStyle}
+                style={[{ padding: 0, paddingLeft: 5, }, props.InputStyle]}
                 value={props.value}
                 secureTextEntry={props.secureTextEntry}
                 onChangeText={props.onChangeText}
@@ -20,7 +21,6 @@ function TextInput_(props) {
 TextInput_.defaultProps = {
     onChangeText: function () { },
     placeholder: '',
-    value: '',
     InputStyle: {},
     secureTextEntry: false
 };

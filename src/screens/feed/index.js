@@ -38,7 +38,7 @@ function PostsFeed(props) {
 
     return (
         <SafeAreaView style={Style.container}>
-            <BeforLoginHeader />
+            <BeforLoginHeader menuButton={true} backButton={false} />
             <View style={Style.line} />
             <View style={{}}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
@@ -71,7 +71,7 @@ function PostsFeed(props) {
                             <View style={Style.postHeaderMain}>
                                 <View style={Style.profileMain}>
                                     <View style={Style.profile}>
-                                        <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/icons/default-profile.png')} />
+                                        <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
                                     </View>
                                 </View>
                                 <View style={{ flex: .6 }}>
@@ -91,7 +91,7 @@ function PostsFeed(props) {
                                     {constants.INTRESTES_LIST.slice(0, 3).map((item, index) => {
                                         return (
                                             <View key={index} style={[Style.intrestedPeopleMain, index > 0 && { marginLeft: -10 }]}>
-                                                <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/default-profile.png')} />
+                                                <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
                                             </View>
                                         )
                                     })}

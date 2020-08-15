@@ -56,7 +56,6 @@ export default Styles = StyleSheet.create({
         justifyContent: 'center', paddingLeft: 10, flexDirection: 'row',
     },
     intrestedPeopleMain: {
-        borderWidth: 0.34,
         borderRadius: 50,
         height: 25, width: 25,
         justifyContent: 'center'

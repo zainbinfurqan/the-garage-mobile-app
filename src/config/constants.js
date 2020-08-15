@@ -2,7 +2,7 @@
 import { Dimensions, Platform } from 'react-native';
 
 const constants = {
-    LIGHT_BORDER: '#ECE9E9',
+    LIGHT_BORDER: '#DCDDDF',
     BOX_SHADOW: 1,
     INPUT_TEXT_RADIUS: 5,
     LIGHT_BLUE: '#2F66A7',
@@ -18,7 +18,7 @@ const constants = {
         Platform.OS === 'android' ? 'HelveticaLTStd-Bold' : 'System',
     SMALL_FONT: 10,
     SMALLEST_FONT: 10,
-    MEDIUM_FONT: 12,
+    MEDIUM_FONT: 20,
     CATEGORIES: [
         { title: 'Pillar' },
         { title: 'Bumper' },
@@ -56,7 +56,42 @@ const constants = {
         { title: 'category' },
         { title: 'category' },
         { title: 'category' },
-
-    ]
+    ],
+    USER_LIST: [
+        { title: 'Zain' },
+        { title: 'Faraz' },
+        { title: 'arsalan' },
+        { title: 'ammad' },
+        { title: 'tanveer' },
+        { title: 'omer' },
+        { title: 'arshaq' },
+        { title: 'owais' },
+    ],
+    CHAT_MESSAGES: [
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+        { id: 1, message: 'hye all' },
+        { id: 2, message: 'hye all' },
+    ],
 }
 export default constants
