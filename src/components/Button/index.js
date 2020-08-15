@@ -8,14 +8,14 @@ function Button_(props) {
         <Ripple
             onPress={props.onPress}
             rippleColor={props.rippleColor}
-            style={[props.buttonStyle, {
+            style={[{
                 backgroundColor: constants.LIGHT_BLUE,
                 height: 40,
                 borderRadius: 5,
                 justifyContent: 'center'
-            }]}>
+            }, props.buttonStyle,]}>
             <TouchableOpacity>
-                <Text style={{ color: 'white', alignSelf: 'center', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{props.title}</Text>
+                <Text style={[{ color: 'white', alignSelf: 'center', fontFamily: constants.FONT_SAMSUNG_LIGHT }, props.textStyle]}>{props.title}</Text>
             </TouchableOpacity>
         </Ripple>
 

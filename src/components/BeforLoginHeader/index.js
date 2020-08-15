@@ -1,19 +1,20 @@
 import React, { } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, ImageBackground } from 'react-native';
+import constants from '../../config/constants';
 
 
 function BeforLoginHeader(props) {
     return (
-        <View style={{ height: 55, flexDirection: 'row' }}>
-            {/* <View style={{ flex: 0.1, justifyContent: 'center' }}>
-                <Image style={{ height: 30, width: 30 }} source={require('../../assets/icons/back.png')} />
-            </View> */}
-            <View style={{ flex: 0.9, justifyContent: 'center' }}>
+        <ImageBackground source={require('../../assets/images/header.png')} style={{ height: 55, flexDirection: 'row', backgroundColor: constants.LIGHT_BLUE }}>
+            <View style={{ flex: 0.1, justifyContent: 'center', }}>
+                <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/drawer.png')} />
+            </View>
+            <View style={{ flex: 0.8, justifyContent: 'center' }}>
             </View>
             <View style={{ flex: 0.1, justifyContent: 'center' }}>
-                <Image style={{ height: 30, width: 30 }} source={require('../../assets/icons/login.png')} />
+                <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/login-white.png')} />
             </View>
-        </View>
+        </ImageBackground>
     )
 }
 

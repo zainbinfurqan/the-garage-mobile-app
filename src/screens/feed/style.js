@@ -25,9 +25,27 @@ export default Styles = StyleSheet.create({
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
         fontSize: constants.SMALL_FONT
     },
-    postListMain: { flex: 1, marginTop: 10 },
+    postListMain: { flex: 1, },
     categoryScroll: { flexDirection: 'row', flexWrap: 'wrap', },
-    priceRangMain: { height: 60, padding: 10 },
+    priceRangMain: { height: 45, paddingLeft: 10, paddingRight: 10, },
     priceLow: { flex: 0.5, marginRight: 5 },
     priceHigh: { flex: 0.5, },
+    postMain: { flex: 1, flexDirection: 'column', margin: 2, borderWidth: 1, },
+    postHeaderMain: { flexDirection: 'row', padding: 5 },
+    profileMain: { flex: .1 },
+    profile: { borderWidth: 0.34, borderRadius: 30, justifyContent: 'center', height: 30, width: 30 },
+
+    name: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        padding: 5
+    },
+    footerMain: { flexDirection: 'row', },
+    footer1: { flex: .3, padding: 5 },
+    intrestedText1: {
+        alignSelf: 'center',
+        fontFamily: constants.FONT_SAMSUNG_LIGHT, fontSize: constants.SMALL_FONT
+    },
+    intrestedText2: {
+        alignSelf: 'center', fontFamily: constants.FONT_SAMSUNG_LIGHT, fontSize: constants.SMALL_FONT
+    },
 });

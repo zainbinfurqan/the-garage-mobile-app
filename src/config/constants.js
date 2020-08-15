@@ -5,7 +5,7 @@ const constants = {
     LIGHT_BORDER: '#ECE9E9',
     BOX_SHADOW: 1,
     INPUT_TEXT_RADIUS: 5,
-    LIGHT_BLUE: '#5558F0',
+    LIGHT_BLUE: '#2F66A7',
     BACKGROUND_1: '#F1F2F8',
     RIPPLE_COLOR: '#9B9DF2',
     LINE_COLOR: '#CFD0D3',
@@ -42,6 +42,21 @@ const constants = {
         { title: 'category' },
         { title: 'category' },
         { title: 'category' },
+    ],
+    INTRESTES_LIST: [
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+        { title: 'category' },
+
     ]
 }
 export default constants

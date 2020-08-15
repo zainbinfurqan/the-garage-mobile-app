@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView, Text, TextInput, Image } from 'react-native'
+import { View, SafeAreaView, Text, TextInput, Image, ImageBackground } from 'react-native'
 import TextInput_ from '../../components/Input/TextInput'
 import constants from '../../config/constants'
 import Button_ from '../../components/Button'
 import Styles from './style'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function Login(props) {
 
@@ -25,7 +26,7 @@ function Login(props) {
     }
 
     return (
-        <SafeAreaView style={Styles.container}>
+        <ImageBackground source={require('../../assets/images/bg-1.png')} style={Styles.container}>
             <View style={Styles.form}>
                 <View style={Styles.logoMain}>
                     <Image style={Styles.logo} source={require('../../assets/images/logo.png')} />
@@ -43,11 +44,12 @@ function Login(props) {
                     secureTextEntry={true}
                     InputStyle={Styles.textInput} />
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={Styles.footerText1}>Dont have a Account?  </Text><Text style={Styles.footerText2}>Sinup here</Text>
+                    <Text style={Styles.footerText1}>Dont have a Account?  </Text>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Registration')}><Text style={Styles.footerText2}>Sinup here</Text></TouchableOpacity>
                 </View>
                 <Button_ title='Login' rippleColor={constants.RIPPLE_COLOR} />
             </View>
-        </SafeAreaView>
+        </ImageBackground>
     )
 }
 

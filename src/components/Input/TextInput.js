@@ -6,6 +6,7 @@ function TextInput_(props) {
         <View>
             <TextInput
                 placeholder={props.placeholder}
+                underlineColorAndroid="transparent"
                 style={[{}]}
                 style={props.InputStyle}
                 value={props.value}

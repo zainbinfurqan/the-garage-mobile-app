@@ -7,6 +7,7 @@ function IconTextInput(props) {
         <View style={{ flexDirection: 'row', borderWidth: 0.34, borderColor: constants.LINE_COLOR }}>
             <TextInput
                 placeholder={props.placeholder}
+                underlineColorAndroid="transparent"
                 style={[{ flex: 0.85, padding: 0 }, props.InputStyle]}
                 value={props.value}
                 secureTextEntry={props.secureTextEntry}

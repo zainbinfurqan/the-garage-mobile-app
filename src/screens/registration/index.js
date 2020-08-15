@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { View, SafeAreaView, Text, TextInput, Image, KeyboardAvoidingView, Keyboard, ScrollView } from 'react-native'
+import { View, SafeAreaView, Text, TextInput, Image, KeyboardAvoidingView, Keyboard, ImageBackground, ScrollView } from 'react-native'
 import constants from '../../config/constants'
 import TextInput_ from '../../components/Input/TextInput'
 import Button_ from '../../components/Button'
 import Styles from './style'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const initialState = {
     firstName: '',
@@ -41,8 +42,11 @@ function Registration(props) {
 
 
     return (
-        <SafeAreaView style={[Styles.container]}>
-            <ScrollView>
+        <ImageBackground source={require('../../assets/images/bg-1.png')} style={[Styles.container]}>
+            <TouchableOpacity onPress={() => props.navigation.pop()}>
+                <Image style={{ height: 30, width: 30, margin: 10 }} source={require('../../assets/icons/back-white.png')} />
+            </TouchableOpacity>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', }}>
                 <View style={Styles.form}>
                     <View style={Styles.logoMain}>
                         <Image style={Styles.logo} source={require('../../assets/images/logo.png')} />
@@ -91,7 +95,7 @@ function Registration(props) {
                     </View>
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </ImageBackground>
     )
 }
 
