@@ -30,7 +30,11 @@ export default Styles = StyleSheet.create({
     priceRangMain: { height: 45, paddingLeft: 10, paddingRight: 10, },
     priceLow: { flex: 0.5, marginRight: 5 },
     priceHigh: { flex: 0.5, },
-    postMain: { flex: 1, flexDirection: 'column', margin: 2, borderWidth: 1, },
+    postMain: {
+        flex: 1, flexDirection: 'column',
+        margin: 2, borderWidth: 0.34,
+        borderColor: constants.LINE_COLOR, borderRadius: 5,
+    },
     postHeaderMain: { flexDirection: 'row', padding: 5 },
     profileMain: { flex: .1 },
     profile: { borderWidth: 0.34, borderRadius: 30, justifyContent: 'center', height: 30, width: 30 },
@@ -40,7 +44,7 @@ export default Styles = StyleSheet.create({
         padding: 5
     },
     footerMain: { flexDirection: 'row', },
-    footer1: { flex: .3, padding: 5 },
+    footer1: { flex: .2, padding: 5, justifyContent: "center", },
     intrestedText1: {
         alignSelf: 'center',
         fontFamily: constants.FONT_SAMSUNG_LIGHT, fontSize: constants.SMALL_FONT
@@ -48,4 +52,14 @@ export default Styles = StyleSheet.create({
     intrestedText2: {
         alignSelf: 'center', fontFamily: constants.FONT_SAMSUNG_LIGHT, fontSize: constants.SMALL_FONT
     },
+    intrestedPeopleNumber: {
+        justifyContent: 'center', paddingLeft: 10, flexDirection: 'row',
+    },
+    intrestedPeopleMain: {
+        borderWidth: 0.34,
+        borderRadius: 50,
+        height: 25, width: 25,
+        justifyContent: 'center'
+    },
+    footer1left: { flexDirection: 'row', marginLeft: 10, padding: 5, flex: .8, alignSelf: 'center' },
 });

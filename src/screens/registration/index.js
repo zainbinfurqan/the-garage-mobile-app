@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { View, SafeAreaView, Text, TextInput, Image, KeyboardAvoidingView, Keyboard, ImageBackground, ScrollView } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity, Text, TextInput, Image, KeyboardAvoidingView, Keyboard, ImageBackground, ScrollView } from 'react-native'
 import constants from '../../config/constants'
 import TextInput_ from '../../components/Input/TextInput'
 import Button_ from '../../components/Button'
 import Styles from './style'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const initialState = {
     firstName: '',

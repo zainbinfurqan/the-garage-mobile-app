@@ -1,10 +1,10 @@
 import React, { useState, useReducer } from 'react';
-import { View, SafeAreaView, Text, ScrollView, FlatList, Image } from 'react-native';
+import { View, SafeAreaView, Text, ScrollView, FlatList, Image, TouchableOpacity } from 'react-native';
 import Style from './style'
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import constants from '../../config/constants';
 import IconTextInput from '../../components/Input/IconsInput'
-import Button_ from '../../components/Button'
+import moment from 'moment'
 
 const initialState = {
     lowPrice: 0,
@@ -77,41 +77,32 @@ function PostsFeed(props) {
                                 <View style={{ flex: .6 }}>
                                     <Text style={Style.name}>Jone kane</Text>
                                 </View>
-                                <View style={{ flex: .3 }}></View>
+                                <View style={{ flex: .3, justifyContent: "center", }}><Text style={{
+                                    fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                    fontSize: constants.SMALL_FONT,
+                                    alignSelf: "flex-end"
+                                }}>{moment(new Date()).format('ddd MMM YYYY')}</Text></View>
                             </View>
                             <View style={{ justifyContent: 'center' }}>
                                 <Image style={{ alignSelf: 'center', height: 170 }} source={require('../../assets/images/default-post.png')} />
                             </View>
-                            <View style={Style.footerMain}>
-                                <View style={{ flexDirection: 'row', marginLeft: 10, padding: 5, flex: .7, alignSelf: 'center' }}>
+                            <View style={[Style.footerMain, {}]}>
+                                <View style={Style.footer1left}>
                                     {constants.INTRESTES_LIST.slice(0, 3).map((item, index) => {
                                         return (
-                                            <View style={[{
-                                                borderWidth: 0.34,
-                                                borderRadius: 50,
-                                                height: 25, width: 25,
-                                                justifyContent: 'center'
-                                            }, index > 0 && { marginLeft: -10 }]}>
+                                            <View key={index} style={[Style.intrestedPeopleMain, index > 0 && { marginLeft: -10 }]}>
                                                 <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/default-profile.png')} />
                                             </View>
                                         )
                                     })}
-                                    <View style={{
-                                        justifyContent: 'center', paddingLeft: 10, flexDirection: 'row',
-                                    }}><Text style={Style.intrestedText1}>{constants.INTRESTES_LIST.length}</Text>
+                                    <View style={Style.intrestedPeopleNumber}>
+                                        <Text style={Style.intrestedText1}>{constants.INTRESTES_LIST.length}</Text>
                                         <Text style={Style.intrestedText2}> people are intrested</Text></View>
                                 </View>
-                                <View style={Style.footer1}>
-                                    <Button_
-                                        title='intrested?'
-                                        rippleColor={constants.LIGHT_BORDER}
-                                        textStyle={{
-                                            color: constants.LIGHT_BLUE
-                                        }}
-                                        buttonStyle={{
-                                            height: 30,
-                                            backgroundColor: constants.LINE_COLOR
-                                        }} />
+                                <View style={[Style.footer1]}>
+                                    <TouchableOpacity>
+                                        <Text style={Style.intrestedText2}>View details </Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -119,6 +110,7 @@ function PostsFeed(props) {
                     numColumns={1}
                     keyExtractor={(item, index) => index.toString()}
                 />
+
             </View>
         </SafeAreaView>
     )

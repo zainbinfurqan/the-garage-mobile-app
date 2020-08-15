@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView, Text, TextInput, Image, ImageBackground } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity, Text, TextInput, Image, ImageBackground } from 'react-native'
 import TextInput_ from '../../components/Input/TextInput'
 import constants from '../../config/constants'
 import Button_ from '../../components/Button'
 import Styles from './style'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function Login(props) {
 

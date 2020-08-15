@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../screens/login'
 import Registration from '../screens/registration'
 import PostsFeed from '../screens/feed'
+import MainScreen from '../screens/main'
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,7 @@ function Auth(props) {
         <>
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator
-                    initialRouteName='PostsFeed'
+                    initialRouteName='MainScreen'
                     screenOptions={{
                         headerShown: false,
                         cardStyle: {
@@ -26,6 +27,7 @@ function Auth(props) {
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Registration" component={Registration} />
                     <Stack.Screen name="PostsFeed" component={PostsFeed} />
+                    <Stack.Screen name="MainScreen" component={MainScreen} />
 
                 </Stack.Navigator>
             </SafeAreaView>
