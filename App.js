@@ -28,14 +28,21 @@ import Registration from './src/screens/registration'
 import PostsFeed from './src/screens/feed'
 import ProductDetailView from './src/screens/productDetail'
 import Navigation from './src/navigation'
-
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from './src/redux';
 function App() {
   return (
     <>
       <StatusBar backgroundColor="#5558F0" />
       {/* <Login /> */}
       {/* <Registration /> */}
-      <Navigation />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <StatusBar backgroundColor="#019da7" />
+          <Navigation />
+        </PersistGate>
+      </Provider>
       {/* <ProductDetailView /> */}
       {/* <PostsFeed /> */}
       {/* <SafeAreaView>

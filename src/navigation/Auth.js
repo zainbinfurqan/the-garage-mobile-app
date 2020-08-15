@@ -11,7 +11,7 @@ import MainScreen from '../screens/main'
 import Uploadproduct from '../screens/uplaodProduct'
 import ProductDetailView from '../screens/productDetail'
 import MessageList from '../screens/message'
-
+import Chat from '../screens/chat'
 const Stack = createStackNavigator();
 
 function Auth(props) {
@@ -20,7 +20,7 @@ function Auth(props) {
         <>
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator
-                    initialRouteName='MessageList'
+                    initialRouteName='Chat'
                     screenOptions={{
                         headerShown: false,
                         cardStyle: {
@@ -34,6 +34,7 @@ function Auth(props) {
                     <Stack.Screen name="Uploadproduct" component={Uploadproduct} />
                     <Stack.Screen name="ProductDetailView" component={ProductDetailView} />
                     <Stack.Screen name="MessageList" component={MessageList} />
+                    <Stack.Screen name="Chat" component={Chat} />
 
                 </Stack.Navigator>
             </SafeAreaView>

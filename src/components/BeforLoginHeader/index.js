@@ -1,12 +1,12 @@
 import React, { } from 'react';
-import { View, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Image, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import constants from '../../config/constants';
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
-
+import { connect } from 'react-redux'
 
 function BeforLoginHeader(props) {
-    console.log(props)
+    console.log()
     const navigation = useNavigation();
 
     function openDrawer() {
@@ -25,12 +25,33 @@ function BeforLoginHeader(props) {
                 <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/menu.png')} />
             </TouchableOpacity>}
             <View style={{ flex: 0.8, justifyContent: 'center' }}>
+                <Text style={{
+                    alignSelf: 'center',
+                    color: 'white',
+                    fontFamily: constants.FONT_SAMSUNG_LIGHT
+                }}>{props.headerText}</Text>
             </View>
-            <View style={{ flex: 0.1, justifyContent: 'center' }}>
-                <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/login-white.png')} />
-            </View>
+            {!props.userData && !props.isLogin &&
+                <View style={{ flex: 0.1, justifyContent: 'center' }}>
+                    <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/login-white.png')} />
+                </View>
+            }
+            {/* {!props.userData && !props.isLogin &&
+                <View style={{ flex: 0.1, justifyContent: 'center' }}>
+                    <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/login-white.png')} />
+                </View>
+            } */}
+
         </ImageBackground>
     )
 }
 
-export default BeforLoginHeader;
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BeforLoginHeader);
