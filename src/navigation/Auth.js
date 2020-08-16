@@ -11,6 +11,7 @@ import Registration from '../screens/registration'
 import MessageList from '../screens/message'
 import Dashboard from '../screens/dashboard'
 import MainScreen from '../screens/main'
+import Profile from '../screens/profile'
 import PostsFeed from '../screens/feed'
 import Login from '../screens/login'
 import Chat from '../screens/chat'
@@ -37,8 +38,10 @@ function Auth(props) {
                     <Stack.Screen name="MainScreen" component={MainScreen} />
                     <Stack.Screen name="PostsFeed" component={PostsFeed} />
                     <Stack.Screen name="Dashboard" component={Dashboard} />
+                    <Stack.Screen name="Profile" component={Profile} />
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Chat" component={Chat} />
+
                 </Stack.Navigator>
             </SafeAreaView>
         </>

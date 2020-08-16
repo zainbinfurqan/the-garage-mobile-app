@@ -8,7 +8,6 @@ import MyPosts from './myPosts'
 import SoldOut from './soldOut'
 
 function Dashboard(props) {
-    console.log(props)
     const [tab1, setTab1] = useState(true)
     const [tab2, setTab2] = useState(false)
     const [tab3, setTab3] = useState(false)

@@ -9,7 +9,9 @@ function ProductDetailView(props) {
         <SafeAreaView style={Style.container}>
             <ScrollView>
                 <View style={{ borderWidth: 1, borderColor: 'white', }}>
-                    <Image style={{ height: 30, width: 30, margin: 5 }} source={require('../../assets/icons/back.png')} />
+                    <TouchableOpacity onPress={() => props.navigation.pop()}>
+                        <Image style={{ height: 30, width: 30, margin: 5 }} source={require('../../assets/icons/back.png')} />
+                    </TouchableOpacity>
                     <View style={{ borderWidth: 1, borderColor: 'black', height: 100, margin: 10 }}></View>
                     <View style={{ margin: 10 }}>
                         <View style={{ flexDirection: 'row' }}>

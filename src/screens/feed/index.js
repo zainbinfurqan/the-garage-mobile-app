@@ -53,7 +53,6 @@ function PostsFeed(props) {
 
     return (
         <SafeAreaView style={Style.container}>
-            {console.log(state.priceRange)}
             <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />
             <View style={{ flexDirection: 'row', paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}>
                 <View style={{ justifyContent: 'center', flex: 1 }}>
@@ -140,7 +139,7 @@ function PostsFeed(props) {
                                         <Text style={Style.intrestedText2}> people are intrested</Text></View>
                                 </View>
                                 <View style={[Style.footer1]}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView')}>
                                         <Text style={Style.intrestedText2}>View details </Text>
                                     </TouchableOpacity>
                                 </View>
