@@ -6,14 +6,13 @@ export default Styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: constants.BACKGROUND_1 },
     line: { margin: 10, borderWidth: 0.34, borderColor: constants.LINE_COLOR, },
     categoryMain: {
-        borderWidth: 1,
+        borderWidth: 0.45,
         borderColor: constants.LIGHT_BLUE,
         height: 25,
         margin: 5,
+        justifyContent: 'center',
         paddingLeft: 5,
         paddingRight: 5,
-        paddingTop: 2,
-        paddingBottom: 2,
         borderRadius: 20
     },
     textInput: {

@@ -93,5 +93,21 @@ const constants = {
         { id: 1, message: 'hye aasd asll' },
         { id: 2, message: 'End' },
     ],
+    MY_POSTS: [
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+        { title: 'My Post' },
+    ]
 }
 export default constants
