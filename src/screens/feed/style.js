@@ -16,6 +16,12 @@ export default Styles = StyleSheet.create({
         paddingBottom: 2,
         borderRadius: 20
     },
+    textInput: {
+        height: 40,
+        marginBottom: 10,
+        borderColor: constants.LIGHT_BORDER,
+        borderRadius: constants.INPUT_TEXT_RADIUS
+    },
     categoryText: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
         fontSize: constants.SMALL_FONT * 1.1,

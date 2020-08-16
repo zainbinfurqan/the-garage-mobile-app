@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 
 function BeforLoginHeader(props) {
     const navigation = useNavigation();
-    console.log(navigation)
 
     function openDrawer() {
         navigation.openDrawer();
@@ -20,7 +19,6 @@ function BeforLoginHeader(props) {
                     <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/back-white.png')} />
                 </TouchableOpacity>
             }
-
             {props.menuButton && <TouchableOpacity onPress={openDrawer} style={{ flex: 0.1, justifyContent: 'center', }}>
                 <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/menu.png')} />
             </TouchableOpacity>}
@@ -31,12 +29,6 @@ function BeforLoginHeader(props) {
                     fontFamily: constants.FONT_SAMSUNG_LIGHT
                 }}>{props.headerText}</Text>
             </View>
-            {/* {!props.userData && !props.isLogin &&
-                <View style={{ flex: 0.1, justifyContent: 'center' }}>
-                    <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/login-white.png')} />
-                </View>
-            } */}
-
         </ImageBackground>
     )
 }

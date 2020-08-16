@@ -42,10 +42,16 @@ function Login(props) {
                     value={password}
                     secureTextEntry={true}
                     InputStyle={Styles.textInput} />
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={Styles.footerText1}>Dont have a Account?  </Text>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Registration')}><Text style={Styles.footerText2}>Sinup here</Text></TouchableOpacity>
+                <View style={{ flexDirection: 'row', }}>
+                    <View style={{ flex: .7, flexDirection: 'row', }}>
+                        <Text style={Styles.footerText1}>Dont have a Account?  </Text>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('Registration')}><Text style={Styles.footerText2}>Signup here</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ flex: .3 }}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('Registration')}><Text style={[Styles.footerText2, { alignSelf: 'flex-end' }]}>Forget password</Text></TouchableOpacity>
+                    </View>
                 </View>
+
                 <Button_ title='Login' rippleColor={constants.RIPPLE_COLOR} />
             </View>
         </ImageBackground>

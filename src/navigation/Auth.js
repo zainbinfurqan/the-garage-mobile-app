@@ -4,13 +4,15 @@ import { SafeAreaView } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 
 // routes
-import Login from '../screens/login'
-import Registration from '../screens/registration'
-import PostsFeed from '../screens/feed'
-import MainScreen from '../screens/main'
-import Uploadproduct from '../screens/uplaodProduct'
 import ProductDetailView from '../screens/productDetail'
+import ForgetPassword from '../screens/forgetPassword'
+import Uploadproduct from '../screens/uplaodProduct'
+import Registration from '../screens/registration'
 import MessageList from '../screens/message'
+import Dashboard from '../screens/dashboard'
+import MainScreen from '../screens/main'
+import PostsFeed from '../screens/feed'
+import Login from '../screens/login'
 import Chat from '../screens/chat'
 const Stack = createStackNavigator();
 
@@ -27,15 +29,16 @@ function Auth(props) {
                             backgroundColor: 'transparent',
                         },
                     }}>
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen name="Registration" component={Registration} />
-                    <Stack.Screen name="PostsFeed" component={PostsFeed} />
-                    <Stack.Screen name="MainScreen" component={MainScreen} />
-                    <Stack.Screen name="Uploadproduct" component={Uploadproduct} />
                     <Stack.Screen name="ProductDetailView" component={ProductDetailView} />
+                    <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+                    <Stack.Screen name="Uploadproduct" component={Uploadproduct} />
+                    <Stack.Screen name="Registration" component={Registration} />
                     <Stack.Screen name="MessageList" component={MessageList} />
+                    <Stack.Screen name="MainScreen" component={MainScreen} />
+                    <Stack.Screen name="PostsFeed" component={PostsFeed} />
+                    <Stack.Screen name="Dashboard" component={Dashboard} />
+                    <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Chat" component={Chat} />
-
                 </Stack.Navigator>
             </SafeAreaView>
         </>

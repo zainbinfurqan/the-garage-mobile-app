@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { View, SafeAreaView, Text, ScrollView, FlatList, Image, TouchableOpacity, } from 'react-native';
 import Slider from '@react-native-community/slider'
+import IconsInput from '../../components/Input/IconsInput'
 import Style from './style'
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import constants from '../../config/constants';
@@ -10,12 +11,15 @@ import moment from 'moment'
 const initialState = {
     lowPrice: 0,
     highPrice: 1000,
-    priceRange: 0
+    priceRange: 0,
+    searchText: ''
 }
 
 function reducer(state, action) {
     switch (action.type) {
         case 'ON_PRICE_CHANGE':
+            return { ...state, ...action.payload };
+        case 'ON_TEXT_CHANGE':
             return { ...state, ...action.payload };
         case 'ON_ERROR':
             return { ...state, errors: action.payload };
@@ -38,10 +42,29 @@ function PostsFeed(props) {
         });
     }
 
+    function handleChangeText(value, label) {
+        dispatch({
+            type: 'ON_TEXT_CHANGE',
+            payload: {
+                [label]: value.trim(),
+            },
+        });
+    }
+
     return (
         <SafeAreaView style={Style.container}>
             {console.log(state.priceRange)}
             <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />
+            <View style={{ flexDirection: 'row', paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}>
+                <View style={{ justifyContent: 'center', flex: 1 }}>
+                    <IconsInput
+                        placeholder='Email'
+                        onChangeText={(e) => handleChangeText(e, 'searchText')}
+                        value={state.searchText}
+                        Icon={require('../../assets/icons/search.png')}
+                        InputStyle={Style.textInput} />
+                </View>
+            </View>
             <View style={Style.line} />
             <View style={{}}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
@@ -129,7 +152,7 @@ function PostsFeed(props) {
                 />
 
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 
