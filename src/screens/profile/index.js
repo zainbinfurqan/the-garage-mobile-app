@@ -1,8 +1,12 @@
 import React, { } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, Image } from 'react-native';
-import Style from './style'
+import { connect } from 'react-redux'
+
 import constants from '../../config/constants';
+import Style from './style'
+
 function Profile(props) {
+    console.log(props.userData)
     return (
         <SafeAreaView style={Style.containerMain}>
             <TouchableOpacity onPress={() => props.navigation.pop()} style={{ padding: 10, }}>
@@ -13,23 +17,23 @@ function Profile(props) {
             </View>
             <View style={{ padding: 10 }}>
                 <View style={{}}>
-                    <Text style={Style.text}>Zain Ahmed</Text>
+                    <Text style={Style.text}>{props.userData.name}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>zain.ahmed199524@gmail.com</Text>
+                    <Text style={Style.text}>{props.userData.email}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>03022408099</Text>
+                    <Text style={Style.text}>{props.userData.phone}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>usamnia colony nazimabad no 1</Text>
+                    <Text style={Style.text}>{props.userData.address}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>Unverfied Account</Text>
+                    <Text style={Style.text}>{props.userData.emailVerified ? 'Verified' : 'Un verified'}</Text>
                 </View>
             </View>
 
@@ -37,4 +41,14 @@ function Profile(props) {
     )
 }
 
-export default Profile;
+
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+    // saveUserData: AuthActions.saveUserData
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

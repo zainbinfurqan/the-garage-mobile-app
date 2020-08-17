@@ -22,4 +22,10 @@ function Button_(props) {
     )
 }
 
+Button_.defaultProps = {
+    onPress: function () { },
+
+};
+
+
 export default Button_;

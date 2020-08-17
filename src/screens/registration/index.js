@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { View, SafeAreaView, TouchableOpacity, Text, TextInput, Image, KeyboardAvoidingView, Keyboard, ImageBackground, ScrollView } from 'react-native'
-import constants from '../../config/constants'
+import { connect } from 'react-redux'
+
 import TextInput_ from '../../components/Input/TextInput'
+import AuthActions from '../../redux/auth/action'
+import constants from '../../config/constants'
 import Button_ from '../../components/Button'
+import api from '../../utils/apis'
 import Styles from './style'
 
 const initialState = {
@@ -36,6 +40,26 @@ function Registration(props) {
                 [label]: value.trim(),
             },
         });
+    }
+
+    async function userRegistration() {
+        try {
+            let body = {
+                firstName: state.firstName,
+                lastName: state.lastName,
+                email: state.email,
+                password: state.password,
+                address: state.address,
+                phone: state.phone,
+
+            }
+            const response = await api.registration(body);
+            response !== undefined && props.saveUserData(response)
+            props.navigation.replace('MainScreen')
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -87,7 +111,7 @@ function Registration(props) {
                         InputStyle={Styles.textInput}
                         value={state.phoneNo}
                     />
-                    <Button_ title='Login' rippleColor={constants.RIPPLE_COLOR} />
+                    <Button_ onPress={userRegistration} title='Login' rippleColor={constants.RIPPLE_COLOR} />
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
                         <Text style={Styles.footerText1}>Already have an Account?  </Text>
                         <Text style={Styles.footerText2}>Login</Text>
@@ -98,4 +122,14 @@ function Registration(props) {
     )
 }
 
-export default Registration
+
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+    saveUserData: AuthActions.saveUserData
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

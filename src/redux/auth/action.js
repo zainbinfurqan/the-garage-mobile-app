@@ -10,12 +10,19 @@ export const LOGOUT = 'LOGOUT';
 
 const action = {};
 
-// action.saveUserData = function (data) {
-//   return async function (dispatch) {
-//     dispatch({ type: SET_USERDATA, payload: data });
-//   };
-// };
+action.saveUserData = function (data) {
+    return async function (dispatch) {
+        // dispatch({ type: SET_USERDATA, payload: data });
+        dispatch({ type: SET_USERDATA, payload: data });
+    };
+};
 
+action.logout = function (data) {
+    return async function (dispatch) {
+        // dispatch({ type: SET_USERDATA, payload: data });
+        dispatch({ type: LOGOUT, payload: data });
+    };
+};
 // action.updateUserData = function (data) {
 //   return async function (dispatch) {
 //     dispatch({ type: UPDATE_USERDATA, payload: data });

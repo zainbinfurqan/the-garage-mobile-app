@@ -19,6 +19,6 @@ const store = createStore(persistedReducer, applyMiddleware(thunk));
 
 // store.subscribe(() => console.log('store =>', store.getState()));
 store.subscribe(() => store.getState());
-// 
+
 export const persistor = persistStore(store);
 export default store;

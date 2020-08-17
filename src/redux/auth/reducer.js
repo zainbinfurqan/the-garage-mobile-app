@@ -1,18 +1,16 @@
-import { SET_USERDATA, UPDATE_USERDATA, SET_API_ERROR, SET_WANT_TO_IN_QUEUE, UPDATE_PROFILE_URL, ADD_FAVOURITE_DOCTOR, SET_INFO_NOTIFICATION } from './action';
-import { LOGOUT } from '../../navigation/Drawer'
+import { SET_USERDATA, UPDATE_USERDATA, SET_API_ERROR, LOGOUT, SET_WANT_TO_IN_QUEUE, UPDATE_PROFILE_URL, ADD_FAVOURITE_DOCTOR, SET_INFO_NOTIFICATION } from './action';
 const initialState = {
     userData: null,
     isLogin: false,
     apiResponseError: { isError: false, errorMessage: '', flag: '' },
-    favourite: [],
     infoNofitication: { isActive: false, message: '', },
-    wantToInQueue: false
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case SET_USERDATA:
-            return { ...state, userData: action.payload.data, isLogin: true };
+            // return { ...state, userData: action.payload.data, isLogin: true };
+            return { ...state, userData: action.payload, isLogin: true };
         case SET_API_ERROR:
             return { ...state, apiResponseError: action.payload };
         case SET_INFO_NOTIFICATION:
@@ -26,7 +24,7 @@ export default function (state = initialState, action) {
         case UPDATE_USERDATA:
             return { ...state, userData: action.payload };
         case LOGOUT:
-            return { ...state, userData: {}, isLogin: false };
+            return { ...state, userData: action.payload, isLogin: false };
         default:
             return state;
     }

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { View, SafeAreaView, TouchableOpacity, Text, TextInput, Image, ImageBackground } from 'react-native'
+import { connect } from 'react-redux'
+
 import TextInput_ from '../../components/Input/TextInput'
+import AuthActions from '../../redux/auth/action'
 import constants from '../../config/constants'
 import Button_ from '../../components/Button'
+import api from '../../utils/apis'
 import Styles from './style'
 
 function Login(props) {
@@ -18,9 +22,16 @@ function Login(props) {
 
     async function userLogin() {
         try {
+            let body = {
+                email: email,
+                password: password
+            }
+            const response = await api.login(body);
+            response !== undefined && props.saveUserData(response)
+            props.navigation.replace('MainScreen')
 
         } catch (error) {
-
+            console.log(error)
         }
     }
 
@@ -52,10 +63,19 @@ function Login(props) {
                     </View>
                 </View>
 
-                <Button_ title='Login' rippleColor={constants.RIPPLE_COLOR} />
+                <Button_ title='Login' onPress={userLogin} rippleColor={constants.RIPPLE_COLOR} />
             </View>
         </ImageBackground>
     )
 }
 
-export default Login
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+    saveUserData: AuthActions.saveUserData
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

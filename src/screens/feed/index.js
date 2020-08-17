@@ -1,11 +1,15 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { View, SafeAreaView, Text, ScrollView, FlatList, Image, TouchableOpacity, } from 'react-native';
 import Slider from '@react-native-community/slider'
-import IconsInput from '../../components/Input/IconsInput'
-import Style from './style'
+import { connect } from 'react-redux'
+
 import BeforLoginHeader from '../../components/BeforLoginHeader'
-import constants from '../../config/constants';
 import IconTextInput from '../../components/Input/IconsInput'
+import IconsInput from '../../components/Input/IconsInput'
+import AuthActions from '../../redux/auth/action'
+import constants from '../../config/constants';
+import api from '../../utils/apis'
+import Style from './style'
 import moment from 'moment'
 
 const initialState = {
@@ -32,6 +36,20 @@ function PostsFeed(props) {
     const [category, setCategory] = useState(constants.CATEGORIES)
     const [posts, setPosts] = useState(constants.POST_DUMMAY)
     const [state, dispatch] = useReducer(reducer, initialState)
+
+    useEffect(() => {
+        fetchPost()
+        // props.logout(null)
+
+    }, [])
+
+    async function fetchPost() {
+        try {
+            await api.searchPost(null, null, null, params = {})
+        } catch (error) {
+
+        }
+    }
 
     function PriceRange(value, label) {
         dispatch({
@@ -155,4 +173,14 @@ function PostsFeed(props) {
     )
 }
 
-export default PostsFeed
+
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+    logout: AuthActions.logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsFeed);

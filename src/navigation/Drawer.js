@@ -15,6 +15,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 const Drawer = createDrawerNavigator();
 
 function CustomDrawer(props) {
+    console.log(props.isLogin)
     const navigation = useNavigation();
     function navigateTo(route) {
         props.navigationProps.navigation.closeDrawer()
@@ -29,25 +30,30 @@ function CustomDrawer(props) {
             </View>
             <Item itemText='Home' icon={`${require('../assets/icons/home.png')}`} navigateTo={() => navigateTo('MainScreen')} />
             <View style={Style.line} />
-            <Item itemText='Registration' icon={`${require('../assets/icons/registration.png')}`} navigateTo={() => navigateTo('Registration')} />
-            <View style={Style.line} />
-            <Item itemText='Login' icon={`${require('../assets/icons/login.png')}`} navigateTo={() => navigateTo('Login')} />
-            <View style={Style.line} />
-            {<>
+            {!props.isLogin && <>
+                <Item itemText='Registration' icon={`${require('../assets/icons/registration.png')}`} navigateTo={() => navigateTo('Registration')} />
+                <View style={Style.line} />
+            </>}
+            {!props.isLogin && <>
+                <Item itemText='Login' icon={`${require('../assets/icons/login.png')}`} navigateTo={() => navigateTo('Login')} />
+                <View style={Style.line} />
+
+            </>}
+            {props.isLogin && <>
                 <Item itemText='Setting' icon={`${require('../assets/icons/setting.png')}`} navigateTo={() => navigateTo('Profile')} />
                 <View style={Style.line} />
             </>}
             <Item itemText='FAQ' icon={`${require('../assets/icons/faq.png')}`} navigateTo={() => navigateTo('FAQ')} />
             <View style={Style.line} />
-            {<>
+            {props.isLogin && <>
                 <Item itemText='Upload Product' icon={`${require('../assets/icons/upload.png')}`} navigateTo={() => navigateTo('Uploadproduct')} />
                 <View style={Style.line} />
             </>}
-            {<>
+            {props.isLogin && <>
                 <Item itemText='Dashboard' icon={`${require('../assets/icons/dashboard.png')}`} navigateTo={() => navigateTo('Dashboard')} />
                 <View style={Style.line} />
             </>}
-            {<>
+            {props.isLogin && <>
                 <Item itemText='Message' icon={`${require('../assets/icons/chat.png')}`} navigateTo={() => navigateTo('MessageList')} />
                 <View style={Style.line} />
             </>}
