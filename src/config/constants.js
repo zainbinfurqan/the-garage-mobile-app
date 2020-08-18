@@ -5,6 +5,8 @@ const constants = {
     SOCKET_IO_URL: 'https://serene-savannah-02158.herokuapp.com/socketio',
     BASE_URL: 'https://e820ac2bf82b.ngrok.io/api',
     LIGHT_BORDER: '#CBCCCF',
+    GREEN: '#17B75B',
+    RED: '#DB1E0E',
     BOX_SHADOW: 1,
     INPUT_TEXT_RADIUS: 5,
     LIGHT_BLUE: '#2F66A7',
@@ -21,6 +23,7 @@ const constants = {
     SMALL_FONT: 10,
     SMALLEST_FONT: 10,
     MEDIUM_FONT: 20,
+    LARGE_FONT: 25,
 
 
     INTRESTES_LIST: [

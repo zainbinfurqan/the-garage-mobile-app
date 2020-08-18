@@ -6,7 +6,6 @@ import constants from '../../config/constants';
 import Style from './style'
 
 function Profile(props) {
-    console.log(props.userData)
     return (
         <SafeAreaView style={Style.containerMain}>
             <TouchableOpacity onPress={() => props.navigation.pop()} style={{ padding: 10, }}>

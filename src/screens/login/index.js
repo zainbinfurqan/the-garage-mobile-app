@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, SafeAreaView, TouchableOpacity, Text, TextInput, Image, ImageBackground } from 'react-native'
 import { connect } from 'react-redux'
 
 import TextInput_ from '../../components/Input/TextInput'
+import CommonAction from '../../redux/common/action'
 import AuthActions from '../../redux/auth/action'
 import constants from '../../config/constants'
 import Button_ from '../../components/Button'
@@ -10,6 +11,9 @@ import api from '../../utils/apis'
 import Styles from './style'
 
 function Login(props) {
+
+    useEffect(() => {
+    }, [])
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -23,22 +27,27 @@ function Login(props) {
     }
 
     async function userLogin() {
+
         try {
             const isValidated = checkValidation();
             if (isValidated) {
+                props.loading(true)
                 let body = {
                     email: email,
                     password: password
                 }
                 const response = await api.login(body);
-                console.log(response)
                 response !== undefined && props.saveUserData(response)
+                props.loading(false)
+                props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Login successfully' })
                 props.navigation.replace('MainScreen')
-
             }
 
         } catch (error) {
-            console.log(error.message)
+            props.loading(false)
+            // console.log(error.message)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+
         }
     }
 
@@ -68,7 +77,6 @@ function Login(props) {
 
     return (
         <ImageBackground source={require('../../assets/images/bg-1.png')} style={Styles.container}>
-            {console.log('error=>', error)}
             <View style={Styles.form}>
                 <View style={Styles.logoMain}>
                     <Image style={Styles.logo} source={require('../../assets/images/logo.png')} />
@@ -111,7 +119,9 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
-    saveUserData: AuthActions.saveUserData
+    saveUserData: AuthActions.saveUserData,
+    loading: CommonAction.loading,
+    apiresponse: CommonAction.apiresponse
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

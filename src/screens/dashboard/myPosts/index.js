@@ -22,7 +22,6 @@ function MyPosts(props) {
                 userId: props.userData._id
             }
             const response = await api.fetchMyPost(null, null, null, params);
-            console.log('response=>', response)
             setMyPost(response)
             setLoading(false)
         } catch (error) {

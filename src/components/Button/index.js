@@ -15,7 +15,7 @@ function Button_(props) {
                 justifyContent: 'center'
             }, props.buttonStyle,]}>
             <TouchableOpacity>
-                <Text style={[{ color: 'white', alignSelf: 'center', fontFamily: constants.FONT_SAMSUNG_LIGHT }, props.textStyle]}>{props.title}</Text>
+                <Text style={[{ alignSelf: 'center', fontFamily: constants.FONT_SAMSUNG_LIGHT }, props.textStyle]}>{props.title}</Text>
             </TouchableOpacity>
         </Ripple>
 
@@ -24,7 +24,6 @@ function Button_(props) {
 
 Button_.defaultProps = {
     onPress: function () { },
-
 };
 
 

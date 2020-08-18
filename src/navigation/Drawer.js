@@ -1,26 +1,38 @@
 import React, { } from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { connect } from 'react-redux'
+
 import Registration from '../screens/registration'
+import CommonActions from '../redux/common/action'
+import AuthActions from '../redux/auth/action'
 import constants from '../config/constants';
+import MainScreen from '../screens/main'
 import PostsFeed from '../screens/feed'
 import Login from '../screens/login'
 import Style from './style'
 import Item from './item'
-import MainScreen from '../screens/main'
-import { ScrollView } from 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawer(props) {
-    console.log(props.isLogin)
     const navigation = useNavigation();
     function navigateTo(route) {
         props.navigationProps.navigation.closeDrawer()
         navigation.navigate(route);
+    }
 
+    async function logOut() {
+        props.loading(true)
+        try {
+            setInterval(() => {
+                props.logout()
+                props.loading(false)
+            }, 2000);
+        } catch (error) {
+            props.loading(false)
+        }
     }
 
     return (
@@ -57,20 +69,22 @@ function CustomDrawer(props) {
                 <Item itemText='Message' icon={`${require('../assets/icons/chat.png')}`} navigateTo={() => navigateTo('MessageList')} />
                 <View style={Style.line} />
             </>}
-            {/* {<>
-                <Item itemText='Profile' icon={`${require('../assets/icons/default-profile.png')}`} navigateTo={() => navigateTo('Profile')} />
+            {props.isLogin && <>
+                <Item itemText='Logout' icon={`${require('../assets/icons/login.png')}`} navigateTo={logOut} />
                 <View style={Style.line} />
-            </>} */}
+            </>}
         </ScrollView>
     )
 }
 
 const mapStateToProps = (store) => ({
     userData: store.auth.userData,
-    isLogin: store.auth.isLogin
+    isLogin: store.auth.isLogin,
 });
 
 const mapDispatchToProps = {
+    logout: AuthActions.logout,
+    loading: CommonActions.loading
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomDrawer);

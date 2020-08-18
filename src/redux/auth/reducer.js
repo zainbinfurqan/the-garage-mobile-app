@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
         case UPDATE_USERDATA:
             return { ...state, userData: action.payload };
         case LOGOUT:
-            return { ...state, userData: action.payload, isLogin: false };
+            return { ...state, userData: null, isLogin: false };
         default:
             return state;
     }

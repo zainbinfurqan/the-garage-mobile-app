@@ -1,11 +1,12 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { View, SafeAreaView, Text, ScrollView, FlatList, Image, ActivityIndicator, TouchableOpacity, } from 'react-native';
+import { View, SafeAreaView, Text, ScrollView, RefreshControl, FlatList, Image, ActivityIndicator, TouchableOpacity, } from 'react-native';
 import Slider from '@react-native-community/slider'
 import { connect } from 'react-redux'
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import IconTextInput from '../../components/Input/IconsInput'
 import IconsInput from '../../components/Input/IconsInput'
+import CommonAction from '../../redux/common/action'
 import AuthActions from '../../redux/auth/action'
 import constants from '../../config/constants';
 import api from '../../utils/apis'
@@ -39,10 +40,16 @@ function PostsFeed(props) {
     const [posts, setPosts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('')
     const [loading, setLoading] = useState(false)
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        fetchPost(selectedCategory, state.lowPrice, state.highPrice)
+    }, [refreshing]);
 
     useEffect(() => {
         fetchPost(selectedCategory, state.lowPrice, state.highPrice)
         fetchCategory()
+        // props.apiresponse(true)
         // props.logout(null)
     }, [])
 
@@ -140,6 +147,9 @@ function PostsFeed(props) {
             <View style={Style.postListMain}>
                 {loading && <ActivityIndicator color='red' />}
                 {!loading && <FlatList
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                    }
                     data={posts}
                     renderItem={({ item }) => (
                         <View style={Style.postMain}>
@@ -208,11 +218,12 @@ function PostsFeed(props) {
 
 const mapStateToProps = (store) => ({
     userData: store.auth.userData,
-    isLogin: store.auth.isLogin
+    isLogin: store.auth.isLogin,
 });
 
 const mapDispatchToProps = {
-    logout: AuthActions.logout
+    logout: AuthActions.logout,
+    apiresponse: CommonAction.apiresponse,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsFeed);

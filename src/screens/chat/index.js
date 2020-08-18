@@ -46,7 +46,6 @@ function Chat(props) {
 
         const body = { roomId: room._id, user: user._id, skip: skipValue, limit: limitValue };
         const response = await api.fetchMessage(body, null);
-        console.log(response)
         dispatch({ type: 'ON_INITIAL_MESSAGE', payload: response.messages });
         setSkip(skip + 10)
     }
@@ -65,7 +64,6 @@ function Chat(props) {
         };
 
         socket.on('connect', () => {
-            console.log("payload_=>", payload_)
             socket.emit('room-join', payload_);
         });
 
@@ -123,7 +121,6 @@ function Chat(props) {
 
     return (
         <>
-            {console.log(state.chatMessages)}
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <BeforLoginHeader backButton={true} menuButton={false} headerText='Faraz' />
                 <FlatList
