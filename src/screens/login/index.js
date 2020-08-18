@@ -13,30 +13,62 @@ function Login(props) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const emailRegx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const [error, setError] = useState({})
 
 
     function handleChangeText(value, label) {
-        label == 'email' && setEmail(value)
-        label == 'passsword' && setPassword(value)
+        label == 'email' && setEmail(value.trim())
+        label == 'passsword' && setPassword(value.trim())
     }
 
     async function userLogin() {
         try {
-            let body = {
-                email: email,
-                password: password
+            const isValidated = checkValidation();
+            if (isValidated) {
+                let body = {
+                    email: email,
+                    password: password
+                }
+                const response = await api.login(body);
+                console.log(response)
+                response !== undefined && props.saveUserData(response)
+                props.navigation.replace('MainScreen')
+
             }
-            const response = await api.login(body);
-            response !== undefined && props.saveUserData(response)
-            props.navigation.replace('MainScreen')
 
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
         }
+    }
+
+    function checkValidation() {
+        const errors = {};
+
+        if (!email.trim()) {
+            errors.email = 'This field is required';
+        } else {
+            if (!emailRegx.test(email.trim())) {
+                errors.email = 'Invalid email formate';
+            }
+        }
+
+        if (!password.trim()) {
+            errors.password = 'This field is required';
+        } else {
+            if (password.trim().length < 3) {
+                errors.password = 'Characters must be more then 7 ';
+            }
+        }
+        // dispatch({ type: 'ON_ERROR', payload: errors });
+        setError(errors)
+
+        return !Object.keys(errors).length;
     }
 
     return (
         <ImageBackground source={require('../../assets/images/bg-1.png')} style={Styles.container}>
+            {console.log('error=>', error)}
             <View style={Styles.form}>
                 <View style={Styles.logoMain}>
                     <Image style={Styles.logo} source={require('../../assets/images/logo.png')} />
@@ -46,13 +78,17 @@ function Login(props) {
                     placeholder='Email'
                     onChangeText={(e) => handleChangeText(e, 'email')}
                     value={email}
-                    InputStyle={Styles.textInput} />
+                    InputStyle={Styles.textInput}
+                    error={error && error.email}
+                />
                 <TextInput_
                     placeholder='Password'
                     onChangeText={(e) => handleChangeText(e, 'passsword')}
                     value={password}
                     secureTextEntry={true}
-                    InputStyle={Styles.textInput} />
+                    InputStyle={Styles.textInput}
+                    error={error && error.password}
+                />
                 <View style={{ flexDirection: 'row', }}>
                     <View style={{ flex: .7, flexDirection: 'row', }}>
                         <Text style={Styles.footerText1}>Dont have a Account?  </Text>

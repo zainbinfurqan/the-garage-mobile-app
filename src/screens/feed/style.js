@@ -42,7 +42,7 @@ export default Styles = StyleSheet.create({
     },
     postHeaderMain: { flexDirection: 'row', padding: 5 },
     profileMain: { flex: .1 },
-    profile: { borderWidth: 0.34, borderRadius: 30, justifyContent: 'center', height: 30, width: 30 },
+    profile: { borderRadius: 30, justifyContent: 'center', height: 30, width: 30 },
 
     name: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,

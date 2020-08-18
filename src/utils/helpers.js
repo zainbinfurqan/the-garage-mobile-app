@@ -5,9 +5,7 @@ let helper = {};
 
 helper.apiMethod = async function (path = null, method = null, body = null, authorization = null, url = null) {
     try {
-        console.log("url=>", url)
         let apiUrl = url;
-        console.log("apiUrl=>", apiUrl)
 
         if (!apiUrl) {
             apiUrl = constants.BASE_URL + path;
@@ -30,7 +28,6 @@ helper.apiMethod = async function (path = null, method = null, body = null, auth
         if (body) {
             options['body'] = JSON.stringify(body);
         }
-
         const response = await fetch(apiUrl, options);
         const json = await response.json();
         if (response.status !== 200) {
@@ -42,5 +39,9 @@ helper.apiMethod = async function (path = null, method = null, body = null, auth
         throw e;
     }
 };
+
+helper.nameConcatenate = function (name) {
+    return name.firstName + ' ' + name.lastName
+}
 
 export default helper;

@@ -1,38 +1,16 @@
-import React, { useState, useReducer } from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 import { View, SafeAreaView, FlatList, Image, Text, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import TextInput_ from '../../components/Input/TextInput'
 import constants from '../../config/constants'
 import Style from './style'
 import moment from 'moment'
+import io from 'socket.io-client';
+import api from '../../utils/apis'
 
 const initialState = {
-    chatMessages: [
-        { id: 1, message: 'start' },
-        { id: 2, message: 'hye aasd asd asd asd asd asdas dll' },
-        { id: 1, message: 'hye all' },
-        { id: 2, message: 'hye allasda sda sdas dasd asd asd' },
-        { id: 1, message: 'hye all' },
-        { id: 2, message: 'hye as dasd asasd as' },
-        { id: 1, message: 'hye aasd ll' },
-        { id: 2, message: 'hye all' },
-        { id: 1, message: 'hye alasd asd l' },
-        { id: 2, message: 'hye alla sda sd' },
-        { id: 1, message: 'hye aasd asdll' },
-        { id: 2, message: 'hye all' },
-        { id: 1, message: 'hye aasd asd ll' },
-        { id: 2, message: 'hye all' },
-        { id: 1, message: 'hye asd asall' },
-        { id: 2, message: 'hye aasd asd ll' },
-        { id: 1, message: 'hye all' },
-        { id: 2, message: 'hye all' },
-        { id: 1, message: 'hye all' },
-        { id: 2, message: 'hye alasd asdl' },
-        { id: 1, message: 'hye all' },
-        { id: 2, message: 'hye all' },
-        { id: 1, message: 'hye aasd asll' },
-        { id: 2, message: 'End' },
-    ],
+    chatMessages: [],
     message: '',
 };
 
@@ -54,6 +32,79 @@ function reducer(state, action) {
 
 function Chat(props) {
     const [state, dispatch] = useReducer(reducer, initialState);
+    let [skip, setSkip] = useState(0);
+    let [limit, setLimit] = useState(11);
+    let [onEndReachedCalledDuringMomentum, setOnEndReachedCalledDuringMomentum] = useState(true)
+    useEffect(() => {
+        fetchMessages(skip, limit);
+        setupListener();
+    }, [])
+
+    async function fetchMessages(skipValue, limitValue) {
+        const user = props.userData;
+        const room = props.route.params.room;
+
+        const body = { roomId: room._id, user: user._id, skip: skipValue, limit: limitValue };
+        const response = await api.fetchMessage(body, null);
+        console.log(response)
+        dispatch({ type: 'ON_INITIAL_MESSAGE', payload: response.messages });
+        setSkip(skip + 10)
+    }
+
+    async function setupListener() {
+        const socket = io(constants.SOCKET_IO_URL);
+        GLOBAL.socket = socket;
+
+        const user = props.userData;
+        const room = props.route.params.room;
+
+        const payload_ = {
+            message: state.message,
+            userId: user._id,
+            room: room._id,
+        };
+
+        socket.on('connect', () => {
+            console.log("payload_=>", payload_)
+            socket.emit('room-join', payload_);
+        });
+
+        socket.on('new-message', (payload) => {
+            dispatch({
+                type: 'ON_MESSAGE_CHANGE',
+                payload: {
+                    message: payload,
+                    userId: props.userData_id,
+                    roomId: payload_.room,
+                },
+            });
+        });
+    }
+
+    async function sendMessage() {
+        const socket = io(constants.SOCKET_IO_URL);
+        const user = props.userData;
+        const room = props.route.params.room;
+
+        const payload = {
+            message: state.message,
+            userId: user._id,
+            roomId: room._id,
+        };
+
+        dispatch({
+            type: 'ON_MESSAGE_CHANGE',
+            payload: {
+                message: payload.message,
+                userId: payload.userId,
+                roomId: payload.roomId,
+            },
+        });
+
+        GLOBAL.socket.emit('new-message', payload);
+        // console(payload, "payload re/sult on chat ")
+        dispatch({ type: 'ON_CHANGE_INPUT', payload: '' });
+    }
 
     function handleChangeText(value) {
         dispatch({ type: 'ON_CHANGE_INPUT', payload: value })
@@ -72,8 +123,7 @@ function Chat(props) {
 
     return (
         <>
-            {/* {console.log("chat=>", state.chatMessages)} */}
-            {/* {console.log("message=>", state.message)} */}
+            {console.log(state.chatMessages)}
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <BeforLoginHeader backButton={true} menuButton={false} headerText='Faraz' />
                 <FlatList
@@ -81,12 +131,12 @@ function Chat(props) {
                     data={state.chatMessages}
                     renderItem={({ item }) => (
                         <>
-                            {item.id == 1 &&
+                            {item.userId == props.userData._id ?
                                 <View style={Style.messageMain1}>
                                     <Text style={Style.textMessage}>{item.message}</Text>
                                     <Text style={Style.dateText}>{moment(new Date()).format('DD MMM YYYY')}</Text>
-                                </View>}
-                            {item.id == 2 &&
+                                </View> :
+
                                 <View style={Style.messageMain2}>
                                     <Text style={Style.textMessage}>{item.message}</Text>
                                     <Text style={Style.dateText}>{moment(new Date()).format('DD MMM YYYY')}</Text>
@@ -103,7 +153,7 @@ function Chat(props) {
                             value={state.message}
                             InputStyle={Style.textInput} />
                     </View>
-                    <TouchableOpacity onPress={addMessage} style={{ flex: .15, height: 45, justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={sendMessage} style={{ flex: .15, height: 45, justifyContent: 'center' }}>
                         <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/icons/send.png')} />
                     </TouchableOpacity>
                 </View>
@@ -112,4 +162,14 @@ function Chat(props) {
     )
 }
 
-export default Chat
+
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+    // logout: AuthActions.logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

@@ -1,13 +1,40 @@
-import React, { } from 'react';
-import { View, SafeAreaView, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { View, SafeAreaView, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { connect } from 'react-redux'
 import constants from '../../../config/constants';
+import api from '../../../utils/apis'
 import Style from './style'
 
 function MyPosts(props) {
+
+    const [loading, setLoading] = useState(false)
+    const [myPost, setMyPost] = useState([])
+
+    useEffect(() => {
+        fetchMyPost()
+    }, [])
+
+
+    async function fetchMyPost() {
+        setLoading(true)
+        try {
+            let params = {
+                userId: props.userData._id
+            }
+            const response = await api.fetchMyPost(null, null, null, params);
+            console.log('response=>', response)
+            setMyPost(response)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
     return (
         <SafeAreaView style={Style.mainContainer}>
             <ScrollView style={Style.scrollMain}>
-                {constants.MY_POSTS.map((item, index) => {
+                {loading && <ActivityIndicator color='red' />}
+                {!loading && myPost.map((item, index) => {
                     return (
                         <View key={index} style={Style.mainCard}>
                             <View style={Style.left}>
@@ -25,4 +52,13 @@ function MyPosts(props) {
     )
 }
 
-export default MyPosts
+
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyPosts);

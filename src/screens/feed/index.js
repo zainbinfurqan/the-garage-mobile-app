@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { View, SafeAreaView, Text, ScrollView, FlatList, Image, TouchableOpacity, } from 'react-native';
+import { View, SafeAreaView, Text, ScrollView, FlatList, Image, ActivityIndicator, TouchableOpacity, } from 'react-native';
 import Slider from '@react-native-community/slider'
 import { connect } from 'react-redux'
 
@@ -11,10 +11,11 @@ import constants from '../../config/constants';
 import api from '../../utils/apis'
 import Style from './style'
 import moment from 'moment'
+import helper from '../../utils/helpers';
 
 const initialState = {
-    lowPrice: 0,
-    highPrice: 1000,
+    lowPrice: 10,
+    highPrice: 10,
     priceRange: 0,
     searchText: ''
 }
@@ -33,19 +34,38 @@ function reducer(state, action) {
 }
 function PostsFeed(props) {
 
-    const [category, setCategory] = useState(constants.CATEGORIES)
-    const [posts, setPosts] = useState(constants.POST_DUMMAY)
     const [state, dispatch] = useReducer(reducer, initialState)
+    const [category, setCategory] = useState([])
+    const [posts, setPosts] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState('')
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        fetchPost()
+        fetchPost(selectedCategory, state.lowPrice, state.highPrice)
+        fetchCategory()
         // props.logout(null)
-
     }, [])
 
-    async function fetchPost() {
+    async function fetchPost(category, lowPrice, highPrice) {
+        setLoading(true)
         try {
-            await api.searchPost(null, null, null, params = {})
+            let params = {
+                category: category,
+                priceLessThen: lowPrice,
+                priceGraterThen: highPrice,
+            };
+            const response = await api.searchPost(null, null, null, params)
+            setPosts(response)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
+    async function fetchCategory() {
+        try {
+            const response = await api.fetchCategory();
+            setCategory(response)
         } catch (error) {
 
         }
@@ -58,6 +78,9 @@ function PostsFeed(props) {
                 [label]: Math.floor(value),
             },
         });
+        setTimeout(() => {
+            fetchPost(selectedCategory, state.lowPrice, Math.floor(value))
+        }, 1000);
     }
 
     function handleChangeText(value, label) {
@@ -67,6 +90,14 @@ function PostsFeed(props) {
                 [label]: value.trim(),
             },
         });
+    }
+
+    function selectCategory(item, index) {
+        setSelectedCategory(item._id)
+        setTimeout(() => {
+            fetchPost(item._id)
+        }, 1000);
+
     }
 
     return (
@@ -87,37 +118,28 @@ function PostsFeed(props) {
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
                     {category.map((item, index) => {
                         return (
-                            <View key={index} style={Style.categoryMain}>
-                                <Text style={Style.categoryText}>{item.title}</Text>
-                            </View>
+                            <TouchableOpacity onPress={() => selectCategory(item, index)} key={index}
+                                style={[Style.categoryMain, selectedCategory == item._id && { backgroundColor: constants.LIGHT_BLUE }]}>
+                                <Text style={[Style.categoryText, selectedCategory == item._id && { color: 'white' }]}>{item.name}</Text>
+                            </TouchableOpacity>
                         )
                     })}
                 </ScrollView>
             </View>
             <View style={Style.line} />
             <View style={Style.priceRangMain}>
-                <Text style={Style.priceRangText}>Price range:  {state.priceRange}</Text>
-                <Slider minimumValue={10} maximumValue={100}
-                    onValueChange={(e) => PriceRange(e, "priceRange")}
-                    value={0}
+                <Text style={Style.priceRangText}>Price range:  {state.highPrice}</Text>
+                <Slider minimumValue={state.lowPrice} maximumValue={1000}
+                    onValueChange={(e) => PriceRange(e, "highPrice")}
+                    value={state.highPrice}
                     minimumTrackTintColor='green'
                     maximumTrackTintColor='red'
                 >
                 </Slider>
             </View>
-            {/* <View style={}>
-                <Text style={Style.priceRangText}>Price Range</Text>
-                <View style={{ flexDirection: 'row', }}>
-                    <View style={Style.priceLow}>
-                        <IconTextInput InputStyle={{}} value={state.lowPrice} onChangeText={(e) => PriceRange(e, 'lowPrice')} />
-                    </View>
-                    <View style={Style.priceHigh}>
-                        <IconTextInput InputStyle={{}} value={state.highPrice} onChangeText={(e) => PriceRange(e, 'highPrice')} />
-                    </View>
-                </View>
-            </View> */}
             <View style={Style.postListMain}>
-                <FlatList
+                {loading && <ActivityIndicator color='red' />}
+                {!loading && <FlatList
                     data={posts}
                     renderItem={({ item }) => (
                         <View style={Style.postMain}>
@@ -127,21 +149,32 @@ function PostsFeed(props) {
                                         <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
                                     </View>
                                 </View>
-                                <View style={{ flex: .6 }}>
-                                    <Text style={Style.name}>Jone kane</Text>
+                                <View style={{ flex: .60 }}>
+                                    <Text style={Style.name}>{helper.nameConcatenate(item.user)}</Text>
                                 </View>
-                                <View style={{ flex: .3, justifyContent: "center", }}><Text style={{
+                                <View style={{ flex: .40, justifyContent: "center", }}><Text style={{
                                     fontFamily: constants.FONT_SAMSUNG_LIGHT,
                                     fontSize: constants.SMALL_FONT,
                                     alignSelf: "flex-end"
-                                }}>{moment(new Date()).format('ddd MMM YYYY')}</Text></View>
+                                }}>{moment(item.createdAt).format('ddd MMM YYYY hh:mm a')}</Text></View>
                             </View>
                             <View style={{ justifyContent: 'center' }}>
                                 <Image style={{ alignSelf: 'center', height: 170 }} source={require('../../assets/images/default-post.png')} />
                             </View>
+                            <View style={{ flexDirection: 'row', margin: 5, }}>
+                                <View style={{ flex: .7, }}><Text style={{
+                                    fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                    fontSize: constants.SMALL_FONT,
+                                    paddingLeft: 10
+                                }}>Category: {item.category.name}</Text></View>
+                                <View style={{ flex: .3 }}><Text style={{
+                                    fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                    fontSize: constants.SMALL_FONT
+                                }}>Price: {item.priceRange}</Text></View>
+                            </View>
                             <View style={[Style.footerMain, {}]}>
                                 <View style={Style.footer1left}>
-                                    {constants.INTRESTES_LIST.slice(0, 3).map((item, index) => {
+                                    {item.intrested.slice(0, 3).map((item, index) => {
                                         return (
                                             <View key={index} style={[Style.intrestedPeopleMain, index > 0 && { marginLeft: -10 }]}>
                                                 <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
@@ -153,11 +186,11 @@ function PostsFeed(props) {
                                         <Image style={{ height: 10, width: 10, alignSelf: 'center' }} source={require('../../assets/icons/add-black.png')} />
                                     </View>
                                     <View style={Style.intrestedPeopleNumber}>
-                                        <Text style={Style.intrestedText1}>{constants.INTRESTES_LIST.length}</Text>
+                                        <Text style={Style.intrestedText1}>{item.intrested.length}</Text>
                                         <Text style={Style.intrestedText2}> people are intrested</Text></View>
                                 </View>
                                 <View style={[Style.footer1]}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView')}>
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView', { postData: item })}>
                                         <Text style={Style.intrestedText2}>View details </Text>
                                     </TouchableOpacity>
                                 </View>
@@ -166,8 +199,7 @@ function PostsFeed(props) {
                     )}
                     numColumns={1}
                     keyExtractor={(item, index) => index.toString()}
-                />
-
+                />}
             </View>
         </SafeAreaView >
     )

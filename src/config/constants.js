@@ -2,7 +2,8 @@
 import { Dimensions, Platform } from 'react-native';
 
 const constants = {
-    BASE_URL: 'http://localhost:3000/api',
+    SOCKET_IO_URL: 'https://serene-savannah-02158.herokuapp.com/socketio',
+    BASE_URL: 'https://e820ac2bf82b.ngrok.io/api',
     LIGHT_BORDER: '#CBCCCF',
     BOX_SHADOW: 1,
     INPUT_TEXT_RADIUS: 5,
@@ -124,17 +125,17 @@ const constants = {
         },
     ],
     CATEGORIES: [
-        { id: '5f3a838ff315fbe1266f44c7', title: 'Pillar' },
-        { id: '5f3a8393a5ecf162b694a610', title: 'Bumper' },
-        { id: '5f3a8397c8f3577b88f7cccf', title: 'Anti-intrusion bar' },
-        { id: '5f3a83a3573a667c622bb398', title: 'Roof rack' },
-        { id: '5f3a83a857af5069d09e92c5', title: 'Fender' },
-        { id: '5f3a83ab33f0b000d85ead9d', title: 'Sunroof Glass' },
-        { id: '5f3a83b0e58ac2abd00f116c', title: 'Speaker' },
-        { id: '5f3a83b4df99f1359472d9f7', title: 'Dashcam' },
-        { id: '5f3a83b702ed17234ff67b59', title: 'Ammeter' },
-        { id: '5f3a83bd250b7905c212cb59', title: 'Ignition box' },
-        { id: '5f3a83c2d87055dc2ac9f79a', title: 'Ignition coil' },
+        { id: '5f3a838ff315fbe1266f44c7', title: 'Pillar', flag: false },
+        { id: '5f3a8393a5ecf162b694a610', title: 'Bumper', flag: false },
+        { id: '5f3a8397c8f3577b88f7cccf', title: 'Anti-intrusion bar', flag: false },
+        { id: '5f3a83a3573a667c622bb398', title: 'Roof rack', flag: false },
+        { id: '5f3a83a857af5069d09e92c5', title: 'Fender', flag: false },
+        { id: '5f3a83ab33f0b000d85ead9d', title: 'Sunroof Glass', flag: false },
+        { id: '5f3a83b0e58ac2abd00f116c', title: 'Speaker', flag: false },
+        { id: '5f3a83b4df99f1359472d9f7', title: 'Dashcam', flag: false },
+        { id: '5f3a83b702ed17234ff67b59', title: 'Ammeter', flag: false },
+        { id: '5f3a83bd250b7905c212cb59', title: 'Ignition box', flag: false },
+        { id: '5f3a83c2d87055dc2ac9f79a', title: 'Ignition coil', flag: false },
     ],
     POST_DUMMAY: [
         {
