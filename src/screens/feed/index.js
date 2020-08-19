@@ -7,6 +7,7 @@ import BeforLoginHeader from '../../components/BeforLoginHeader'
 import AfterLoginHeader from '../../components/AfterLoginHeader'
 import IconTextInput from '../../components/Input/IconsInput'
 import IconsInput from '../../components/Input/IconsInput'
+import NoDataFound from '../../components/NoDataFound'
 import CommonAction from '../../redux/common/action'
 import AuthActions from '../../redux/auth/action'
 import constants from '../../config/constants';
@@ -147,7 +148,8 @@ function PostsFeed(props) {
                 </Slider>
             </View>
             <View style={Style.postListMain}>
-                {loading && <ActivityIndicator color='red' />}
+                {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
+                {posts.length == 0 && !loading && <NoDataFound />}
                 {!loading && <FlatList
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

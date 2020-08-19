@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
-import BeforLoginHeader from '../../components/BeforLoginHeader'
+import AfterLoginHeader from '../../components/AfterLoginHeader'
 import constants from '../../config/constants';
 import Style from './style'
 import Intrested from './intrested'
@@ -33,8 +33,8 @@ function Dashboard(props) {
 
     return (
         <SafeAreaView style={Style.dashboardMain}>
-            {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
-            {props.isLogin && <AfterLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
+            {/* {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />} */}
+            {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='Dashboard' />}
             <View style={Style.switchTabsMain}>
                 <TouchableOpacity onPress={() => switchTab('1')} style={[Style.switchTab, tab1 && { backgroundColor: constants.LIGHT_BLUE }]}>
                     <Text style={[Style.switchTabText, tab1 && { color: 'white' }]}>My posts</Text>

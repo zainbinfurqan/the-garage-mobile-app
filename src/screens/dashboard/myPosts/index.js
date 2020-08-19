@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
+import NoDataFound from '../../../components/NoDataFound'
 import constants from '../../../config/constants';
 import api from '../../../utils/apis'
 import Style from './style'
@@ -32,7 +33,8 @@ function MyPosts(props) {
     return (
         <SafeAreaView style={Style.mainContainer}>
             <ScrollView style={Style.scrollMain}>
-                {loading && <ActivityIndicator color='red' />}
+                {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
+                {myPost.length == 0 && !loading && <NoDataFound />}
                 {!loading && myPost.map((item, index) => {
                     return (
                         <View key={index} style={Style.mainCard}>
