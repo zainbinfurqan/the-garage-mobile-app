@@ -13,23 +13,31 @@ function BeforLoginHeader(props) {
     }
 
     return (
-        <ImageBackground source={require('../../assets/images/header.png')} style={{ height: 55, flexDirection: 'row', backgroundColor: constants.LIGHT_BLUE }}>
-            {props.backButton &&
-                <TouchableOpacity onPress={() => navigation.pop()} style={{ flex: 0.1, justifyContent: 'center', }}>
-                    <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/back-white.png')} />
-                </TouchableOpacity>
-            }
-            {props.menuButton && <TouchableOpacity onPress={openDrawer} style={{ flex: 0.1, justifyContent: 'center', }}>
-                <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/menu.png')} />
-            </TouchableOpacity>}
-            <View style={{ flex: 0.8, justifyContent: 'center' }}>
-                <Text style={{
-                    alignSelf: 'center',
-                    color: 'white',
-                    fontFamily: constants.FONT_SAMSUNG_LIGHT
-                }}>{props.headerText}</Text>
+        <>
+            <ImageBackground source={require('../../assets/images/header.png')} style={{ height: 60, flexDirection: 'row', }}>
+                {props.backButton &&
+                    <TouchableOpacity onPress={() => navigation.pop()} style={{ flex: 0.1, justifyContent: 'center', }}>
+                        <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/back-white.png')} />
+                    </TouchableOpacity>
+                }
+                {props.menuButton && <TouchableOpacity onPress={openDrawer} style={{ flex: 0.1, justifyContent: 'center', }}>
+                    <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/menu.png')} />
+                </TouchableOpacity>}
+                <View style={{ flex: 0.8, justifyContent: 'center' }}>
+                    <Text style={{
+                        alignSelf: 'center',
+                        color: 'white',
+                        fontFamily: constants.FONT_SAMSUNG_LIGHT
+                    }}>{props.headerText}</Text>
+                </View>
+            </ImageBackground>
+            <View style={{ width: '99.8%', alignSelf: 'center', }}>
+                <ImageBackground style={{ height: 5, opacity: 0.8, borderBottomEndRadius: 5 }} source={require('../../assets/images/header-2.png')}></ImageBackground>
             </View>
-        </ImageBackground>
+            <View style={{ width: '98.8%', alignSelf: 'center', }}>
+                <ImageBackground style={{ height: 3, opacity: 0.6, }} source={require('../../assets/images/header-2.png')}></ImageBackground>
+            </View>
+        </>
     )
 }
 

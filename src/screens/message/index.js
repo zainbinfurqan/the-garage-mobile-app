@@ -3,6 +3,7 @@ import { View, FlatList, Text, SafeAreaView, TouchableOpacity } from 'react-nati
 import { connect } from 'react-redux'
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
+import AfterLoginHeader from '../../components/AfterLoginHeader'
 import constants from '../../config/constants';
 import Style from './style'
 import moment from 'moment'
@@ -60,7 +61,8 @@ function MessageList(props) {
 
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-            <BeforLoginHeader backButton={true} menuButton={false} headerText='Post Feed' />
+            {/* {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />} */}
+            {props.isLogin && <AfterLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
             <FlatList
                 data={userList}
                 renderItem={({ item }) => (

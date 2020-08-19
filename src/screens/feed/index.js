@@ -4,6 +4,7 @@ import Slider from '@react-native-community/slider'
 import { connect } from 'react-redux'
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
+import AfterLoginHeader from '../../components/AfterLoginHeader'
 import IconTextInput from '../../components/Input/IconsInput'
 import IconsInput from '../../components/Input/IconsInput'
 import CommonAction from '../../redux/common/action'
@@ -109,11 +110,12 @@ function PostsFeed(props) {
 
     return (
         <SafeAreaView style={Style.container}>
-            <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />
+            {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
+            {props.isLogin && <AfterLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
             <View style={{ flexDirection: 'row', paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}>
                 <View style={{ justifyContent: 'center', flex: 1 }}>
                     <IconsInput
-                        placeholder='Email'
+                        placeholder='Enter name'
                         onChangeText={(e) => handleChangeText(e, 'searchText')}
                         value={state.searchText}
                         Icon={require('../../assets/icons/search.png')}
@@ -177,13 +179,18 @@ function PostsFeed(props) {
                                     fontSize: constants.SMALL_FONT,
                                     paddingLeft: 10
                                 }}>Category: {item.category.name}</Text></View>
-                                <View style={{ flex: .3 }}><Text style={{
+                                <View style={{ flex: .3, paddingRight: 5 }}><Text style={{
                                     fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                    alignSelf: 'flex-end',
                                     fontSize: constants.SMALL_FONT
                                 }}>Price: {item.priceRange}</Text></View>
                             </View>
                             <View style={[Style.footerMain, {}]}>
                                 <View style={Style.footer1left}>
+                                    {item.intrested.length == 0 && <View style={[Style.intrestedPeopleMain, { marginLeft: -10, }]}>
+                                        <Image style={{ height: 25, opacity: 0.5, width: 25, alignSelf: 'center', position: 'absolute' }} source={require('../../assets/images/default-profile-1.png')} />
+                                        <Image style={{ height: 10, width: 10, alignSelf: 'center' }} source={require('../../assets/icons/add-black.png')} />
+                                    </View>}
                                     {item.intrested.slice(0, 3).map((item, index) => {
                                         return (
                                             <View key={index} style={[Style.intrestedPeopleMain, index > 0 && { marginLeft: -10 }]}>
@@ -191,10 +198,7 @@ function PostsFeed(props) {
                                             </View>
                                         )
                                     })}
-                                    <View style={[Style.intrestedPeopleMain, { marginLeft: -10 }]}>
-                                        <Image style={{ height: 25, opacity: 0.5, width: 25, alignSelf: 'center', position: 'absolute' }} source={require('../../assets/images/default-profile-1.png')} />
-                                        <Image style={{ height: 10, width: 10, alignSelf: 'center' }} source={require('../../assets/icons/add-black.png')} />
-                                    </View>
+
                                     <View style={Style.intrestedPeopleNumber}>
                                         <Text style={Style.intrestedText1}>{item.intrested.length}</Text>
                                         <Text style={Style.intrestedText2}> people are intrested</Text></View>

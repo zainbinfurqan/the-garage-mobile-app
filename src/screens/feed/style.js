@@ -62,6 +62,9 @@ export default Styles = StyleSheet.create({
     },
     intrestedPeopleMain: {
         borderRadius: 50,
+        // position: 'relative',
+        borderWidth: 1,
+        borderColor: 'white',
         height: 25, width: 25,
         justifyContent: 'center'
     },

@@ -1,11 +1,27 @@
 import React, { } from 'react';
 import { View, SafeAreaView, Dimensions, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
-import Style from './style'
+import { connect } from 'react-redux'
+
+import CommonAction from '../../redux/common/action'
 import constants from '../../config/constants';
+import Style from './style'
 const { width, height } = Dimensions.get('window')
 
 function ProductDetailView(props) {
-    const postData = props.route.params.postData
+    const postData = props.route.params.postData;
+
+    function navigateToLogin() {
+        props.apiresponse({ flag: true, isError: true, isSuccess: false, message: 'Please login first' })
+    }
+
+    async function markIntrested() {
+
+    }
+
+    async function goToChat() {
+
+    }
+
     return (
         <SafeAreaView style={Style.container}>
             <ScrollView>
@@ -44,14 +60,14 @@ function ProductDetailView(props) {
                     </View>
                     <View style={Style.line} />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10 }}>
-                        <TouchableOpacity style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={props.isLogin ? markIntrested : navigateToLogin} style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
                             <Text style={{
                                 fontFamily: constants.FONT_SAMSUNG_LIGHT,
                                 alignSelf: 'center',
                                 fontSize: constants.SMALL_FONT
                             }}>Intrested?</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={props.isLogin ? goToChat : navigateToLogin} style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
                             <Text style={{
                                 fontFamily: constants.FONT_SAMSUNG_LIGHT,
                                 alignSelf: 'center',
@@ -65,4 +81,13 @@ function ProductDetailView(props) {
     )
 }
 
-export default ProductDetailView;
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+    apiresponse: CommonAction.apiresponse
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailView);
