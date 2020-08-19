@@ -10,6 +10,7 @@ import Uploadproduct from '../screens/uplaodProduct'
 import ApiResponse from '../components/apiresponse'
 import Registration from '../screens/registration'
 import Notification from '../screens/notification'
+import CommonAction from '../redux/common/action'
 import MessageList from '../screens/message'
 import Dashboard from '../screens/dashboard'
 import Loading from '../components/loading'
@@ -21,6 +22,10 @@ import Chat from '../screens/chat'
 const Stack = createStackNavigator();
 
 function Auth(props) {
+
+    React.useEffect(() => {
+        props.fetchCategory()
+    }, [])
 
     return (
         <>
@@ -62,7 +67,7 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
-    // loading: CommonAction.loading
+    fetchCategory: CommonAction.fetchCategory
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

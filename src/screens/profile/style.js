@@ -7,8 +7,10 @@ export default Styles = StyleSheet.create({
     containerMain: { flex: 1, backgroundColor: 'white' },
     line: { margin: 10, borderWidth: 0.34, borderColor: constants.LINE_COLOR, },
     text: {
+        alignSelf: 'center',
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
-        fontSize: constants.SMALL_FONT * 1.2
+        fontSize: constants.SMALL_FONT * 1.2,
+
     },
     profileMain: { justifyContent: "center", padding: 10, },
     profilePic: { height: 120, width: 122, alignSelf: 'center', },

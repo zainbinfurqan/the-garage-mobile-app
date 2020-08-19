@@ -45,12 +45,25 @@ function PostsFeed(props) {
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefresh = React.useCallback(() => {
-        fetchPost(selectedCategory, state.lowPrice, state.highPrice)
+        dispatch({
+            type: 'ON_PRICE_CHANGE',
+            payload: {
+                ['lowPrice']: Math.floor(10),
+            },
+        });
+        dispatch({
+            type: 'ON_PRICE_CHANGE',
+            payload: {
+                ['highPrice']: Math.floor(10),
+            },
+        });
+        setSelectedCategory('')
+        fetchPost('', 10, 10)
     }, [refreshing]);
 
     useEffect(() => {
         fetchPost(selectedCategory, state.lowPrice, state.highPrice)
-        fetchCategory()
+        // fetchCategory()
         // props.apiresponse(true)
         // props.logout(null)
     }, [])
@@ -64,19 +77,11 @@ function PostsFeed(props) {
                 priceGraterThen: highPrice,
             };
             const response = await api.searchPost(null, null, null, params)
+            console.log(response)
             setPosts(response)
             setLoading(false)
         } catch (error) {
             setLoading(false)
-        }
-    }
-
-    async function fetchCategory() {
-        try {
-            const response = await api.fetchCategory();
-            setCategory(response)
-        } catch (error) {
-
         }
     }
 
@@ -104,7 +109,7 @@ function PostsFeed(props) {
     function selectCategory(item, index) {
         setSelectedCategory(item._id)
         setTimeout(() => {
-            fetchPost(item._id)
+            fetchPost(item._id, state.lowPrice, state.highPrice)
         }, 1000);
 
     }
@@ -126,7 +131,7 @@ function PostsFeed(props) {
             <View style={Style.line} />
             <View style={{}}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
-                    {category.map((item, index) => {
+                    {props.categories.map((item, index) => {
                         return (
                             <TouchableOpacity onPress={() => selectCategory(item, index)} key={index}
                                 style={[Style.categoryMain, selectedCategory == item._id && { backgroundColor: constants.LIGHT_BLUE }]}>
@@ -147,9 +152,7 @@ function PostsFeed(props) {
                 >
                 </Slider>
             </View>
-            <View style={Style.postListMain}>
-                {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
-                {posts.length == 0 && !loading && <NoDataFound />}
+            <View style={[Style.postListMain, {}]}>
                 {!loading && <FlatList
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -216,6 +219,8 @@ function PostsFeed(props) {
                     numColumns={1}
                     keyExtractor={(item, index) => index.toString()}
                 />}
+                {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
+                {posts.length == 0 && !loading && <NoDataFound />}
             </View>
         </SafeAreaView >
     )
@@ -225,6 +230,7 @@ function PostsFeed(props) {
 const mapStateToProps = (store) => ({
     userData: store.auth.userData,
     isLogin: store.auth.isLogin,
+    categories: store.common.categories
 });
 
 const mapDispatchToProps = {

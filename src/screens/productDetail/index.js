@@ -37,7 +37,10 @@ function ProductDetailView(props) {
                             <Image style={{ height: 20, width: 20 }} source={require('../../assets/icons/discription.png')} />
                             <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>Description</Text>
                         </View>
-                        <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{postData.discription}</Text>
+                        <Text style={{
+                            color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                            fontSize: constants.SMALL_FONT * 1.2
+                        }}>{postData.discription}</Text>
                     </View>
                     <View style={{ margin: 10 }}>
                         <View style={Style.categoryMain}>

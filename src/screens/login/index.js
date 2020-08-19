@@ -9,6 +9,7 @@ import constants from '../../config/constants'
 import Button_ from '../../components/Button'
 import api from '../../utils/apis'
 import Styles from './style'
+import { CommonActions } from '@react-navigation/native';
 
 function Login(props) {
 
@@ -121,7 +122,8 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = {
     saveUserData: AuthActions.saveUserData,
     loading: CommonAction.loading,
-    apiresponse: CommonAction.apiresponse
+    apiresponse: CommonAction.apiresponse,
+    fetchCategory: CommonActions.fetchCategory
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

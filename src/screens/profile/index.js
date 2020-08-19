@@ -31,7 +31,11 @@ function Profile(props) {
                     <Text style={Style.text}>{props.userData.address}</Text>
                 </View>
                 <View style={Style.line} />
-                <View style={{}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    {props.userData.emailVerified
+                        ? <Image style={{ height: 20, width: 20, marginRight: 10, }} source={require('../../assets/icons/verified.png')} />
+                        :
+                        <Image style={{ height: 20, width: 20, marginRight: 10, }} source={require('../../assets/icons/unverified.png')} />}
                     <Text style={Style.text}>{props.userData.emailVerified ? 'Verified' : 'Un verified'}</Text>
                 </View>
             </View>

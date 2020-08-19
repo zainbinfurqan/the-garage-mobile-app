@@ -2,7 +2,7 @@ import React, { useState, useReducer, useEffect } from 'react'
 import { View, SafeAreaView, FlatList, Image, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import BeforLoginHeader from '../../components/BeforLoginHeader'
-import TextInput_ from '../../components/Input/TextInput'
+import TextInput_ from '../../components/Input/IconsInput'
 import constants from '../../config/constants'
 import Style from './style'
 import moment from 'moment'
@@ -143,16 +143,18 @@ function Chat(props) {
                     keyExtractor={(item, index) => index.toString()}
                 />
                 <View style={{ height: 50, flexDirection: 'row' }}>
-                    <View style={{ flex: .85, height: 45, marginLeft: 5 }}>
+                    <View style={{ flex: 1, height: 45, margin: 5 }}>
                         <TextInput_
                             placeholder=''
                             onChangeText={(text) => handleChangeText(text)}
                             value={state.message}
+                            onPress={sendMessage}
+                            Icon={require('../../assets/icons/send.png')}
                             InputStyle={Style.textInput} />
                     </View>
-                    <TouchableOpacity onPress={sendMessage} style={{ flex: .15, height: 45, justifyContent: 'center' }}>
+                    {/* <TouchableOpacity onPress={sendMessage} style={{ flex: .15, height: 45, justifyContent: 'center' }}>
                         <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/icons/send.png')} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </SafeAreaView>
         </>

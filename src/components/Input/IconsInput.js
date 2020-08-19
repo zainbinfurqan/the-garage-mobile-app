@@ -1,5 +1,5 @@
 import React, { } from 'react';
-import { View, TextInput, Image } from 'react-native'
+import { View, TextInput, Image, TouchableOpacity } from 'react-native'
 import constants from '../../config/constants';
 
 function IconTextInput(props) {
@@ -13,9 +13,9 @@ function IconTextInput(props) {
                 secureTextEntry={props.secureTextEntry}
                 onChangeText={props.onChangeText}
             />
-            <View style={{ flex: 0.15, justifyContent: 'center', height: 40 }}>
+            <TouchableOpacity onPress={props.onPress} style={{ flex: 0.15, justifyContent: 'center', height: 40 }}>
                 <Image style={{ height: 22, width: 22, alignSelf: 'center' }} source={props.Icon} />
-            </View>
+            </TouchableOpacity>
         </View>
     )
 }

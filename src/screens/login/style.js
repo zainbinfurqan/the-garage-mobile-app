@@ -18,7 +18,7 @@ export default Styles = StyleSheet.create({
     textInput: {
         height: 40,
         marginBottom: 10,
-        borderWidth: 1,
+        borderWidth: 0.34,
         borderColor: constants.LIGHT_BORDER,
         borderRadius: constants.INPUT_TEXT_RADIUS
     },
