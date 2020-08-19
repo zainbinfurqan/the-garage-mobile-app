@@ -9,6 +9,7 @@ import ForgetPassword from '../screens/forgetPassword'
 import Uploadproduct from '../screens/uplaodProduct'
 import ApiResponse from '../components/apiresponse'
 import Registration from '../screens/registration'
+import Notification from '../screens/notification'
 import MessageList from '../screens/message'
 import Dashboard from '../screens/dashboard'
 import Loading from '../components/loading'
@@ -37,6 +38,7 @@ function Auth(props) {
                     <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
                     <Stack.Screen name="Uploadproduct" component={Uploadproduct} />
                     <Stack.Screen name="Registration" component={Registration} />
+                    <Stack.Screen name="Notification" component={Notification} />
                     <Stack.Screen name="MessageList" component={MessageList} />
                     <Stack.Screen name="MainScreen" component={MainScreen} />
                     <Stack.Screen name="PostsFeed" component={PostsFeed} />

@@ -111,7 +111,7 @@ function Registration(props) {
                         InputStyle={Styles.textInput}
                         value={state.phoneNo}
                     />
-                    <Button_ onPress={userRegistration} title='Login' rippleColor={constants.RIPPLE_COLOR} />
+                    <Button_ onPress={userRegistration} title='Registration' textStyle={{ color: 'white' }} rippleColor={constants.RIPPLE_COLOR} />
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
                         <Text style={Styles.footerText1}>Already have an Account?  </Text>
                         <Text style={Styles.footerText2}>Login</Text>

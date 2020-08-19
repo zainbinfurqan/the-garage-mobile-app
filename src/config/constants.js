@@ -9,6 +9,7 @@ const constants = {
     RED: '#DB1E0E',
     BOX_SHADOW: 1,
     INPUT_TEXT_RADIUS: 5,
+    LIGHT_BACKGROUND_COLOR: "#F7F7F8",
     LIGHT_BLUE: '#2F66A7',
     BACKGROUND_1: '#F1F2F8',
     RIPPLE_COLOR: '#9B9DF2',
@@ -309,7 +310,53 @@ const constants = {
             discription: 'no thing  serious just got chill pills so im with all the ladies and gents',
             contactNo: '03022408099',
         },
-
     ],
+    NOTIFICATION: [
+        {
+            title: 'sold out',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        },
+        {
+            title: 'intrested',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        },
+        {
+            title: 'sold out',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: true,
+        },
+        {
+            title: 'sintrested',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        },
+        {
+            title: 'sold out',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        },
+        {
+            title: 'intrested',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        },
+        {
+            title: 'intrested',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        },
+        {
+            title: 'intrested',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        },
+        {
+            title: 'intrested',
+            discription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s',
+            isRead: false,
+        }
+    ]
 }
 export default constants

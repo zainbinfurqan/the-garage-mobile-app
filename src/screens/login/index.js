@@ -33,7 +33,7 @@ function Login(props) {
             if (isValidated) {
                 props.loading(true)
                 let body = {
-                    email: email,
+                    email: email.toLowerCase(),
                     password: password
                 }
                 const response = await api.login(body);
@@ -107,7 +107,7 @@ function Login(props) {
                     </View>
                 </View>
 
-                <Button_ title='Login' onPress={userLogin} rippleColor={constants.RIPPLE_COLOR} />
+                <Button_ title='Login' onPress={userLogin} rippleColor={constants.RIPPLE_COLOR} textStyle={{ color: 'white' }} />
             </View>
         </ImageBackground>
     )

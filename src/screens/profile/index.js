@@ -24,7 +24,7 @@ function Profile(props) {
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>{props.userData.phone}</Text>
+                    <Text style={Style.text}>{props.userData.phoneNo}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
