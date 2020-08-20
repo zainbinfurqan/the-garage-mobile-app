@@ -10,7 +10,7 @@ export default Styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 2,
         borderWidth: 1,
-        height: 150,
+        height: 180,
         margin: 10
     },
     uploadText: {

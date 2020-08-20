@@ -1,6 +1,8 @@
 
 import helper from './helpers'
 import constant from '../config/constants'
+import RNFetchBlob from 'rn-fetch-blob';
+import constants from '../config/constants';
 
 let apis = {};
 
@@ -106,6 +108,39 @@ apis.login = async function (body = null, authorization = null, headers) {
         `${constant.BASE_URL}/user/login`,
     );
 };
+
+
+// create post api
+apis.uploadFiles = async function (body = null, authorization = null, headers) {
+    return await RNFetchBlob.fetch(
+        'POST',
+        `${constants.BASE_URL}/post/`,
+        {
+            'Content-Type': 'multipart/form-data',
+        },
+        [
+            //--------1 line------//
+            {
+                name: 'file',
+                filename: body.filename,
+                type: body.type,
+                data: RNFetchBlob.wrap(body.path),
+            },
+
+            {
+                name: 'info',
+                data: JSON.stringify({
+                    userId: body.userId,
+                    // type: body.type,
+                }),
+            },
+            //--------2 line------//
+        ],
+    );
+};
+
+
+
 
 // apis.login = async function (body = null, authorization = null, headers) {
 //     if (body.email == 'Zain' && body.password == '1234') {
