@@ -6,6 +6,7 @@ import NoDataFound from '../../../components/NoDataFound'
 import constants from '../../../config/constants';
 import api from '../../../utils/apis'
 import Style from './style'
+import helper from '../../../utils/helpers';
 
 function Intrested(props) {
 
@@ -24,6 +25,7 @@ function Intrested(props) {
                 userId: props.userData._id
             }
             const response = await api.fetchMyIntrest(null, null, null, params);
+            console.log("response=>", response)
             setMyIntreste(response)
             setLoading(false)
         } catch (error) {
@@ -36,12 +38,13 @@ function Intrested(props) {
             <ScrollView style={Style.scrollMain}>
                 {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
                 {myIntreste.length == 0 && !loading && <NoDataFound />}
-                {!loading && myIntreste.map((item, index) => {
+                {!loading && myIntreste.length > 0 && myIntreste.map((item, index) => {
                     return (
                         <View key={index} style={Style.mainCard}>
                             <View style={Style.left}>
-                                <Text style={Style.leftText1}>John Kean</Text>
-                                <Text style={Style.leftText2}>this is my post and i ll see this aksd aksd askdas kndaskln dasklnd asn..</Text>
+                                <Text style={Style.leftText1}>{helper.nameConcatenate(item.user)}</Text>
+                                <View style={Style.line}></View>
+                                <Text style={Style.leftText2}>{item.discription.substring(1, 100)}...</Text>
                             </View>
                             <TouchableOpacity style={Style.right}>
                                 <Image style={Style.openIcon} source={require('../../../assets/icons/back.png')} />

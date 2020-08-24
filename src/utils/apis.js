@@ -109,6 +109,29 @@ apis.login = async function (body = null, authorization = null, headers) {
     );
 };
 
+//add to intrested api
+apis.markIntrested = async function (body = null, authorization = null, headers = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/intrested/makeintrested`,
+    );
+};
+
+//add to un intrested api
+apis.markUnIntrested = async function (body = null, authorization = null, headers = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/intrested/unintrested`,
+    );
+};
+
+
 
 // create post api
 apis.uploadFiles = async function (body = null, authorization = null, headers) {

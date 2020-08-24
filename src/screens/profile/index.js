@@ -1,6 +1,7 @@
 import React, { } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux'
+import healpers from '../../utils/helpers'
 
 import constants from '../../config/constants';
 import Style from './style'
@@ -16,7 +17,7 @@ function Profile(props) {
             </View>
             <View style={{ padding: 10 }}>
                 <View style={{}}>
-                    <Text style={Style.text}>{props.userData.name}</Text>
+                    <Text style={[Style.text, { fontSize: constants.MEDIUM_FONT }]}>{healpers.nameConcatenate(props.userData)}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>

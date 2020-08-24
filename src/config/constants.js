@@ -3,7 +3,7 @@ import { Dimensions, Platform } from 'react-native';
 
 const constants = {
     SOCKET_IO_URL: 'https://serene-savannah-02158.herokuapp.com/socketio',
-    BASE_URL: 'https://83190691873e.ngrok.io/api',
+    BASE_URL: 'https://5b775a9ba89f.ngrok.io/api',
     // BASE_URL: 'https://serene-savannah-02158.herokuapp.com/api',
     LIGHT_BORDER: '#CBCCCF',
     GREEN: '#17B75B',
@@ -15,6 +15,7 @@ const constants = {
     BACKGROUND_1: '#F1F2F8',
     RIPPLE_COLOR: '#9B9DF2',
     LINE_COLOR: '#CFD0D3',
+    GERY: '#B0AAAA',
     FONT_SAMSUNG_LIGHT: Platform.OS === 'android' ? 'samsung_s_sharp' : 'System',
     FONT_SAMSUNG_BOLD:
         Platform.OS === 'android' ? 'SamsungSharpSans-Bold' : 'System',

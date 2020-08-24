@@ -4,7 +4,13 @@ import constants from '../../config/constants';
 
 function IconTextInput(props) {
     return (
-        <View style={{ flexDirection: 'row', height: 40, justifyContent: 'center', borderWidth: 0.34, borderColor: constants.LINE_COLOR }}>
+        <View style={[{
+            flexDirection: 'row',
+            height: 40,
+            justifyContent: 'center',
+            borderWidth: 0.34,
+            borderColor: constants.LINE_COLOR
+        }, props.viewStyle]}>
             <TextInput
                 placeholder={props.placeholder}
                 underlineColorAndroid="transparent"

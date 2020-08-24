@@ -9,14 +9,16 @@ export default Styles = StyleSheet.create({
         borderWidth: 0.34, borderColor: constants.LIGHT_BORDER,
         borderRadius: 2, marginBottom: 5, flexDirection: 'row'
     },
-    left: { flex: .9, paddingLeft: 5 },
+    left: { flex: .9, padding: 5 },
     leftText1: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
-        fontSize: constants.SMALL_FONT
+        fontSize: constants.SMALL_FONT * 1.3
     },
+    line: { borderWidth: 0.34, borderColor: constants.LINE_COLOR, },
     leftText2: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
-        fontSize: constants.SMALL_FONT * 1.2
+        fontSize: constants.SMALL_FONT,
+        color: constants.GERY
     },
     right: {
         flex: .1,

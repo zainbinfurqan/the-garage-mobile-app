@@ -46,6 +46,10 @@ function CustomDrawer(props) {
                 <Item itemText='Registration' icon={`${require('../assets/icons/registration.png')}`} navigateTo={() => navigateTo('Registration')} />
                 <View style={Style.line} />
             </>}
+            {props.isLogin && props.userData.role.includes('admin') && <>
+                <Item itemText='Admin Dashboard' icon={`${require('../assets/icons/admin.png')}`} navigateTo={() => navigateTo('AdminDashbaord')} />
+                <View style={Style.line} />
+            </>}
             {!props.isLogin && <>
                 <Item itemText='Login' icon={`${require('../assets/icons/login.png')}`} navigateTo={() => navigateTo('Login')} />
                 <View style={Style.line} />

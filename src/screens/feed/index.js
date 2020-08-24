@@ -15,6 +15,7 @@ import api from '../../utils/apis'
 import Style from './style'
 import moment from 'moment'
 import helper from '../../utils/helpers';
+import style from './style';
 
 const initialState = {
     lowPrice: 10,
@@ -77,7 +78,6 @@ function PostsFeed(props) {
                 priceGraterThen: highPrice,
             };
             const response = await api.searchPost(null, null, null, params)
-            console.log(response)
             setPosts(response)
             setLoading(false)
         } catch (error) {
@@ -118,9 +118,15 @@ function PostsFeed(props) {
         <SafeAreaView style={Style.container}>
             {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
             {props.isLogin && <AfterLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
-            <View style={{ flexDirection: 'row', paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}>
+            <View style={{
+                flexDirection: 'row',
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingTop: 5
+            }}>
                 <View style={{ justifyContent: 'center', flex: 1 }}>
                     <IconsInput
+                        viewStyle={{ borderRadius: 50 }}
                         placeholder='Enter name'
                         onChangeText={(e) => handleChangeText(e, 'searchText')}
                         value={state.searchText}
@@ -159,8 +165,47 @@ function PostsFeed(props) {
                     }
                     data={posts}
                     renderItem={({ item }) => (
-                        <View style={Style.postMain}>
-                            <View style={Style.postHeaderMain}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView', { postData: item })} style={Style.postMain}>
+                            <View style={Style.left}>
+                                <Image style={Style.post} source={require('../../assets/images/default-post.png')} />
+                            </View>
+                            <View style={{
+                                flexDirection: "column", flex: .7, padding: 5,
+                            }}>
+                                <View style={{
+                                    flexDirection: 'row', justifyContent: 'space-between'
+                                }}>
+                                    <Text style={Style.name}>{helper.nameConcatenate(item.user)}</Text>
+                                    <Text style={Style.price}>${item.priceRange}</Text>
+                                </View>
+                                <View style={{}}>
+                                    <Text style={Style.discription}>{item.discription.substring(1, 100)}...</Text>
+                                </View>
+                                <View style={{}}>
+                                    <Text style={Style.category}>o {item.category.name}</Text>
+                                </View>
+                                <View style={[Style.footerMain, {}]}>
+                                    <View style={Style.footer1left}>
+                                        {item.intrested.length == 0 && <View style={[Style.intrestedPeopleMain, {}]}>
+                                            <Image style={{ height: 25, opacity: 0.5, width: 25, alignSelf: 'center', position: 'absolute' }} source={require('../../assets/images/default-profile-1.png')} />
+                                            <Image style={{ height: 10, width: 10, alignSelf: 'center' }} source={require('../../assets/icons/add-black.png')} />
+                                        </View>}
+                                        {item.intrested.slice(0, 3).map((item, index) => {
+                                            return (
+                                                <View key={index} style={[Style.intrestedPeopleMain, index > 0 && {}]}>
+                                                    <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
+                                                </View>
+                                            )
+                                        })}
+
+                                        <View style={Style.intrestedPeopleNumber}>
+                                            <Text style={Style.intrestedText1}>{item.intrested.length}</Text>
+                                            <Text style={Style.intrestedText2}> people are intrested</Text></View>
+                                    </View>
+
+                                </View>
+                            </View>
+                            {/* <View style={Style.postHeaderMain}>
                                 <View style={Style.profileMain}>
                                     <View style={Style.profile}>
                                         <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
@@ -214,7 +259,8 @@ function PostsFeed(props) {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                        </View>
+                         */}
+                        </TouchableOpacity>
                     )}
                     numColumns={1}
                     keyExtractor={(item, index) => index.toString()}

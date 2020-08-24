@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import CommonAction from '../../redux/common/action'
 import constants from '../../config/constants';
 import Style from './style'
+import apis from '../../utils/apis';
 const { width, height } = Dimensions.get('window')
 
 function ProductDetailView(props) {
@@ -15,7 +16,25 @@ function ProductDetailView(props) {
     }
 
     async function markIntrested() {
+        try {
+            const response = await apis.markIntrested({ user: postData._id })
+            if (response.message == "Successfull") {
+                props.navigation.pop()
+            }
+        } catch (error) {
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
 
+    async function markUnIntrested() {
+        try {
+            const response = await apis.markUnIntrested({ userId: props.userData._id, intrested: postData.intrested, _id: postData._id })
+            if (response.message == "Successfull") {
+                props.navigation.pop()
+            }
+        } catch (error) {
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
     }
 
     async function goToChat() {
@@ -24,6 +43,7 @@ function ProductDetailView(props) {
 
     return (
         <SafeAreaView style={Style.container}>
+            {console.log(props.userData._id)}
             <ScrollView>
                 <View style={{ borderColor: 'white', }}>
                     <TouchableOpacity onPress={() => props.navigation.pop()}>
@@ -33,12 +53,12 @@ function ProductDetailView(props) {
                         <Image style={{ height: 200, alignSelf: 'center' }} source={require('../../assets/images/default-post.png')} />
                     </View>
                     <View style={{ margin: 10 }}>
-                        <View style={{ flexDirection: 'row' }}>
+                        {/* <View style={{ flexDirection: 'row' }}>
                             <Image style={{ height: 20, width: 20 }} source={require('../../assets/icons/discription.png')} />
                             <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>Description</Text>
-                        </View>
+                        </View> */}
                         <Text style={{
-                            color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                            color: constants.GERY, fontFamily: constants.FONT_SAMSUNG_LIGHT,
                             fontSize: constants.SMALL_FONT * 1.2
                         }}>{postData.discription}</Text>
                     </View>
@@ -62,20 +82,22 @@ function ProductDetailView(props) {
                         </View>
                     </View>
                     <View style={Style.line} />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10 }}>
-                        <TouchableOpacity onPress={props.isLogin ? markIntrested : navigateToLogin} style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
-                            <Text style={{
-                                fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                alignSelf: 'center',
-                                fontSize: constants.SMALL_FONT
-                            }}>Intrested?</Text>
+                    <View style={[{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        margin: 10
+                    },]}>
+                        <TouchableOpacity onPress={props.isLogin ? postData.intrested.includes(props.userData._id) ? markUnIntrested : markIntrested : navigateToLogin}
+                            style={[{
+                                borderWidth: 0.34,
+                                borderColor: constants.LIGHT_BORDER,
+                                flex: .45, padding: 5,
+                                justifyContent: 'center'
+                            }, postData.intrested.includes(props.userData._id) && { borderColor: constants.LIGHT_BLUE, backgroundColor: constants.LIGHT_BLUE }]}>
+                            <Text style={[Style.intrested, postData.intrested.includes(props.userData._id) && { color: 'white' }]}>{postData.intrested.includes(props.userData._id) ? "Make Un-Intrested" : "Intrested?"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={props.isLogin ? goToChat : navigateToLogin} style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
-                            <Text style={{
-                                fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                alignSelf: 'center',
-                                fontSize: constants.SMALL_FONT
-                            }} >Text Me</Text>
+                            <Text style={Style.textMe} >Text Me</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-
-import BeforLoginHeader from '../../components/BeforLoginHeader'
+import { connect } from 'react-redux'
+import AfterLoginHeader from '../../components/AfterLoginHeader';
 import NativeDropDown from '../../components/NativeDropDown'
 import TextInput_ from '../../components/Input/TextInput'
 import SelectPanel from '../../components/SelectOptions'
@@ -107,24 +107,51 @@ function Uploadproduct(props) {
                 data={[{ title: 'Open gallery' }, { title: 'Take from camera' }, { title: 'Cancle' }]} />}
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView style={{ flex: 1 }}>
-                    <BeforLoginHeader menuButton={false} backButton={true} />
-                    <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ borderWidth: 1, flexDirection: 'row' }}>
-                        <>
-                            {images.length > 0 && images.map((item, index) => {
+                    <AfterLoginHeader menuButton={false} backButton={true} />
+                    {/* <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ borderWidth: 1, flexDirection: 'row' }}> */}
+                    {/* <> */}
+                    {/* {images.length > 0 && images.map((item, index) => {
                                 return (
                                     <View style={{ borderWidth: 1, width: 100, height: 180 }} >
                                         <Image style={{ width: 100, height: 180 }} source={{ uri: item.uri }} />
                                     </View>
                                 )
-                            })}
-                            <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain,
-                            images.length == 0 && { width: '100%' }
-                            ]}>
+                            })} */}
+                    <View style={{ flexDirection: 'column' }}>
+                        <View style={{}}>
+                            {images.length == 0 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain]}>
                                 <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
                                 <Text style={Style.uploadText}>Upload picture</Text>
-                            </TouchableOpacity>
-                        </>
-                    </ScrollView>
+                            </TouchableOpacity>}
+                            {images.length > 0 && <TouchableOpacity style={[Style.uploadMain,]}>
+                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[0].uri }} />
+                                {/* <Text style={Style.uploadText}>Upload picture</Text> */}
+                            </TouchableOpacity>}
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            {images.length >= 0 && images.length <= 1 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
+                                <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
+                                <Text style={Style.uploadText}>Upload picture</Text>
+                            </TouchableOpacity>}
+                            {images.length >= 2 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
+                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[1].uri }} />
+                            </TouchableOpacity>}
+                            {images.length >= 0 && images.length <= 2 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
+                                <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
+                                <Text style={Style.uploadText}>Upload picture</Text>
+                            </TouchableOpacity>}
+                            {images.length == 3 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
+                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[2].uri }} />
+                            </TouchableOpacity>}
+
+                        </View>
+                    </View>
+                    {/* <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain]}>
+                        <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
+                        <Text style={Style.uploadText}>Upload picture</Text>
+                    </TouchableOpacity> */}
+                    {/* </>
+                    </ScrollView> */}
                     <View style={{ margin: 10 }}>
                         <NativeDropDown data={constants.CATEGORIES} selectedValue={selectedValue} setSelectedValue={(value) => setSelectedValue(value)} />
                         <TextInput_
@@ -155,4 +182,13 @@ function Uploadproduct(props) {
     )
 }
 
-export default Uploadproduct
+
+const mapStateToProps = (store) => ({
+    userData: store.auth.userData,
+    isLogin: store.auth.isLogin
+});
+
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Uploadproduct);

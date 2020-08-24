@@ -31,12 +31,12 @@ function BeforLoginHeader(props) {
                     }}>{props.headerText}</Text>
                 </View>
             </ImageBackground>
-            <View style={{ width: '99.8%', alignSelf: 'center', }}>
+            {/* <View style={{ width: '99.8%', alignSelf: 'center', }}>
                 <ImageBackground style={{ height: 5, opacity: 0.8, borderBottomEndRadius: 5 }} source={require('../../assets/images/header-2.png')}></ImageBackground>
             </View>
             <View style={{ width: '98.8%', alignSelf: 'center', }}>
                 <ImageBackground style={{ height: 3, opacity: 0.6, }} source={require('../../assets/images/header-2.png')}></ImageBackground>
-            </View>
+            </View> */}
         </>
     )
 }

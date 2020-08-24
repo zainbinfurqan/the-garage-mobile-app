@@ -22,4 +22,14 @@ export default Styles = StyleSheet.create({
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
         alignSelf: 'center'
     },
+    textMe: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        alignSelf: 'center',
+        fontSize: constants.SMALL_FONT
+    },
+    intrested: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        alignSelf: 'center',
+        fontSize: constants.SMALL_FONT
+    },
 });

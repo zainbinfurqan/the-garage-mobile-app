@@ -6,7 +6,7 @@ export default Styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: constants.BACKGROUND_1 },
     line: { margin: 10, borderWidth: 0.34, borderColor: constants.LINE_COLOR, },
     categoryMain: {
-        borderWidth: 0.45,
+        // borderWidth: 0.45,
         borderColor: constants.LIGHT_BLUE,
         height: 25,
         margin: 5,
@@ -19,7 +19,8 @@ export default Styles = StyleSheet.create({
         height: 40,
         marginBottom: 10,
         borderColor: constants.LIGHT_BORDER,
-        borderRadius: constants.INPUT_TEXT_RADIUS
+        borderRadius: 100,
+        // borderRadius: constants.INPUT_TEXT_RADIUS * 50
     },
     categoryText: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
@@ -36,23 +37,42 @@ export default Styles = StyleSheet.create({
     priceLow: { flex: 0.5, marginRight: 5 },
     priceHigh: { flex: 0.5, },
     postMain: {
-        flex: 1, flexDirection: 'column',
-        margin: 2, borderWidth: 0.34,
-        borderColor: constants.LINE_COLOR, borderRadius: 5,
+        borderWidth: 0.34,
+        borderColor: constants.LIGHT_BORDER,
+        padding: 5,
+        flexDirection: 'row'
+    },
+    left: {
+        flex: .3,
+        justifyContent: 'center'
     },
     postHeaderMain: { flexDirection: 'row', padding: 5 },
     profileMain: { flex: .1 },
     profile: { borderRadius: 30, justifyContent: 'center', height: 30, width: 30 },
-
+    post: {
+        alignSelf: 'center',
+        height: 100, width: 100
+    },
     name: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
-        padding: 5
+    },
+    price: { fontFamily: constants.FONT_SAMSUNG_LIGHT, color: constants.LIGHT_BLUE },
+    discription: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT,
+        color: constants.GERY
+    },
+    category: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT,
+        alignSelf: 'flex-end'
     },
     footerMain: { flexDirection: 'row', },
     footer1: { flex: .2, padding: 5, justifyContent: "center", },
     intrestedText1: {
         alignSelf: 'center',
-        fontFamily: constants.FONT_SAMSUNG_LIGHT, fontSize: constants.SMALL_FONT
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT
     },
     intrestedText2: {
         alignSelf: 'center', fontFamily: constants.FONT_SAMSUNG_LIGHT, fontSize: constants.SMALL_FONT
@@ -65,7 +85,8 @@ export default Styles = StyleSheet.create({
         // position: 'relative',
         borderWidth: 1,
         borderColor: 'white',
-        height: 25, width: 25,
+        height: 25,
+        width: 25,
         justifyContent: 'center'
     },
     footer1left: { flexDirection: 'row', marginLeft: 10, padding: 5, flex: .8, alignSelf: 'center' },

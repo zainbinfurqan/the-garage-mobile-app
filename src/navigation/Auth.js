@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 // routes
 import ProductDetailView from '../screens/productDetail'
 import ForgetPassword from '../screens/forgetPassword'
+import AdminDashbaord from '../screens/adminDashboard'
 import Uploadproduct from '../screens/uplaodProduct'
 import ApiResponse from '../components/apiresponse'
 import Registration from '../screens/registration'
@@ -41,6 +42,7 @@ function Auth(props) {
                     }}>
                     <Stack.Screen name="ProductDetailView" component={ProductDetailView} />
                     <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+                    <Stack.Screen name="AdminDashbaord" component={AdminDashbaord} />
                     <Stack.Screen name="Uploadproduct" component={Uploadproduct} />
                     <Stack.Screen name="Registration" component={Registration} />
                     <Stack.Screen name="Notification" component={Notification} />

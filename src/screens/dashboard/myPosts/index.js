@@ -3,6 +3,7 @@ import { View, SafeAreaView, Text, ScrollView, Image, TouchableOpacity, Activity
 import { connect } from 'react-redux'
 import NoDataFound from '../../../components/NoDataFound'
 import constants from '../../../config/constants';
+import helper from '../../../utils/helpers';
 import api from '../../../utils/apis'
 import Style from './style'
 
@@ -39,8 +40,9 @@ function MyPosts(props) {
                     return (
                         <View key={index} style={Style.mainCard}>
                             <View style={Style.left}>
-                                <Text style={Style.leftText1}>John Kean</Text>
-                                <Text style={Style.leftText2}>this is my post and i ll see this aksd aksd askdas kndaskln dasklnd asn..</Text>
+                                <Text style={Style.leftText1}>{helper.nameConcatenate(item.user)}</Text>
+                                <View style={Style.line}></View>
+                                <Text style={Style.leftText2}>{item.discription.substring(1, 100)}...</Text>
                             </View>
                             <TouchableOpacity style={Style.right}>
                                 <Image style={Style.openIcon} source={require('../../../assets/icons/back.png')} />
