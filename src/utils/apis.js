@@ -109,6 +109,16 @@ apis.login = async function (body = null, authorization = null, headers) {
     );
 };
 
+//faq fetch api
+apis.fetchFaq = async function (body = null, authorization = null, headers = null) {
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/faq`,
+    );
+};
 //add to intrested api
 apis.markIntrested = async function (body = null, authorization = null, headers = null) {
     return await helper.apiMethod(

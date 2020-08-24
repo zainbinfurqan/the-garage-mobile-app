@@ -1,13 +1,14 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import { View, SafeAreaView, FlatList, Image, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import BeforLoginHeader from '../../components/BeforLoginHeader'
-import TextInput_ from '../../components/Input/IconsInput'
-import constants from '../../config/constants'
-import Style from './style'
 import moment from 'moment'
 import io from 'socket.io-client';
+
+import AfterLoginHeader from '../../components/AfterLoginHeader'
+import TextInput_ from '../../components/Input/IconsInput'
+import constants from '../../config/constants'
 import api from '../../utils/apis'
+import Style from './style'
 
 const initialState = {
     chatMessages: [],
@@ -122,7 +123,7 @@ function Chat(props) {
     return (
         <>
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-                <BeforLoginHeader backButton={true} menuButton={false} headerText='Faraz' />
+                <AfterLoginHeader backButton={true} menuButton={false} headerText='Faraz' />
                 <FlatList
                     inverted={true}
                     data={state.chatMessages}

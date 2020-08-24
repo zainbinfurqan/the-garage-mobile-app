@@ -20,6 +20,7 @@ import Profile from '../screens/profile'
 import PostsFeed from '../screens/feed'
 import Login from '../screens/login'
 import Chat from '../screens/chat'
+import FAQ from '../screens/faq'
 const Stack = createStackNavigator();
 
 function Auth(props) {
@@ -53,6 +54,7 @@ function Auth(props) {
                     <Stack.Screen name="Profile" component={Profile} />
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Chat" component={Chat} />
+                    <Stack.Screen name="FAQ" component={FAQ} />
                 </Stack.Navigator>
             </SafeAreaView>
             {props.loading && <Loading />}
