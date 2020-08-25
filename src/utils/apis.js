@@ -119,6 +119,20 @@ apis.fetchFaq = async function (body = null, authorization = null, headers = nul
         `${constant.BASE_URL}/faq`,
     );
 };
+
+//fetch all posts api
+
+apis.fetchAllPosts = async function (body = null, authorization = null, headers = null) {
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/post/fetchall`,
+    );
+};
+
+
 //add to intrested api
 apis.markIntrested = async function (body = null, authorization = null, headers = null) {
     return await helper.apiMethod(

@@ -8,8 +8,8 @@ import constants from '../../config/constants';
 function AdminDashbaord(props) {
 
     const [options, setOption] = useState([
-        { titile: 'Posts', iconsPath: require('../../assets/icons/posts.png') },
-        { titile: 'Users', iconsPath: require('../../assets/icons/registration.png') },
+        { titile: 'Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'AllPosts' },
+        { titile: 'Users', iconsPath: require('../../assets/icons/registration.png'), navigatePath: 'AllUsers' },
     ])
 
     return (
@@ -28,7 +28,7 @@ function AdminDashbaord(props) {
                         justifyContent: 'center',
                         alignSelf: 'center'
                     }}>
-                        <TouchableOpacity style={{
+                        <TouchableOpacity onPress={() => props.navigation.navigate(item.navigatePath)} style={{
                             padding: 10,
                             justifyContent: 'center',
                             alignSelf: 'center',

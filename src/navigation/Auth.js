@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux'
 // routes
+import AllUsers from '../screens/adminDashboard/allUsers'
+import AllPosts from '../screens/adminDashboard/allPosts'
 import ProductDetailView from '../screens/productDetail'
 import ForgetPassword from '../screens/forgetPassword'
 import AdminDashbaord from '../screens/adminDashboard'
@@ -49,8 +51,10 @@ function Auth(props) {
                     <Stack.Screen name="Notification" component={Notification} />
                     <Stack.Screen name="MessageList" component={MessageList} />
                     <Stack.Screen name="MainScreen" component={MainScreen} />
-                    <Stack.Screen name="PostsFeed" component={PostsFeed} />
                     <Stack.Screen name="Dashboard" component={Dashboard} />
+                    <Stack.Screen name="PostsFeed" component={PostsFeed} />
+                    <Stack.Screen name="AllUsers" component={AllUsers} />
+                    <Stack.Screen name="AllPosts" component={AllPosts} />
                     <Stack.Screen name="Profile" component={Profile} />
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Chat" component={Chat} />

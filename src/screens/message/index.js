@@ -9,7 +9,6 @@ import constants from '../../config/constants';
 import Style from './style'
 import moment from 'moment'
 import apis from '../../utils/apis';
-import helpers from '../../utils/helpers';
 import helper from '../../utils/helpers';
 
 function MessageList(props) {

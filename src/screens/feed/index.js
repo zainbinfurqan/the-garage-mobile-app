@@ -134,7 +134,7 @@ function PostsFeed(props) {
                         InputStyle={Style.textInput} />
                 </View>
             </View>
-            <View style={Style.line} />
+            {/* <View style={Style.line} /> */}
             <View style={{}}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
                     {props.categories.map((item, index) => {
