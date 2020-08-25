@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -30,8 +30,18 @@ import ProductDetailView from './src/screens/productDetail'
 import Navigation from './src/navigation'
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import SplashScreen from 'react-native-splash-screen'
 import store, { persistor } from './src/redux';
 function App() {
+
+  useEffect(() => {
+    SplashScreen.hide();
+    // AppState.addEventListener('change', (e) => handleAppStateChange(e));
+    // return () => {
+    //   AppState.removeEventListener('change', (e) => handleAppStateChange(e));
+    // };
+  }, []);
+
   return (
     <>
       <StatusBar backgroundColor="#5558F0" />

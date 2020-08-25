@@ -148,7 +148,7 @@ function PostsFeed(props) {
                 </ScrollView>
             </View>
             <View style={Style.line} />
-            <View style={Style.priceRangMain}>
+            {/* <View style={Style.priceRangMain}>
                 <Text style={Style.priceRangText}>Price range:  {state.highPrice}</Text>
                 <Slider minimumValue={state.lowPrice} maximumValue={1000}
                     onValueChange={(e) => PriceRange(e, "highPrice")}
@@ -157,7 +157,7 @@ function PostsFeed(props) {
                     maximumTrackTintColor='red'
                 >
                 </Slider>
-            </View>
+            </View> */}
             <View style={[Style.postListMain, {}]}>
                 {!loading && <FlatList
                     refreshControl={

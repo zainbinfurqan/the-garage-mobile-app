@@ -1,11 +1,54 @@
-import React, { } from 'react';
-import { View, SafeAreaView } from 'react-native'
-import { connect } from 'react-redux'
+import React, { useState } from 'react';
+import { View, SafeAreaView, FlatList, TouchableOpacity, Text, Image } from 'react-native'
+import { connect, } from 'react-redux'
+
+import AfterLoginHeader from '../../components/AfterLoginHeader'
+import constants from '../../config/constants';
 
 function AdminDashbaord(props) {
-    return (
-        <SafeAreaView style={{ borderWidth: 1, flex: 1, backgroundColor: 'white' }}>
 
+    const [options, setOption] = useState([
+        { titile: 'Posts', iconsPath: require('../../assets/icons/posts.png') },
+        { titile: 'Users', iconsPath: require('../../assets/icons/registration.png') },
+    ])
+
+    return (
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <AfterLoginHeader backButton={true} menuButton={false} headerText='Admin Dashboard' />
+            <FlatList
+                contentContainerStyle={{ flexGrow: 1, }}
+                data={options}
+                renderItem={({ item }) => (
+                    <View style={{
+                        marginLeft: 2,
+                        marginRight: 2,
+                        marginBottom: 10,
+                        width: '49%',
+                        height: 140,
+                        justifyContent: 'center',
+                        alignSelf: 'center'
+                    }}>
+                        <TouchableOpacity style={{
+                            padding: 10,
+                            justifyContent: 'center',
+                            alignSelf: 'center',
+                            borderRadius: 5,
+                            borderWidth: 0.34,
+                            width: "50%",
+                            borderColor: constants.LIGHT_BORDER,
+                        }}>
+                            <Image style={{ height: 35, width: 35, alignSelf: "center" }} source={item.iconsPath} />
+                            <Text style={{
+                                fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                fontSize: constants.SMALL_FONT * 1.4,
+                                alignSelf: 'center'
+                            }}>{item.titile}</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+                numColumns={2}
+                keyExtractor={(item, index) => index.toString()}
+            />
         </SafeAreaView>
     )
 }
