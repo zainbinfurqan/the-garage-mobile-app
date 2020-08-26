@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 
 import AfterLoginHeader from '../../components/AfterLoginHeader'
 import TextInput_ from '../../components/Input/IconsInput'
+import CommonAction from '../../redux/common/action'
 import constants from '../../config/constants'
 import api from '../../utils/apis'
 import Style from './style'
@@ -42,11 +43,13 @@ function Chat(props) {
     }, [])
 
     async function fetchMessages(skipValue, limitValue) {
+        props.loading(true)
         const user = props.userData;
         const room = props.route.params.room;
 
         const body = { roomId: room._id, user: user._id, skip: skipValue, limit: limitValue };
         const response = await api.fetchMessage(body, null);
+        props.loading(false)
         dispatch({ type: 'ON_INITIAL_MESSAGE', payload: response.messages });
         setSkip(skip + 10)
     }
@@ -77,6 +80,7 @@ function Chat(props) {
                     roomId: payload_.room,
                 },
             });
+
         });
     }
 
@@ -123,7 +127,7 @@ function Chat(props) {
     return (
         <>
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-                <AfterLoginHeader backButton={true} menuButton={false} headerText='Faraz' />
+                <AfterLoginHeader backButton={true} menuButton={false} headerText='Faraz' notificationIcon={false} />
                 <FlatList
                     inverted={true}
                     data={state.chatMessages}
@@ -170,6 +174,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = {
     // logout: AuthActions.logout
+    loading: CommonAction.loading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

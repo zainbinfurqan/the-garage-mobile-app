@@ -46,7 +46,7 @@ function Dashboard(props) {
                     <Text style={[Style.switchTabText, tab3 && { color: 'white' }]}>Your purchase</Text>
                 </TouchableOpacity>
             </View>
-            <View style={Style.line} />
+            {/* <View style={Style.line} /> */}
             {tab1 && <MyPosts />}
             {tab2 && <Intrested />}
             {tab3 && <SoldOut />}

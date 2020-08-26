@@ -32,4 +32,11 @@ export default Styles = StyleSheet.create({
         alignSelf: 'center',
         // transform: [{ rotate: '180deg' }]
     },
+    textInput: {
+        height: 40,
+        marginBottom: 10,
+        borderColor: constants.LIGHT_BORDER,
+        borderRadius: 100,
+        // borderRadius: constants.INPUT_TEXT_RADIUS * 50
+    },
 });

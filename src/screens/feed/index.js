@@ -2,6 +2,7 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { View, SafeAreaView, Text, ScrollView, RefreshControl, FlatList, Image, ActivityIndicator, TouchableOpacity, } from 'react-native';
 import Slider from '@react-native-community/slider'
 import { connect } from 'react-redux'
+import { useRoute } from '@react-navigation/native';
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import AfterLoginHeader from '../../components/AfterLoginHeader'
@@ -43,7 +44,7 @@ function PostsFeed(props) {
     const [posts, setPosts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('')
     const [loading, setLoading] = useState(false)
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState(true);
 
     const onRefresh = React.useCallback(() => {
         dispatch({
@@ -63,6 +64,7 @@ function PostsFeed(props) {
     }, [refreshing]);
 
     useEffect(() => {
+        console.log("reload")
         fetchPost(selectedCategory, state.lowPrice, state.highPrice)
         // fetchCategory()
         // props.apiresponse(true)
@@ -80,6 +82,7 @@ function PostsFeed(props) {
             const response = await api.searchPost(null, null, null, params)
             setPosts(response)
             setLoading(false)
+            setRefreshing(false)
         } catch (error) {
             setLoading(false)
         }

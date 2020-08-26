@@ -30,6 +30,17 @@ apis.fetchMessage = function (body = null, authorization = null) {
     );
 };
 
+apis.fetchPostDetail = function (body = null, authorization = null, header = null, params = null) {
+    console.log("params=>", params)
+    return helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/post/detail?postId=${params.postId}`,
+    );
+};
+
 //create room api
 apis.createRoom = async function (body = null, authorization = null, headers = null) {
     return await helper.apiMethod(
@@ -223,6 +234,61 @@ apis.uploadFiles = async function (body = null, authorization = null, headers) {
 //     })
 // };
 
+//admin apis
+// search users api 
+apis.searchUsersAdmin = async function (body = null, authorization = null, headers = null, params = null) {
+    let url = params.firstName === '' ? '/admin/searchuser' : `/admin/searchuser?firstName=${params.firstName}`
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}${url}`,
+    );
+};
 
+// fetch pending post
+apis.fetchPendingPost = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/admin/pendingposts`,
+    );
+};
+
+// block user api
+apis.blockUser = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/admin/blockuser`,
+    );
+};
+
+// unblock user api
+apis.unBlockUser = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/admin/unblockuser`,
+    );
+};
+
+// approve post api
+apis.approvedPost = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/admin/approvepost`,
+    );
+};
 
 export default apis;

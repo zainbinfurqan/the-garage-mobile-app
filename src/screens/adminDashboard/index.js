@@ -8,8 +8,9 @@ import constants from '../../config/constants';
 function AdminDashbaord(props) {
 
     const [options, setOption] = useState([
-        { titile: 'Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'AllPosts' },
-        { titile: 'Users', iconsPath: require('../../assets/icons/registration.png'), navigatePath: 'AllUsers' },
+        { titile: 'Total Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'AllPosts' },
+        { titile: 'Total Users', iconsPath: require('../../assets/icons/registration.png'), navigatePath: 'AllUsers' },
+        { titile: 'Pending Users', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'PendingPosts' },
     ])
 
     return (
@@ -34,13 +35,13 @@ function AdminDashbaord(props) {
                             alignSelf: 'center',
                             borderRadius: 5,
                             borderWidth: 0.34,
-                            width: "50%",
+                            width: "60%",
                             borderColor: constants.LIGHT_BORDER,
                         }}>
                             <Image style={{ height: 35, width: 35, alignSelf: "center" }} source={item.iconsPath} />
                             <Text style={{
                                 fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                fontSize: constants.SMALL_FONT * 1.4,
+                                fontSize: constants.SMALL_FONT * 1.2,
                                 alignSelf: 'center'
                             }}>{item.titile}</Text>
                         </TouchableOpacity>

@@ -29,5 +29,12 @@ export default Styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: constants.SMALL_FONT,
         fontFamily: constants.FONT_SAMSUNG_LIGHT
-    }
+    },
+    textInput: {
+        height: 40,
+        marginBottom: 10,
+        borderColor: constants.LIGHT_BORDER,
+        borderRadius: 100,
+        // borderRadius: constants.INPUT_TEXT_RADIUS * 50
+    },
 });

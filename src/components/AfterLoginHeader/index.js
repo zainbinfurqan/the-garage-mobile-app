@@ -34,7 +34,7 @@ function AfterLoginHeader(props) {
                         fontFamily: constants.FONT_SAMSUNG_LIGHT
                     }}>{props.headerText}</Text>
                 </View>
-                {route.name !== 'Notification' && <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={{ flex: .1, justifyContent: 'center', }}>
+                {route.name !== 'Notification' && props.notificationIcon && <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={{ flex: .1, justifyContent: 'center', }}>
                     <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/notification.png')} />
                 </TouchableOpacity>}
             </ImageBackground>

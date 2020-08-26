@@ -4,6 +4,7 @@ import { View, SafeAreaView, Text, ScrollView, Image, TouchableOpacity, Activity
 import { connect } from 'react-redux'
 import NoDataFound from '../../../components/NoDataFound'
 import AfterLoginHeader from '../../../components/AfterLoginHeader'
+import IconsInput from '../../../components/Input/IconsInput'
 import constants from '../../../config/constants';
 import api from '../../../utils/apis'
 import Style from './style'
@@ -13,6 +14,7 @@ function AllPosts(props) {
 
     const [loading, setLoading] = useState(false)
     const [allPosts, setAllPosts] = useState([])
+    const [searchText, setSearchText] = useState('')
 
     useEffect(() => {
         fetchAllPosts()
@@ -38,6 +40,15 @@ function AllPosts(props) {
         <SafeAreaView style={Style.mainContainer}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='All Posts' />}
             <ScrollView style={Style.scrollMain}>
+                <View style={{ justifyContent: 'center', marginBottom: 5 }}>
+                    <IconsInput
+                        viewStyle={{ borderRadius: 50 }}
+                        placeholder='Enter name'
+                        onChangeText={(e) => setSearchText(e)}
+                        value={searchText}
+                        Icon={require('../../../assets/icons/search.png')}
+                        InputStyle={Style.textInput} />
+                </View>
                 {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
                 {allPosts.length == 0 && !loading && <NoDataFound />}
                 {!loading && allPosts.length > 0 && allPosts.map((item, index) => {

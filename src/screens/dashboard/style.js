@@ -4,7 +4,13 @@ import constants from '../../config/constants'
 
 export default Styles = StyleSheet.create({
     dashboardMain: { flex: 1, backgroundColor: 'white' },
-    switchTabsMain: { height: 35, flexDirection: 'row', justifyContent: 'center' },
+    switchTabsMain: {
+        borderBottomWidth: 0.34, marginLeft: 5,
+        marginBottom: 5,
+        borderColor: constants.LIGHT_BORDER,
+        marginRight: 5,
+        height: 35, flexDirection: 'row', justifyContent: 'center'
+    },
     switchTab: {
         borderWidth: 0.34,
         borderColor: constants.LIGHT_BORDER,
