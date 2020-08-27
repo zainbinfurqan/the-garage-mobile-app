@@ -32,9 +32,22 @@ function AfterLoginHeader(props) {
                         fontFamily: constants.FONT_SAMSUNG_LIGHT
                     }}>{props.headerText}</Text>
                 </View>
-                {route.name !== 'Notification' && props.notificationIcon && <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={{ flex: .1, justifyContent: 'center', }}>
-                    <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/notification.png')} />
-                </TouchableOpacity>}
+                {route.name !== 'Notification' && props.notificationIcon &&
+                    <>
+                        <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={{ flex: .1, justifyContent: 'center', }}>
+                            <View style={{
+                                marginBottom: -5,
+                                marginRight: 5,
+                                position: 'relative',
+                                height: 10,
+                                borderRadius: 5,
+                                width: 10,
+                                backgroundColor: 'white', alignSelf: 'flex-end'
+                            }}></View>
+                            <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/notification.png')} />
+                        </TouchableOpacity>
+                    </>
+                }
             </ImageBackground>
             {/* <View style={{ width: '99.8%', alignSelf: 'center', }}>
                 <ImageBackground style={{ height: 5, opacity: 0.8, borderBottomEndRadius: 5 }} source={require('../../assets/images/header-2.png')}></ImageBackground>

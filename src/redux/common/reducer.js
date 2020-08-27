@@ -1,8 +1,9 @@
-import { LOADING, API_RESPONSE, CATEGORIES } from './action';
+import { LOADING, API_RESPONSE, CATEGORIES, SET_UNREAD_LOCAL_NOTIFICATION } from './action';
 const initialState = {
     loading: false,
     apiResponse: { flag: false, isError: false, isSuccess: false, message: '' },
-    categories: []
+    categories: [],
+    unReadLocalNotification: []
 };
 
 export default function (state = initialState, action) {
@@ -13,6 +14,8 @@ export default function (state = initialState, action) {
             return { ...state, apiResponse: action.payload };
         case CATEGORIES:
             return { ...state, categories: action.payload };
+        case SET_UNREAD_LOCAL_NOTIFICATION:
+            return { ...state, unReadLocalNotification: action.payload };
         default:
             return state;
     }

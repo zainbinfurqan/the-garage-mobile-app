@@ -1,30 +1,55 @@
-import React, { } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, SafeAreaView, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 
-import constant from '../../config/constants'
 import AfterLoginHeader from '../../components/AfterLoginHeader'
-import Style from './style'
+import CommonAction from '../../redux/common/action';
 import constants from '../../config/constants';
+import constant from '../../config/constants'
+import apis from '../../utils/apis';
+import Style from './style'
+import helper from '../../utils/helpers';
 
 function Notification(props) {
+
+    const [notification, setNotification] = useState([])
+
+    useEffect(() => {
+        fetchNotification()
+    }, [])
+
+    async function fetchNotification() {
+        try {
+            let params = { user: props.userData._id }
+            const response = await apis.fetchAllNotification(null, null, null, params);
+            console.log("response=>", response)
+            setNotification(response)
+        } catch (error) {
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
     return (
         <SafeAreaView style={Style.containerMain}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='Notification' />}
             <ScrollView style={{ borderColor: 'red', padding: 10 }}>
-                {constant.NOTIFICATION.map((item, index) => {
+                {notification.map((item, index) => {
                     return (
                         <>
-                            <View style={[{ flexDirection: 'row', padding: 5, borderRadius: 3, }, item.isRead && { backgroundColor: constants.LIGHT_BACKGROUND_COLOR }]}>
+                            <View key={index} style={[{ flexDirection: 'row', padding: 5, borderRadius: 3, }, item.isRead && { backgroundColor: constants.LIGHT_BACKGROUND_COLOR }]}>
                                 <TouchableOpacity style={{ flex: .9 }}>
                                     <Text style={{
                                         fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                        fontSize: constants.SMALL_FONT
-                                    }}>{item.title}</Text>
+                                        fontSize: constants.SMALL_FONT * 1.4
+                                    }}>{helper.nameConcatenate(item.otherUser)}</Text>
                                     <Text style={{
                                         fontFamily: constants.FONT_SAMSUNG_LIGHT,
                                         fontSize: constants.SMALL_FONT
-                                    }}>{item.discription.substring(1, 100)}...</Text>
+                                    }}>{item.tittle}</Text>
+                                    <Text style={{
+                                        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                        fontSize: constants.SMALL_FONT
+                                    }}>{item.text}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={{ justifyContent: 'center', flex: .1 }}>
                                     {!item.isRead && <View style={{ borderRadius: 50, alignSelf: 'center', backgroundColor: 'red', height: 10, width: 10 }}></View>}
@@ -46,6 +71,7 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
+    apiresponse: CommonAction.apiresponse,
     // saveUserData: AuthActions.saveUserData
 };
 

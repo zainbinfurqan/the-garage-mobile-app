@@ -3,6 +3,7 @@ import { View, SafeAreaView, Text, ScrollView, RefreshControl, FlatList, Image, 
 import Slider from '@react-native-community/slider'
 import { connect } from 'react-redux'
 import { useRoute } from '@react-navigation/native';
+import io from 'socket.io-client';
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import AfterLoginHeader from '../../components/AfterLoginHeader'
@@ -18,6 +19,7 @@ import moment from 'moment'
 import helper from '../../utils/helpers';
 import style from './style';
 
+const socket = io(constants.SOCKET_IO_URL, { forceNew: true });
 const initialState = {
     lowPrice: 10,
     highPrice: 10,
@@ -38,6 +40,8 @@ function reducer(state, action) {
     }
 }
 function PostsFeed(props) {
+
+
 
     const [state, dispatch] = useReducer(reducer, initialState)
     const [category, setCategory] = useState([])
@@ -66,9 +70,19 @@ function PostsFeed(props) {
     useEffect(() => {
         fetchPost(selectedCategory, state.lowPrice, state.highPrice)
         // fetchCategory()
+        setupListener()
         // props.apiresponse(true)
         // props.logout(null)
     }, [])
+
+    function setupListener() {
+        socket.on("app-local-notification", (socketData) => {
+            let params = {
+                user: props.userData._id
+            }
+            props.fetchUnReadLocalNotification(params)
+        })
+    }
 
     async function fetchPost(category, lowPrice, highPrice) {
         setLoading(true)
@@ -119,7 +133,7 @@ function PostsFeed(props) {
     return (
         <SafeAreaView style={Style.container}>
             {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
-            {props.isLogin && <AfterLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
+            {props.isLogin && <AfterLoginHeader notificationIcon={true} menuButton={true} backButton={false} headerText='Post Feed' />}
             <View style={{
                 flexDirection: 'row',
                 paddingLeft: 10,
@@ -207,61 +221,6 @@ function PostsFeed(props) {
 
                                 </View>
                             </View>
-                            {/* <View style={Style.postHeaderMain}>
-                                <View style={Style.profileMain}>
-                                    <View style={Style.profile}>
-                                        <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
-                                    </View>
-                                </View>
-                                <View style={{ flex: .60 }}>
-                                    <Text style={Style.name}>{helper.nameConcatenate(item.user)}</Text>
-                                </View>
-                                <View style={{ flex: .40, justifyContent: "center", }}><Text style={{
-                                    fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                    fontSize: constants.SMALL_FONT,
-                                    alignSelf: "flex-end"
-                                }}>{moment(item.createdAt).format('ddd MMM YYYY hh:mm a')}</Text></View>
-                            </View>
-                            <View style={{ justifyContent: 'center' }}>
-                                <Image style={{ alignSelf: 'center', height: 170 }} source={require('../../assets/images/default-post.png')} />
-                            </View>
-                            <View style={{ flexDirection: 'row', margin: 5, }}>
-                                <View style={{ flex: .7, }}><Text style={{
-                                    fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                    fontSize: constants.SMALL_FONT,
-                                    paddingLeft: 10
-                                }}>Category: {item.category.name}</Text></View>
-                                <View style={{ flex: .3, paddingRight: 5 }}><Text style={{
-                                    fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                    alignSelf: 'flex-end',
-                                    fontSize: constants.SMALL_FONT
-                                }}>Price: {item.priceRange}</Text></View>
-                            </View>
-                            <View style={[Style.footerMain, {}]}>
-                                <View style={Style.footer1left}>
-                                    {item.intrested.length == 0 && <View style={[Style.intrestedPeopleMain, { marginLeft: -10, }]}>
-                                        <Image style={{ height: 25, opacity: 0.5, width: 25, alignSelf: 'center', position: 'absolute' }} source={require('../../assets/images/default-profile-1.png')} />
-                                        <Image style={{ height: 10, width: 10, alignSelf: 'center' }} source={require('../../assets/icons/add-black.png')} />
-                                    </View>}
-                                    {item.intrested.slice(0, 3).map((item, index) => {
-                                        return (
-                                            <View key={index} style={[Style.intrestedPeopleMain, index > 0 && { marginLeft: -10 }]}>
-                                                <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/images/default-profile-1.png')} />
-                                            </View>
-                                        )
-                                    })}
-
-                                    <View style={Style.intrestedPeopleNumber}>
-                                        <Text style={Style.intrestedText1}>{item.intrested.length}</Text>
-                                        <Text style={Style.intrestedText2}> people are intrested</Text></View>
-                                </View>
-                                <View style={[Style.footer1]}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView', { postData: item })}>
-                                        <Text style={Style.intrestedText2}>View details </Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                         */}
                         </TouchableOpacity>
                     )}
                     numColumns={1}
@@ -284,6 +243,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = {
     logout: AuthActions.logout,
     apiresponse: CommonAction.apiresponse,
+    fetchUnReadLocalNotification: CommonAction.fetchUnReadLocalNotification
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsFeed);

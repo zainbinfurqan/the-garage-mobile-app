@@ -1,7 +1,9 @@
 
-export const LOADING = 'LOADING';
+export const SET_UNREAD_LOCAL_NOTIFICATION = 'SET_UNREAD_LOCAL_NOTIFICATION';
 export const API_RESPONSE = 'API_RESPONSE';
 export const CATEGORIES = 'CATEGORIES';
+export const LOADING = 'LOADING';
+
 import api from '../../utils/apis'
 
 const action = {};
@@ -24,6 +26,13 @@ action.fetchCategory = function (data) {
         dispatch({ type: CATEGORIES, payload: response });
     };
 };
+
+action.fetchUnReadLocalNotification = function (data) {
+    return async function (dispatch) {
+        const response = await api.fetchUnReadLocalNotification_(null, null, null, data);
+        dispatch({ type: SET_UNREAD_LOCAL_NOTIFICATION, payload: response });
+    };
+}
 
 
 export default action;

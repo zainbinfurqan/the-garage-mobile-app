@@ -34,8 +34,14 @@ function PendingPosts(props) {
     async function markApprove(value) {
         props.loading(true)
         try {
-            let body = { postId: value }
+            let body = {
+                postId: value._id,
+                name: value.user.firstName + value.user.lastName,
+                sendFrom: props.userData._id,
+                sendTo: value.user._id
+            }
             const response = await apis.approvedPost(body);
+            helper.sendAppLocalNotidication({ to: value.user._id })
             props.loading(false)
             fetchPendingPost()
         } catch (error) {
@@ -66,7 +72,7 @@ function PendingPosts(props) {
                             <TouchableOpacity style={Style.editMain}>
                                 <Text style={Style.editName}>Edit</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => markApprove(items._id)} style={Style.approveMain}>
+                            <TouchableOpacity onPress={() => markApprove(items)} style={Style.approveMain}>
                                 <Text style={Style.approveName}>Mark Approve</Text>
                             </TouchableOpacity>
                         </View>

@@ -1,6 +1,7 @@
 
 import constants from '../config/constants'
-
+import io from 'socket.io-client';
+const socket = io(constants.SOCKET_IO_URL, { forceNew: true, });
 let helper = {};
 
 helper.apiMethod = async function (path = null, method = null, body = null, authorization = null, url = null) {
@@ -42,6 +43,10 @@ helper.apiMethod = async function (path = null, method = null, body = null, auth
 
 helper.nameConcatenate = function (name) {
     return name.firstName + ' ' + name.lastName
+}
+
+helper.sendAppLocalNotidication = function (param) {
+    socket.emit('local-notification', param);
 }
 
 export default helper;

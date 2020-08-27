@@ -132,7 +132,6 @@ apis.fetchFaq = async function (body = null, authorization = null, headers = nul
 };
 
 //fetch all posts api
-
 apis.fetchAllPosts = async function (body = null, authorization = null, headers = null) {
     return await helper.apiMethod(
         null,
@@ -140,6 +139,28 @@ apis.fetchAllPosts = async function (body = null, authorization = null, headers 
         body,
         authorization,
         `${constant.BASE_URL}/post/fetchall`,
+    );
+};
+
+//fetch all notiftication api
+apis.fetchAllNotification = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/notification?user=${params.user}`,
+    );
+};
+
+// fetch unread local notification 
+apis.fetchUnReadLocalNotification_ = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/notification/getUnReadNotification?user=${params.user}`,
     );
 };
 
