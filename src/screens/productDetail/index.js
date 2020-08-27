@@ -7,6 +7,7 @@ import CommonAction from '../../redux/common/action'
 import constants from '../../config/constants';
 import Style from './style'
 import apis from '../../utils/apis';
+import helper from '../../utils/helpers';
 const { width, height } = Dimensions.get('window')
 
 function ProductDetailView(props) {
@@ -57,7 +58,16 @@ function ProductDetailView(props) {
             if (props.isLogin) {
                 console.log("postData=>", postData)
                 if (postData.intrested.includes(props.userData._id)) {
-                    const response = await apis.markUnIntrested({ userId: props.userData._id, intrested: postData.intrested, _id: postData._id })
+                    const response = await apis.markUnIntrested(
+                        {
+                            userId: props.userData._id,
+                            intrested: postData.intrested,
+                            _id: postData._id,
+                            name: helper.nameConcatenate(postData.user),
+                            sendFrom: props.userData._id,
+                            sendTo: postData.user._id
+                        })
+
                     if (response.message == "Successfull") {
                         props.navigation.pop()
                     }

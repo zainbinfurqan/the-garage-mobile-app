@@ -28,11 +28,22 @@ action.fetchCategory = function (data) {
 };
 
 action.fetchUnReadLocalNotification = function (data) {
+    console.log("data=>", data)
     return async function (dispatch) {
         const response = await api.fetchUnReadLocalNotification_(null, null, null, data);
         dispatch({ type: SET_UNREAD_LOCAL_NOTIFICATION, payload: response });
     };
 }
+
+action.updateUnReadLcoalNotification = function (data) {
+    return async function (dispatch) {
+        try {
+            dispatch({ type: SET_UNREAD_LOCAL_NOTIFICATION, payload: data });
+        } catch (e) {
+            console.log('e =>', e);
+        }
+    };
+};
 
 
 export default action;

@@ -160,10 +160,31 @@ apis.fetchUnReadLocalNotification_ = async function (body = null, authorization 
         'GET',
         body,
         authorization,
-        `${constant.BASE_URL}/notification/getUnReadNotification?user=${params.user}`,
+        `${constant.BASE_URL}/notification/unred?user=${params.user}`,
     );
 };
 
+// markt  local notification read 
+apis.markNotificationRead = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/notification/`,
+    );
+};
+
+// markt  local notification delete 
+apis.markNotificationDelete = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/notification/delete`,
+    );
+};
 
 //add to intrested api
 apis.markIntrested = async function (body = null, authorization = null, headers = null) {

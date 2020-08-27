@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, SafeAreaView, Text, ActivityIndicator, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 
 import AfterLoginHeader from '../../components/AfterLoginHeader'
@@ -13,18 +13,56 @@ import helper from '../../utils/helpers';
 function Notification(props) {
 
     const [notification, setNotification] = useState([])
+    const [loading, setLoadin] = useState(false)
 
     useEffect(() => {
         fetchNotification()
     }, [])
 
+    function setUnreadlocalNotification(id) {
+        let a = props.unReadLocalNotification.filter(item => item._id !== id)
+        props.updateUnReadLcoalNotification(a)
+    }
+
+    async function markRead(data) {
+        props.loading(true)
+        try {
+            let body = { notification: data._id }
+            const response = await apis.markNotificationRead(body);
+            fetchNotification()
+            setUnreadlocalNotification(data._id)
+            props.loading(false)
+        } catch (error) {
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
+    async function markDelete(data) {
+        props.loading(true)
+        try {
+            let body = { notification: data._id }
+            const response = await apis.markNotificationDelete(body);
+            fetchNotification()
+            props.loading(false)
+        } catch (error) {
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
     async function fetchNotification() {
+        props.loading(true)
+        setLoadin(true)
         try {
             let params = { user: props.userData._id }
             const response = await apis.fetchAllNotification(null, null, null, params);
-            console.log("response=>", response)
             setNotification(response)
+            props.loading(false)
+            setLoadin(false)
         } catch (error) {
+            setLoadin(false)
+            props.loading(false)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
         }
     }
@@ -32,12 +70,13 @@ function Notification(props) {
     return (
         <SafeAreaView style={Style.containerMain}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='Notification' />}
+            {notification.length == 0 && loading && <ActivityIndicator color={constant.LIGHT_BLUE} />}
             <ScrollView style={{ borderColor: 'red', padding: 10 }}>
                 {notification.map((item, index) => {
                     return (
                         <>
                             <View key={index} style={[{ flexDirection: 'row', padding: 5, borderRadius: 3, }, item.isRead && { backgroundColor: constants.LIGHT_BACKGROUND_COLOR }]}>
-                                <TouchableOpacity style={{ flex: .9 }}>
+                                <TouchableOpacity style={{ flex: .9 }} onPress={() => markRead(item)}>
                                     <Text style={{
                                         fontFamily: constants.FONT_SAMSUNG_LIGHT,
                                         fontSize: constants.SMALL_FONT * 1.4
@@ -53,7 +92,7 @@ function Notification(props) {
                                 </TouchableOpacity>
                                 <TouchableOpacity style={{ justifyContent: 'center', flex: .1 }}>
                                     {!item.isRead && <View style={{ borderRadius: 50, alignSelf: 'center', backgroundColor: 'red', height: 10, width: 10 }}></View>}
-                                    {item.isRead && <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/delete.png')} />}
+                                    {item.isRead && <TouchableOpacity onPress={() => markDelete(item)}><Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/delete.png')} /></TouchableOpacity>}
                                 </TouchableOpacity>
                             </View>
                             <View style={Style.line}></View>
@@ -67,11 +106,14 @@ function Notification(props) {
 
 const mapStateToProps = (store) => ({
     userData: store.auth.userData,
-    isLogin: store.auth.isLogin
+    isLogin: store.auth.isLogin,
+    unReadLocalNotification: store.common.unReadLocalNotification
 });
 
 const mapDispatchToProps = {
     apiresponse: CommonAction.apiresponse,
+    loading: CommonAction.loading,
+    updateUnReadLcoalNotification: CommonAction.updateUnReadLcoalNotification
     // saveUserData: AuthActions.saveUserData
 };
 

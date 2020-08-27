@@ -71,6 +71,9 @@ function PostsFeed(props) {
         fetchPost(selectedCategory, state.lowPrice, state.highPrice)
         // fetchCategory()
         setupListener()
+        props.isLogin && props.fetchUnReadLocalNotification({
+            user: props.userData._id
+        })
         // props.apiresponse(true)
         // props.logout(null)
     }, [])

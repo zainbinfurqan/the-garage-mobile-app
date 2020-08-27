@@ -16,6 +16,7 @@ function AfterLoginHeader(props) {
 
     return (
         <>
+            {console.log("unReadLocalNotification=>", props.unReadLocalNotification)}
             <ImageBackground source={require('../../assets/images/header.png')} style={{ height: 60, flexDirection: 'row', }}>
                 {props.backButton &&
                     <TouchableOpacity onPress={() => navigation.pop()} style={{ flex: 0.1, justifyContent: 'center', }}>
@@ -35,7 +36,7 @@ function AfterLoginHeader(props) {
                 {route.name !== 'Notification' && props.notificationIcon &&
                     <>
                         <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={{ flex: .1, justifyContent: 'center', }}>
-                            <View style={{
+                            {props.unReadLocalNotification.length > 0 && <View style={{
                                 marginBottom: -5,
                                 marginRight: 5,
                                 position: 'relative',
@@ -43,7 +44,7 @@ function AfterLoginHeader(props) {
                                 borderRadius: 5,
                                 width: 10,
                                 backgroundColor: 'white', alignSelf: 'flex-end'
-                            }}></View>
+                            }}></View>}
                             <Image style={{ height: 25, width: 25, alignSelf: 'center' }} source={require('../../assets/icons/notification.png')} />
                         </TouchableOpacity>
                     </>
@@ -61,7 +62,8 @@ function AfterLoginHeader(props) {
 
 const mapStateToProps = (store) => ({
     userData: store.auth.userData,
-    isLogin: store.auth.isLogin
+    isLogin: store.auth.isLogin,
+    unReadLocalNotification: store.common.unReadLocalNotification
 });
 
 const mapDispatchToProps = {
