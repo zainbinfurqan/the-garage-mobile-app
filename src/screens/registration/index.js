@@ -3,6 +3,7 @@ import { View, SafeAreaView, TouchableOpacity, Text, TextInput, Image, KeyboardA
 import { connect } from 'react-redux'
 
 import TextInput_ from '../../components/Input/TextInput'
+import CommonAction from '../../redux/common/action'
 import AuthActions from '../../redux/auth/action'
 import constants from '../../config/constants'
 import Button_ from '../../components/Button'
@@ -32,6 +33,11 @@ function reducer(state, action) {
 function Registration(props) {
 
     const [state, dispatch] = useReducer(reducer, initialState)
+    const emailRegx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const name = /^[a-zA-Z]+$/;
+    const phoneNo = /^[0-9]*$/;
+    const [error, setError] = useState({})
+
 
     function handleChangeText(value, label) {
         dispatch({
@@ -42,24 +48,108 @@ function Registration(props) {
         });
     }
 
+    // async function userRegistration() {
+    //     try {
+    //         let body = {
+    //             firstName: state.firstName,
+    //             lastName: state.lastName,
+    //             email: state.email,
+    //             password: state.password,
+    //             address: state.address,
+    //             phone: state.phone,
+
+    //         }
+    //         const response = await api.registration(body);
+    //         response !== undefined && props.saveUserData(response)
+    //         props.navigation.replace('MainScreen')
+
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
     async function userRegistration() {
         try {
-            let body = {
-                firstName: state.firstName,
-                lastName: state.lastName,
-                email: state.email,
-                password: state.password,
-                address: state.address,
-                phone: state.phone,
-
+            const isValidated = checkValidation();
+            if (isValidated) {
+                props.loading(true)
+                let body = {
+                    firstName: state.firstName,
+                    lastName: state.lastName,
+                    email: state.email,
+                    password: state.password,
+                    address: state.address,
+                    phoneNo: state.phoneNo,
+                }
+                const response = await api.registration(body);
+                response !== undefined && props.saveUserData(response)
+                props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Login successfully' })
+                props.navigation.replace('MainScreen')
+                props.loading(false)
             }
-            const response = await api.registration(body);
-            response !== undefined && props.saveUserData(response)
-            props.navigation.replace('MainScreen')
-
         } catch (error) {
-            console.log(error)
+            props.loading(false)
+            console.log(error.error)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
         }
+    }
+
+    function checkValidation() {
+        const errors = {};
+        if (!state.firstName.trim()) {
+            errors.firstName = 'This field is required';
+        } else {
+            if (state.firstName.trim().length < 3) {
+                errors.firstName = 'Characters must be more then 3 ';
+            } else {
+                if (!name.test(state.firstName.trim())) {
+                    errors.firstName = 'Invalid name formate';
+                }
+            }
+        }
+
+        if (!state.lastName.trim()) {
+            errors.lastName = 'This field is required';
+        } else {
+            if (state.lastName.trim().length < 3) {
+                errors.lastName = 'Characters must be more then 3 ';
+            } else {
+                if (!name.test(state.lastName.trim())) {
+                    errors.lastName = 'Invalid name formate';
+                }
+            }
+        }
+
+        if (!state.email.trim()) {
+            errors.email = 'This field is required';
+        } else {
+            if (!emailRegx.test(state.email.trim())) {
+                errors.email = 'Invalid email formate';
+            }
+        }
+
+        if (!state.password.trim()) {
+            errors.password = 'This field is required';
+        } else {
+            if (state.password.trim().length < 8) {
+                errors.password = 'Characters must be more then 7 ';
+            }
+        }
+
+        if (!state.address.trim()) {
+            errors.address = 'This field is required';
+        }
+        if (!state.phoneNo.trim()) {
+            errors.phoneNo = 'This field is required';
+        } else {
+            if (!phoneNo.test(state.phoneNo.trim())) {
+                errors.phoneNo = 'Invalid number formate';
+            }
+        }
+
+        setError(errors)
+
+        return !Object.keys(errors).length;
     }
 
 
@@ -80,36 +170,42 @@ function Registration(props) {
                         onChangeText={(e) => handleChangeText(e, 'firstName')}
                         InputStyle={Styles.textInput}
                         value={state.firstName}
+                        error={error && error.firstName}
                     />
                     <TextInput_
                         placeholder='Last Name'
                         onChangeText={(e) => handleChangeText(e, 'lastName')}
                         InputStyle={Styles.textInput}
                         value={state.lastName}
+                        error={error && error.lastName}
                     />
                     <TextInput_
                         placeholder='Email'
                         onChangeText={(e) => handleChangeText(e, 'email')}
                         InputStyle={Styles.textInput}
                         value={state.email}
+                        error={error && error.email}
                     />
                     <TextInput_
                         placeholder='Password'
                         onChangeText={(e) => handleChangeText(e, 'password')}
                         InputStyle={Styles.textInput}
                         value={state.password}
+                        error={error && error.password}
                     />
                     <TextInput_
                         placeholder='Address'
                         onChangeText={(e) => handleChangeText(e, 'address')}
                         InputStyle={Styles.textInput}
                         value={state.address}
+                        error={error && error.address}
                     />
                     <TextInput_
                         placeholder='Phone #'
                         onChangeText={(e) => handleChangeText(e, 'phoneNo')}
                         InputStyle={Styles.textInput}
                         value={state.phoneNo}
+                        error={error && error.phoneNo}
                     />
                     <Button_ onPress={userRegistration} title='Registration' textStyle={{ color: 'white' }} rippleColor={constants.RIPPLE_COLOR} />
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
@@ -129,7 +225,9 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
-    saveUserData: AuthActions.saveUserData
+    saveUserData: AuthActions.saveUserData,
+    loading: CommonAction.loading,
+    apiresponse: CommonAction.apiresponse,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Registration);

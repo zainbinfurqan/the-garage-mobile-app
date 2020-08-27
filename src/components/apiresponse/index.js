@@ -15,7 +15,6 @@ function ApiResponse(props) {
 
     return (
         <View style={style.container}>
-            {console.log("apiresponse=>", props.apiResponse)}
             <View style={
                 [props.apiResponse.isSuccess && { backgroundColor: 'white' },
                 props.apiResponse.isError && { backgroundColor: constants.RED, }, style.main]}

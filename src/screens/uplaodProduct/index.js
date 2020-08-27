@@ -62,7 +62,6 @@ function Uploadproduct(props) {
 
     function onItmPress(item) {
         setOpenSelect(!openSelect)
-        console.log(item)
         if (item == 'Take from camera') {
             ImagePicker.launchCamera(options, (response) => {
                 if (response.uri) {
@@ -101,7 +100,6 @@ function Uploadproduct(props) {
 
     return (
         <>
-            {console.log(images)}
             {openSelect && <SelectPanel open={openSelect}
                 selectitem={onItmPress}
                 data={[{ title: 'Open gallery' }, { title: 'Take from camera' }, { title: 'Cancle' }]} />}

@@ -28,7 +28,6 @@ function AllPosts(props) {
                 userId: props.userData._id
             }
             const response = await api.fetchAllPosts(null, null, null, params);
-            console.log("response=>", response)
             setAllPosts(response)
             setLoading(false)
         } catch (error) {

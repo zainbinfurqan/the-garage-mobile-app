@@ -24,7 +24,6 @@ function PendingPosts(props) {
         try {
             const response = await apis.fetchPendingPost();
             setPendingPosts(response)
-            console.log(response)
             setLoading(false)
         } catch (error) {
             setLoading(false)
@@ -37,7 +36,6 @@ function PendingPosts(props) {
         try {
             let body = { postId: value }
             const response = await apis.approvedPost(body);
-            console.log(response)
             props.loading(false)
             fetchPendingPost()
         } catch (error) {

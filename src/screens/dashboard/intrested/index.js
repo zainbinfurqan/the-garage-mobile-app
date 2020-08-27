@@ -25,7 +25,6 @@ function Intrested(props) {
                 userId: props.userData._id
             }
             const response = await api.fetchMyIntrest(null, null, null, params);
-            console.log("response=>", response)
             setMyIntreste(response)
             setLoading(false)
         } catch (error) {

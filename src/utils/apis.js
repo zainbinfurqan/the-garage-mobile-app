@@ -9,15 +9,16 @@ let apis = {};
 
 
 //registration appi
-// apis.registration = async function (body = null, authorization = null, headers) {
-//     return await helpers.apiMethod(
-//         null,
-//         'POST',
-//         body,
-//         authorization,
-//         `${constant.BASE_URL}/user/registration`,
-//     );
-// };
+apis.registration = async function (body = null, authorization = null, headers = null) {
+    console.log("body=>", body)
+    return await helper.apiMethod(
+        null,
+        'POST',
+        body,
+        authorization,
+        `${constant.BASE_URL}/user/registration`,
+    );
+};
 
 // fetch message api
 apis.fetchMessage = function (body = null, authorization = null) {
@@ -31,7 +32,6 @@ apis.fetchMessage = function (body = null, authorization = null) {
 };
 
 apis.fetchPostDetail = function (body = null, authorization = null, header = null, params = null) {
-    console.log("params=>", params)
     return helper.apiMethod(
         null,
         'GET',

@@ -28,7 +28,6 @@ function Login(props) {
     }
 
     async function userLogin() {
-
         try {
             const isValidated = checkValidation();
             if (isValidated) {
@@ -43,12 +42,9 @@ function Login(props) {
                 props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Login successfully' })
                 props.navigation.replace('MainScreen')
             }
-
         } catch (error) {
             props.loading(false)
-            // console.log(error.message)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
-
         }
     }
 

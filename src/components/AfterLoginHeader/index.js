@@ -10,14 +10,12 @@ import { connect } from 'react-redux'
 function AfterLoginHeader(props) {
     const navigation = useNavigation();
     const route = useRoute();
-    console.log(route.name)
     function openDrawer() {
         navigation.openDrawer();
     }
 
     return (
         <>
-            {console.log(props.routeName)}
             <ImageBackground source={require('../../assets/images/header.png')} style={{ height: 60, flexDirection: 'row', }}>
                 {props.backButton &&
                     <TouchableOpacity onPress={() => navigation.pop()} style={{ flex: 0.1, justifyContent: 'center', }}>

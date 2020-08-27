@@ -34,7 +34,6 @@ function Auth(props) {
 
     return (
         <>
-            {console.log("props.loading=>", props.loading)}
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator
                     initialRouteName='MainScreen'

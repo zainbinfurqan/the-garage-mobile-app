@@ -64,7 +64,6 @@ function PostsFeed(props) {
     }, [refreshing]);
 
     useEffect(() => {
-        console.log("reload")
         fetchPost(selectedCategory, state.lowPrice, state.highPrice)
         // fetchCategory()
         // props.apiresponse(true)
