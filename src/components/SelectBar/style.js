@@ -4,8 +4,6 @@ import constant from '../../config/constants'
 const { width, height } = Dimensions.get('window')
 
 export default Styles = StyleSheet.create({
-    containerMain: { flex: 1, backgroundColor: 'white' },
-    line: { margin: 10, borderWidth: 0.34, borderColor: constant.LINE_COLOR, },
     selectmain: { flexDirection: 'row', margin: 5, padding: 5, justifyContent: 'space-evenly' },
     optionLeftMain: {
         borderWidth: 0.34,

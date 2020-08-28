@@ -39,4 +39,34 @@ export default Styles = StyleSheet.create({
         borderRadius: 100,
         // borderRadius: constants.INPUT_TEXT_RADIUS * 50
     },
+    pendingMainCard: { borderWidth: 0.34, margin: 5, borderRadius: 3, padding: 5, flexDirection: 'column' },
+    nameMain: { padding: 5 },
+    name: {
+        fontSize: constants.SMALL_FONT,
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
+    postMain: { padding: 5 },
+    post: {
+        fontSize: constants.SMALL_FONT,
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
+    option: { padding: 5, flexDirection: 'row', justifyContent: 'center' },
+    viewMain: { flex: .33, justifyContent: 'center' },
+    viewName: {
+        alignSelf: 'center',
+        fontSize: constants.SMALL_FONT,
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
+    editMain: { flex: .33, justifyContent: 'center' },
+    editName: {
+        alignSelf: 'center',
+        fontSize: constants.SMALL_FONT,
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
+    approveMain: { flex: .33, justifyContent: 'center' },
+    approveName: {
+        alignSelf: 'center',
+        fontSize: constants.SMALL_FONT,
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
 });

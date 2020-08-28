@@ -15,6 +15,46 @@ export default Styles = StyleSheet.create({
         paddingRight: 5,
         borderRadius: 20
     },
+    clearFilterMain: {
+        margin: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 50,
+        paddingTop: 3,
+        paddingBottom: 3,
+        backgroundColor: constants.LIGHT_BLUE,
+        alignSelf: 'flex-end'
+    },
+    filterMain: {
+        margin: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 50,
+        paddingTop: 3,
+        paddingBottom: 3,
+        backgroundColor: constants.LIGHT_BLUE,
+        alignSelf: 'flex-start'
+    },
+    filterText: {
+        color: 'white', fontSize: constants.SMALL_FONT * 1.3,
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
+    filterNumberName: {
+        backgroundColor: 'white',
+        borderRadius: 50,
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        height: 15,
+        width: 15,
+        marginTop: -5,
+        justifyContent: 'center'
+    },
+    filterNumber: {
+        color: 'black',
+        alignSelf: 'center',
+        fontSize: constants.SMALL_FONT * 1.3,
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
     textInput: {
         height: 40,
         marginBottom: 10,

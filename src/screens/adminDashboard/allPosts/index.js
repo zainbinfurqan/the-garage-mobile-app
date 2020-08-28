@@ -2,19 +2,23 @@
 import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
-import NoDataFound from '../../../components/NoDataFound'
 import AfterLoginHeader from '../../../components/AfterLoginHeader'
 import IconsInput from '../../../components/Input/IconsInput'
+import NoDataFound from '../../../components/NoDataFound'
+import CommonAction from '../../../redux/common/action'
+import SelectBar from '../../../components/SelectBar'
 import constants from '../../../config/constants';
+import helper from '../../../utils/helpers';
 import api from '../../../utils/apis'
 import Style from './style'
-import helper from '../../../utils/helpers';
 
 function AllPosts(props) {
 
     const [loading, setLoading] = useState(false)
     const [allPosts, setAllPosts] = useState([])
+    const [pendingPost, setPendingPost] = useState([])
     const [searchText, setSearchText] = useState('')
+    const [status, setStatus] = useState('All')
 
     useEffect(() => {
         fetchAllPosts()
@@ -35,9 +39,33 @@ function AllPosts(props) {
         }
     }
 
+    async function fetchPendingPost() {
+        setLoading(true)
+        try {
+            const response = await api.fetchPendingPost();
+            setPendingPost(response)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
+    function optionHandle(value) {
+        setStatus(value)
+        if (value === 'All') {
+            fetchAllPosts()
+        }
+        if (value === 'Pending') {
+            fetchPendingPost()
+        }
+    }
+
     return (
         <SafeAreaView style={Style.mainContainer}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='All Posts' />}
+            <SelectBar option1='All' option2='Pending' selectedStatus={status} optionHandle={optionHandle} />
             <ScrollView style={Style.scrollMain}>
                 <View style={{ justifyContent: 'center', marginBottom: 5 }}>
                     <IconsInput
@@ -49,8 +77,9 @@ function AllPosts(props) {
                         InputStyle={Style.textInput} />
                 </View>
                 {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
-                {allPosts.length == 0 && !loading && <NoDataFound />}
-                {!loading && allPosts.length > 0 && allPosts.map((item, index) => {
+                {status === 'All' && allPosts.length == 0 && !loading && <NoDataFound />}
+                {status === 'Pending' && pendingPost.length == 0 && !loading && <NoDataFound />}
+                {!loading && status === 'All' && allPosts.length > 0 && allPosts.map((item, index) => {
                     return (
                         <View key={index} style={Style.mainCard}>
                             <View style={Style.left}>
@@ -61,6 +90,29 @@ function AllPosts(props) {
                             <View style={Style.right}>
                                 <TouchableOpacity style={Style.openIcon}><Image style={Style.openIcon} source={require('../../../assets/icons/edit.png')} /></TouchableOpacity>
                                 <TouchableOpacity style={Style.openIcon}><Image style={Style.openIcon} source={require('../../../assets/icons/delete.png')} /></TouchableOpacity>
+                            </View>
+                        </View>
+                    )
+                })}
+                {!loading && status === 'Pending' && pendingPost.length > 0 && pendingPost.map((items, index) => {
+                    return (
+                        <View key={index} style={Style.pendingMainCard}>
+                            <View style={Style.nameMain}>
+                                <Text style={Style.name}>{helper.nameConcatenate(items.user)}</Text>
+                            </View>
+                            <View style={Style.postMain}>
+                                <Text style={Style.post}>{items.discription.substring(1, 100)}...</Text>
+                            </View>
+                            <View style={Style.option}>
+                                <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView', { postData: items })} style={Style.viewMain}>
+                                    <Text style={Style.viewName}>View</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => props.navigation.navigate('EditableView', { postData: items })} style={Style.editMain}>
+                                    <Text style={Style.editName}>Edit</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => markApprove(items)} style={Style.approveMain}>
+                                    <Text style={Style.approveName}>Mark Approve</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )
@@ -76,6 +128,8 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = {
+    apiresponse: CommonAction.apirespons,
+    loading: CommonAction.loading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllPosts);

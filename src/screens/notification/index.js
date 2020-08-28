@@ -3,6 +3,7 @@ import { View, SafeAreaView, Text, ActivityIndicator, Image, TouchableOpacity, S
 import { connect } from 'react-redux'
 
 import AfterLoginHeader from '../../components/AfterLoginHeader'
+import NoDataFound from '../../components/NoDataFound';
 import CommonAction from '../../redux/common/action';
 import constants from '../../config/constants';
 import constant from '../../config/constants'
@@ -14,9 +15,10 @@ function Notification(props) {
 
     const [notification, setNotification] = useState([])
     const [loading, setLoadin] = useState(false)
+    const [status, setStatus] = useState('all')
 
     useEffect(() => {
-        fetchNotification()
+        // fetchNotification()
     }, [])
 
     function setUnreadlocalNotification(id) {
@@ -67,10 +69,45 @@ function Notification(props) {
         }
     }
 
+    async function fetchUndReadNotifications() {
+        props.loading(true)
+        setLoadin(true)
+        try {
+            let params = { user: props.userData._id }
+            const response = await apis.fetchUnReadLocalNotification_(null, null, null, params);
+            setNotification(response)
+            props.loading(false)
+            setLoadin(false)
+        } catch (error) {
+            setLoadin(false)
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
+    function optionHandle(value) {
+        setStatus(value)
+        if (value === 'all') {
+            fetchNotification()
+        }
+        if (value === 'unread') {
+            fetchUndReadNotifications()
+        }
+    }
+
     return (
         <SafeAreaView style={Style.containerMain}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='Notification' />}
+            <View style={Style.selectmain}>
+                <TouchableOpacity onPress={() => optionHandle('all')} style={[Style.optionLeftMain, status === 'all' && { backgroundColor: constant.LIGHT_BLUE }]}>
+                    <Text style={[Style.optionLeftText, status === 'all' && { color: 'white' }]}>All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setSoptionHandletatus('unread')} style={[Style.optionRightMain, status === 'unread' && { backgroundColor: constant.LIGHT_BLUE }]}>
+                    <Text style={[Style.optionRightText, status === 'unread' && { color: 'white' }]}>Un Read</Text>
+                </TouchableOpacity>
+            </View>
             {notification.length == 0 && loading && <ActivityIndicator color={constant.LIGHT_BLUE} />}
+            {!loading && notification.length == 0 && <NoDataFound text='No notification' />}
             <ScrollView style={{ borderColor: 'red', padding: 10 }}>
                 {notification.map((item, index) => {
                     return (

@@ -10,6 +10,7 @@ import AllPosts from '../screens/adminDashboard/allPosts'
 import ProductDetailView from '../screens/productDetail'
 import ForgetPassword from '../screens/forgetPassword'
 import AdminDashbaord from '../screens/adminDashboard'
+import EditableView from '../components/EditableView'
 import Uploadproduct from '../screens/uplaodProduct'
 import ApiResponse from '../components/apiresponse'
 import Registration from '../screens/registration'
@@ -36,7 +37,7 @@ function Auth(props) {
         <>
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator
-                    initialRouteName='MainScreen'
+                    initialRouteName='AdminDashbaord'
                     screenOptions={{
                         headerShown: false,
                         cardStyle: {
@@ -50,6 +51,7 @@ function Auth(props) {
                     <Stack.Screen name="Registration" component={Registration} />
                     <Stack.Screen name="Notification" component={Notification} />
                     <Stack.Screen name="PendingPosts" component={PendingPosts} />
+                    <Stack.Screen name="EditableView" component={EditableView} />
                     <Stack.Screen name="MessageList" component={MessageList} />
                     <Stack.Screen name="MainScreen" component={MainScreen} />
                     <Stack.Screen name="Dashboard" component={Dashboard} />

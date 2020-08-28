@@ -10,10 +10,13 @@ function NoDataFound(props) {
                 fontSize: constants.MEDIUM_FONT,
                 color: constants.LIGHT_BORDER,
                 alignSelf: 'center',
-            }}>No data found</Text>
+            }}>{props.text}</Text>
             <Image style={{ height: 50, width: 50, alignSelf: 'center' }} source={require('../../assets/icons/empty.png')} />
         </View>
     )
 }
+NoDataFound.defaultProps = {
+    text: 'No records found',
+};
 
 export default NoDataFound

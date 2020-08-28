@@ -130,7 +130,20 @@ function PostsFeed(props) {
         setTimeout(() => {
             fetchPost(item._id, state.lowPrice, state.highPrice)
         }, 1000);
+    }
 
+    function totalFilter() {
+        let number = 0
+        if (state.searchText !== '' && selectCategory !== '') {
+            number = 2
+        }
+        if (state.searchText !== '' && selectCategory === '') {
+            number = 1
+        }
+        if (state.searchText === '' && selectCategory !== '') {
+            number = 1
+        }
+        return number
     }
 
     return (
@@ -166,7 +179,6 @@ function PostsFeed(props) {
                     })}
                 </ScrollView>
             </View>
-            <View style={Style.line} />
             {/* <View style={Style.priceRangMain}>
                 <Text style={Style.priceRangText}>Price range:  {state.highPrice}</Text>
                 <Slider minimumValue={state.lowPrice} maximumValue={1000}
@@ -178,6 +190,20 @@ function PostsFeed(props) {
                 </Slider>
             </View> */}
             <View style={[Style.postListMain, {}]}>
+                {console.log(totalFilter)}
+                {state.searchText !== '' || selectedCategory !== '' &&
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={Style.filterMain}>
+                            <View style={Style.filterNumberName}>
+                                <Text style={Style.filterNumber}>{totalFilter()}</Text>
+                            </View>
+                            <Text style={Style.filterText}>Filters</Text>
+                        </View>
+                        <View style={Style.clearFilterMain}>
+                            <Text style={Style.filterText}>Clear Filter</Text>
+                        </View>
+                    </View>}
+
                 {!loading && <FlatList
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

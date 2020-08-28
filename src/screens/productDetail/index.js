@@ -96,10 +96,12 @@ function ProductDetailView(props) {
                             <Image style={{ height: 200, alignSelf: 'center' }} source={require('../../assets/images/default-post.png')} />
                         </View>
                         <View style={{ margin: 10 }}>
-                            {/* <View style={{ flexDirection: 'row' }}>
-                            <Image style={{ height: 20, width: 20 }} source={require('../../assets/icons/discription.png')} />
-                            <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>Description</Text>
-                        </View> */}
+                            <Text style={{
+                                color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                fontSize: constants.SMALL_FONT * 1.2
+                            }}>{helper.nameConcatenate(postData.user)}</Text>
+                        </View>
+                        <View style={{ margin: 10 }}>
                             <Text style={{
                                 color: constants.GERY, fontFamily: constants.FONT_SAMSUNG_LIGHT,
                                 fontSize: constants.SMALL_FONT * 1.2

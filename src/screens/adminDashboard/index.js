@@ -10,7 +10,7 @@ function AdminDashbaord(props) {
     const [options, setOption] = useState([
         { titile: 'Total Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'AllPosts' },
         { titile: 'Total Users', iconsPath: require('../../assets/icons/registration.png'), navigatePath: 'AllUsers' },
-        { titile: 'Pending Users', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'PendingPosts' },
+        { titile: 'Pending Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'PendingPosts' },
     ])
 
     return (
