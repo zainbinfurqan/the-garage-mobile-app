@@ -9,6 +9,7 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case SET_USERDATA:
+            console.log("payload=>", action.payload)
             // return { ...state, userData: action.payload.data, isLogin: true };
             return { ...state, userData: action.payload, isLogin: true };
         case SET_API_ERROR:

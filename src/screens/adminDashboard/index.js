@@ -4,13 +4,14 @@ import { connect, } from 'react-redux'
 
 import AfterLoginHeader from '../../components/AfterLoginHeader'
 import constants from '../../config/constants';
+import Style from './style'
 
 function AdminDashbaord(props) {
 
     const [options, setOption] = useState([
         { titile: 'Total Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'AllPosts' },
         { titile: 'Total Users', iconsPath: require('../../assets/icons/registration.png'), navigatePath: 'AllUsers' },
-        { titile: 'Pending Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'PendingPosts' },
+        // { titile: 'Pending Posts', iconsPath: require('../../assets/icons/posts.png'), navigatePath: 'PendingPosts' },
     ])
 
     return (
@@ -20,30 +21,10 @@ function AdminDashbaord(props) {
                 contentContainerStyle={{ flexGrow: 1, }}
                 data={options}
                 renderItem={({ item }) => (
-                    <View style={{
-                        marginLeft: 2,
-                        marginRight: 2,
-                        marginBottom: 10,
-                        width: '49%',
-                        height: 140,
-                        justifyContent: 'center',
-                        alignSelf: 'center'
-                    }}>
-                        <TouchableOpacity onPress={() => props.navigation.navigate(item.navigatePath)} style={{
-                            padding: 10,
-                            justifyContent: 'center',
-                            alignSelf: 'center',
-                            borderRadius: 5,
-                            borderWidth: 0.34,
-                            width: "60%",
-                            borderColor: constants.LIGHT_BORDER,
-                        }}>
+                    <View style={Style.main}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate(item.navigatePath)} style={Style.blockMain}>
                             <Image style={{ height: 35, width: 35, alignSelf: "center" }} source={item.iconsPath} />
-                            <Text style={{
-                                fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                fontSize: constants.SMALL_FONT * 1.2,
-                                alignSelf: 'center'
-                            }}>{item.titile}</Text>
+                            <Text style={Style.itemText}>{item.titile}</Text>
                         </TouchableOpacity>
                     </View>
                 )}

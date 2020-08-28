@@ -62,20 +62,39 @@ function AllPosts(props) {
         }
     }
 
+    async function markApprove(value) {
+        props.loading(true)
+        try {
+            let body = {
+                postId: value._id,
+                name: value.user.firstName + value.user.lastName,
+                sendFrom: props.userData._id,
+                sendTo: value.user._id
+            }
+            const response = await api.approvedPost(body);
+            helper.sendAppLocalNotidication({ to: value.user._id })
+            props.loading(false)
+            fetchPendingPost()
+        } catch (error) {
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
     return (
         <SafeAreaView style={Style.mainContainer}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='All Posts' />}
             <SelectBar option1='All' option2='Pending' selectedStatus={status} optionHandle={optionHandle} />
+            <View style={{ justifyContent: 'center', marginBottom: 5, marginLeft: 5, marginRight: 5 }}>
+                <IconsInput
+                    viewStyle={{ borderRadius: 50 }}
+                    placeholder='Enter name'
+                    onChangeText={(e) => setSearchText(e)}
+                    value={searchText}
+                    Icon={require('../../../assets/icons/search.png')}
+                    InputStyle={Style.textInput} />
+            </View>
             <ScrollView style={Style.scrollMain}>
-                <View style={{ justifyContent: 'center', marginBottom: 5 }}>
-                    <IconsInput
-                        viewStyle={{ borderRadius: 50 }}
-                        placeholder='Enter name'
-                        onChangeText={(e) => setSearchText(e)}
-                        value={searchText}
-                        Icon={require('../../../assets/icons/search.png')}
-                        InputStyle={Style.textInput} />
-                </View>
                 {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
                 {status === 'All' && allPosts.length == 0 && !loading && <NoDataFound />}
                 {status === 'Pending' && pendingPost.length == 0 && !loading && <NoDataFound />}
@@ -83,7 +102,7 @@ function AllPosts(props) {
                     return (
                         <View key={index} style={Style.mainCard}>
                             <View style={Style.left}>
-                                <Text style={Style.leftText1}>{helper.nameConcatenate(item.user)}</Text>
+                                <Text style={Style.leftText1}>{helper.nameConcatenate(item.user)}   {props.userData._id === item.user._id && '(Your)'}</Text>
                                 <View style={Style.line}></View>
                                 <Text style={Style.leftText2}>{item.discription.substring(1, 100)}...</Text>
                             </View>

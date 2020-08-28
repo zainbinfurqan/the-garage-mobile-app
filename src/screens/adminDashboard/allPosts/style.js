@@ -5,7 +5,7 @@ import constants from '../../../config/constants'
 
 export default Styles = StyleSheet.create({
     mainContainer: { flex: 1, backgroundColor: 'white' },
-    scrollMain: { paddingLeft: 10, paddingTop: 10, paddingRight: 10, flex: 1, borderColor: 'red', },
+    scrollMain: { paddingLeft: 10, paddingRight: 10, flex: 1, borderColor: 'red', },
     mainCard: {
         borderWidth: 0.34, borderColor: constants.LIGHT_BORDER,
         borderRadius: 2, marginBottom: 5, flexDirection: 'row'

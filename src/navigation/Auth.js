@@ -37,7 +37,7 @@ function Auth(props) {
         <>
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator
-                    initialRouteName='AdminDashbaord'
+                    initialRouteName='MainScreen'
                     screenOptions={{
                         headerShown: false,
                         cardStyle: {

@@ -8,11 +8,12 @@ function NativeDropDown(props) {
             <Picker
                 selectedValue={props.selectedValue}
                 style={{ height: 50, borderWidth: 1 }}
+                prompt='Select Category'
                 onValueChange={(itemValue, itemIndex) => props.setSelectedValue(itemValue)}
             >
                 {props.data.map((item, index) => {
                     return (
-                        <Picker.Item label={item.title} value={item.title} />
+                        <Picker.Item key={index} label={item.title} value={item.title} />
 
                     )
                 })}

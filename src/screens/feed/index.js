@@ -48,7 +48,8 @@ function PostsFeed(props) {
     const [posts, setPosts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('')
     const [loading, setLoading] = useState(false)
-    const [refreshing, setRefreshing] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
+    const [searchText, setSearchText] = useState('');
 
     const onRefresh = React.useCallback(() => {
         dispatch({
@@ -87,13 +88,14 @@ function PostsFeed(props) {
         })
     }
 
-    async function fetchPost(category, lowPrice, highPrice) {
+    async function fetchPost(category, lowPrice, highPrice, searchText) {
         setLoading(true)
         try {
             let params = {
                 category: category,
                 priceLessThen: lowPrice,
                 priceGraterThen: highPrice,
+                name: searchText
             };
             const response = await api.searchPost(null, null, null, params)
             setPosts(response)
@@ -117,12 +119,13 @@ function PostsFeed(props) {
     }
 
     function handleChangeText(value, label) {
-        dispatch({
-            type: 'ON_TEXT_CHANGE',
-            payload: {
-                [label]: value.trim(),
-            },
-        });
+        setSearchText(value)
+        // dispatch({
+        //     type: 'ON_TEXT_CHANGE',
+        //     payload: {
+        //         [label]: value.trim(),
+        //     },
+        // });
     }
 
     function selectCategory(item, index) {
@@ -146,8 +149,13 @@ function PostsFeed(props) {
         return number
     }
 
+    function searchHandle() {
+        fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
+    }
+
     return (
         <SafeAreaView style={Style.container}>
+            {console.log("props.categories=>", props.categories)}
             {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
             {props.isLogin && <AfterLoginHeader notificationIcon={true} menuButton={true} backButton={false} headerText='Post Feed' />}
             <View style={{
@@ -160,8 +168,9 @@ function PostsFeed(props) {
                     <IconsInput
                         viewStyle={{ borderRadius: 50 }}
                         placeholder='Enter name'
+                        onPress={searchHandle}
                         onChangeText={(e) => handleChangeText(e, 'searchText')}
-                        value={state.searchText}
+                        value={searchText}
                         Icon={require('../../assets/icons/search.png')}
                         InputStyle={Style.textInput} />
                 </View>
@@ -190,18 +199,17 @@ function PostsFeed(props) {
                 </Slider>
             </View> */}
             <View style={[Style.postListMain, {}]}>
-                {console.log(totalFilter)}
                 {state.searchText !== '' || selectedCategory !== '' &&
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={Style.filterMain}>
+                        <TouchableOpacity onPress={onRefresh} style={Style.filterMain}>
                             <View style={Style.filterNumberName}>
                                 <Text style={Style.filterNumber}>{totalFilter()}</Text>
                             </View>
-                            <Text style={Style.filterText}>Filters</Text>
-                        </View>
-                        <View style={Style.clearFilterMain}>
+                            <Text style={Style.filterText}>Clear Filters</Text>
+                        </TouchableOpacity>
+                        {/* <View style={Style.clearFilterMain}>
                             <Text style={Style.filterText}>Clear Filter</Text>
-                        </View>
+                        </View> */}
                     </View>}
 
                 {!loading && <FlatList

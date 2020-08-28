@@ -16,7 +16,6 @@ function AfterLoginHeader(props) {
 
     return (
         <>
-            {console.log("unReadLocalNotification=>", props.unReadLocalNotification)}
             <ImageBackground source={require('../../assets/images/header.png')} style={{ height: 60, flexDirection: 'row', }}>
                 {props.backButton &&
                     <TouchableOpacity onPress={() => navigation.pop()} style={{ flex: 0.1, justifyContent: 'center', }}>

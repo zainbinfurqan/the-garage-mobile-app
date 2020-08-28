@@ -94,7 +94,7 @@ apis.searchPost = async function (body = null, authorization = null, headers = n
         'GET',
         body,
         authorization,
-        `${constant.BASE_URL}/post/search?category=${params.category}&&priceGraterThen=${params.priceGraterThen}&&priceLessThen=${params.priceLessThen}`,
+        `${constant.BASE_URL}/post/search?category=${params.category}&&priceGraterThen=${params.priceGraterThen}&&priceLessThen=${params.priceLessThen}&&firstName=${params.name}`,
     );
 };
 

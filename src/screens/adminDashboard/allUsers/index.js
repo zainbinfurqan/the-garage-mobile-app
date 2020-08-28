@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ActivityIndicator, View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { SafeAreaView, ActivityIndicator, RefreshControl, View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { connect } from 'react-redux'
 import AfterLoginHeader from '../../../components/AfterLoginHeader'
 import IconsInput from '../../../components/Input/IconsInput'
@@ -15,10 +15,16 @@ function AllUsers(props) {
     const [users, setUserList] = useState([])
     const [searchText, setSearchText] = useState('')
     const [laoding, setLaoding] = useState(false)
+    const [refreshing, setRefreshing] = useState(false);
 
     useState(() => {
         fetchAllUsers('')
     }, [])
+
+    const onRefresh = React.useCallback(() => {
+        setSearchText('')
+        fetchAllUsers('')
+    }, [refreshing]);
 
     async function fetchAllUsers(value) {
         setLaoding(true)
@@ -63,7 +69,10 @@ function AllUsers(props) {
 
     async function handleSearch(e) {
         setSearchText(e)
-        fetchAllUsers(e)
+    }
+
+    function onSearch() {
+        fetchAllUsers(searchText)
     }
 
     return (
@@ -77,6 +86,7 @@ function AllUsers(props) {
                     placeholder='Enter name'
                     onChangeText={(e) => handleSearch(e)}
                     value={searchText}
+                    onPress={onSearch}
                     Icon={require('../../../assets/icons/search.png')}
                     InputStyle={Style.textInput} />
             </View>
@@ -84,6 +94,9 @@ function AllUsers(props) {
             {users.length != 0 && laoding && <ActivityIndicator color={constants.LIGHT_BLUE} />}
             <FlatList
                 data={users}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
                 renderItem={({ item }) => (
                     item._id != props.userData._id &&
                     <View style={[Style.messageCardMain, {}]}>
