@@ -65,11 +65,12 @@ function PostsFeed(props) {
             },
         });
         setSelectedCategory('')
-        fetchPost('', 10, 10)
+        setSearchText('')
+        fetchPost('', 10, 10, '')
     }, [refreshing]);
 
     useEffect(() => {
-        fetchPost(selectedCategory, state.lowPrice, state.highPrice)
+        fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
         // fetchCategory()
         setupListener()
         props.isLogin && props.fetchUnReadLocalNotification({
@@ -98,6 +99,7 @@ function PostsFeed(props) {
                 name: searchText
             };
             const response = await api.searchPost(null, null, null, params)
+            console.log("responce=>", response)
             setPosts(response)
             setLoading(false)
             setRefreshing(false)
@@ -131,19 +133,19 @@ function PostsFeed(props) {
     function selectCategory(item, index) {
         setSelectedCategory(item._id)
         setTimeout(() => {
-            fetchPost(item._id, state.lowPrice, state.highPrice)
+            fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
         }, 1000);
     }
 
     function totalFilter() {
         let number = 0
-        if (state.searchText !== '' && selectCategory !== '') {
+        if (searchText !== '' && selectCategory !== '') {
             number = 2
         }
-        if (state.searchText !== '' && selectCategory === '') {
+        if (searchText !== '' && selectCategory === '') {
             number = 1
         }
-        if (state.searchText === '' && selectCategory !== '') {
+        if (searchText === '' && selectCategory !== '') {
             number = 1
         }
         return number
@@ -155,7 +157,6 @@ function PostsFeed(props) {
 
     return (
         <SafeAreaView style={Style.container}>
-            {console.log("props.categories=>", props.categories)}
             {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
             {props.isLogin && <AfterLoginHeader notificationIcon={true} menuButton={true} backButton={false} headerText='Post Feed' />}
             <View style={{

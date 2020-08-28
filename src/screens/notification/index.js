@@ -18,7 +18,7 @@ function Notification(props) {
     const [status, setStatus] = useState('all')
 
     useEffect(() => {
-        // fetchNotification()
+        fetchNotification()
     }, [])
 
     function setUnreadlocalNotification(id) {
