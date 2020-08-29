@@ -11,7 +11,6 @@ export const LOGOUT = 'LOGOUT';
 const action = {};
 
 action.saveUserData = function (data) {
-    console.log("Data=>", data)
     return async function (dispatch) {
         // dispatch({ type: SET_USERDATA, payload: data });
         dispatch({ type: SET_USERDATA, payload: data });

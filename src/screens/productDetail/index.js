@@ -56,7 +56,6 @@ function ProductDetailView(props) {
     async function fnIntrested() {
         try {
             if (props.isLogin) {
-                console.log("postData=>", postData)
                 if (postData.intrested.includes(props.userData._id)) {
                     const response = await apis.markUnIntrested(
                         {

@@ -46,7 +46,6 @@ function AllPosts(props) {
             setPendingPost(response)
             setLoading(false)
         } catch (error) {
-            console.log(error)
             setLoading(false)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
         }

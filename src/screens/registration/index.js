@@ -89,7 +89,6 @@ function Registration(props) {
             }
         } catch (error) {
             props.loading(false)
-            console.log(error.error)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
         }
     }

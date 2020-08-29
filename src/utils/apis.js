@@ -10,7 +10,6 @@ let apis = {};
 
 //registration appi
 apis.registration = async function (body = null, authorization = null, headers = null) {
-    console.log("body=>", body)
     return await helper.apiMethod(
         null,
         'POST',

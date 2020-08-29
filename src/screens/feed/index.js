@@ -99,7 +99,6 @@ function PostsFeed(props) {
                 name: searchText
             };
             const response = await api.searchPost(null, null, null, params)
-            console.log("responce=>", response)
             setPosts(response)
             setLoading(false)
             setRefreshing(false)
@@ -138,14 +137,16 @@ function PostsFeed(props) {
     }
 
     function totalFilter() {
+        console.log(selectCategory)
+        console.log(searchText)
         let number = 0
-        if (searchText !== '' && selectCategory !== '') {
+        if (searchText !== '' && selectedCategory !== '') {
             number = 2
         }
-        if (searchText !== '' && selectCategory === '') {
+        if (searchText !== '' && selectedCategory === '') {
             number = 1
         }
-        if (searchText === '' && selectCategory !== '') {
+        if (searchText === '' && selectedCategory !== '') {
             number = 1
         }
         return number
@@ -159,12 +160,7 @@ function PostsFeed(props) {
         <SafeAreaView style={Style.container}>
             {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
             {props.isLogin && <AfterLoginHeader notificationIcon={true} menuButton={true} backButton={false} headerText='Post Feed' />}
-            <View style={{
-                flexDirection: 'row',
-                paddingLeft: 10,
-                paddingRight: 10,
-                paddingTop: 5
-            }}>
+            <View style={Style.searchTextMain}>
                 <View style={{ justifyContent: 'center', flex: 1 }}>
                     <IconsInput
                         viewStyle={{ borderRadius: 50 }}
@@ -200,7 +196,7 @@ function PostsFeed(props) {
                 </Slider>
             </View> */}
             <View style={[Style.postListMain, {}]}>
-                {state.searchText !== '' || selectedCategory !== '' &&
+                {totalFilter() > 0 &&
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <TouchableOpacity onPress={onRefresh} style={Style.filterMain}>
                             <View style={Style.filterNumberName}>
@@ -229,7 +225,7 @@ function PostsFeed(props) {
                                 <View style={{
                                     flexDirection: 'row', justifyContent: 'space-between'
                                 }}>
-                                    <Text style={Style.name}>{helper.nameConcatenate(item.user)}</Text>
+                                    <Text style={Style.name}>{helper.nameConcatenate(item.user)}  {props.isLogin && props.userData._id === item.user._id && '(Your)'}</Text>
                                     <Text style={Style.price}>${item.priceRange}</Text>
                                 </View>
                                 <View style={{}}>

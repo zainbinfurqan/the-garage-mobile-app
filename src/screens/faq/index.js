@@ -34,7 +34,6 @@ function FAQ(props) {
     async function fetchFaq() {
         try {
             const response = await apis.fetchFaq();
-            console.log("response=>", response)
             setFaq(response)
         } catch (error) {
 

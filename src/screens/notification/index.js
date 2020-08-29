@@ -102,7 +102,7 @@ function Notification(props) {
                 <TouchableOpacity onPress={() => optionHandle('all')} style={[Style.optionLeftMain, status === 'all' && { backgroundColor: constant.LIGHT_BLUE }]}>
                     <Text style={[Style.optionLeftText, status === 'all' && { color: 'white' }]}>All</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setSoptionHandletatus('unread')} style={[Style.optionRightMain, status === 'unread' && { backgroundColor: constant.LIGHT_BLUE }]}>
+                <TouchableOpacity onPress={() => optionHandle('unread')} style={[Style.optionRightMain, status === 'unread' && { backgroundColor: constant.LIGHT_BLUE }]}>
                     <Text style={[Style.optionRightText, status === 'unread' && { color: 'white' }]}>Un Read</Text>
                 </TouchableOpacity>
             </View>

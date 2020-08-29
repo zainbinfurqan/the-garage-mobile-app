@@ -38,7 +38,6 @@ function Login(props) {
                 }
                 const response = await api.login(body);
                 // response !== undefined &&
-                console.log("response=>", response)
                 props.saveUserData(response)
                 props.loading(false)
                 props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Login successfully' })
