@@ -19,7 +19,7 @@ export default Styles = StyleSheet.create({
         height: 40,
         marginBottom: 10,
         borderWidth: 0.34,
-        borderColor: constants.LIGHT_BORDER,
+        borderColor: constants.INPUT_LIGHT_BORDER,
         borderRadius: constants.INPUT_TEXT_RADIUS
     },
     footerText1: {

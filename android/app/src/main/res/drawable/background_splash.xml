@@ -4,7 +4,6 @@
     <item
         android:drawable="@color/splashscreen_bg"/>
    <item
-        android:drawable="@drawable/splash"
-        android:gravity="center" />
+        android:drawable="@drawable/splash"/>
 
 </layer-list>

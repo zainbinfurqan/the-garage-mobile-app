@@ -74,7 +74,7 @@ function Login(props) {
     }
 
     return (
-        <ImageBackground source={require('../../assets/images/bg-1.png')} style={Styles.container}>
+        <ImageBackground source={require('../../assets/images/bg-2.png')} style={Styles.container}>
             <View style={Styles.form}>
                 <View style={Styles.logoMain}>
                     <Image style={Styles.logo} source={require('../../assets/images/logo.png')} />

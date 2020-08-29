@@ -154,7 +154,7 @@ function Registration(props) {
 
 
     return (
-        <ImageBackground source={require('../../assets/images/bg-1.png')} style={[Styles.container]}>
+        <ImageBackground source={require('../../assets/images/bg-2.png')} style={[Styles.container]}>
             <TouchableOpacity onPress={() => props.navigation.pop()}>
                 <Image style={{ height: 30, width: 30, margin: 10 }} source={require('../../assets/icons/back-white.png')} />
             </TouchableOpacity>
