@@ -44,12 +44,11 @@ function App() {
 
   return (
     <>
-      <StatusBar backgroundColor="#5558F0" />
       {/* <Login /> */}
       {/* <Registration /> */}
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <StatusBar backgroundColor="#019da7" />
+          <StatusBar backgroundColor="#FFD40B" barStyle="dark-content" />
           <Navigation />
         </PersistGate>
       </Provider>

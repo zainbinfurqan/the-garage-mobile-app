@@ -137,8 +137,6 @@ function PostsFeed(props) {
     }
 
     function totalFilter() {
-        console.log(selectCategory)
-        console.log(searchText)
         let number = 0
         if (searchText !== '' && selectedCategory !== '') {
             number = 2
