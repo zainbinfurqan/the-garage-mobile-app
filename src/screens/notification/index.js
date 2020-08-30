@@ -75,6 +75,7 @@ function Notification(props) {
         try {
             let params = { user: props.userData._id }
             const response = await apis.fetchUnReadLocalNotification_(null, null, null, params);
+            console.log("response=>", response)
             setNotification(response)
             props.loading(false)
             setLoadin(false)

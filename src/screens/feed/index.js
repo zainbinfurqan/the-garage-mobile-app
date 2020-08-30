@@ -76,6 +76,7 @@ function PostsFeed(props) {
         props.isLogin && props.fetchUnReadLocalNotification({
             user: props.userData._id
         })
+        // props.loading(false)
         // props.apiresponse(true)
         // props.logout(null)
     }, [])
@@ -94,8 +95,8 @@ function PostsFeed(props) {
         try {
             let params = {
                 category: category,
-                priceLessThen: lowPrice,
-                priceGraterThen: highPrice,
+                // priceLessThen: lowPrice,
+                // priceGraterThen: highPrice,
                 name: searchText
             };
             const response = await api.searchPost(null, null, null, params)
@@ -215,8 +216,10 @@ function PostsFeed(props) {
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView', { postData: item })} style={Style.postMain}>
                             <View style={Style.left}>
-                                <Image style={Style.post} source={require('../../assets/images/default-post.png')} />
+                                {/* <Image style={Style.post} source={require('../../assets/images/default-post.png')} /> */}
+                                <Image style={Style.post} source={{ uri: item.picUrl.url }} />
                             </View>
+                            {/* {console.log("item=>", item)} */}
                             <View style={{
                                 flexDirection: "column", flex: .7, padding: 5,
                             }}>
@@ -230,6 +233,7 @@ function PostsFeed(props) {
                                     <Text style={Style.discription}>{item.discription.substring(1, 100)}...</Text>
                                 </View>
                                 <View style={{}}>
+                                    {/* {console.log("item.category=>", item)} */}
                                     <Text style={Style.category}>o {item.category.name}</Text>
                                 </View>
                                 <View style={[Style.footerMain, {}]}>
@@ -275,6 +279,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = {
     logout: AuthActions.logout,
     apiresponse: CommonAction.apiresponse,
+    loading: CommonAction.loading,
     fetchUnReadLocalNotification: CommonAction.fetchUnReadLocalNotification
 };
 

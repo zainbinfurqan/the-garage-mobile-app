@@ -11,7 +11,7 @@ const persistConfig = {
     storage: AsyncStorage,
     stateReconciler: autoMergeLevel1,
     // blackList: ['selectedAppointment', 'auth'],
-    whitelist: ['auth'],
+    whitelist: ['auth', 'common'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -2,12 +2,17 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux'
+import io from 'socket.io-client';
 import AfterLoginHeader from '../../components/AfterLoginHeader';
 import NativeDropDown from '../../components/NativeDropDown'
 import TextInput_ from '../../components/Input/TextInput'
 import SelectPanel from '../../components/SelectOptions'
+import CommonAction from '../../redux/common/action'
 import constants from '../../config/constants';
 import Button_ from '../../components/Button'
+import api from '../../utils/apis'
+const socket = io(constants.SOCKET_IO_URL, { forceNew: true });
+
 import Style from './style'
 const initialState = {
     name: '',
@@ -98,6 +103,32 @@ function Uploadproduct(props) {
         setOpenSelect(true)
     }
 
+    async function uploadPost() {
+        // props.loading(true)
+        try {
+            let body = {
+                data: {
+                    discription: state.discription,
+                    picUrl: '',
+                    priceRange: state.price,
+                    user: props.userData._id,
+                    category: selectedValue,
+                    sendTo: props.userData._id,
+                },
+                images: images
+            }
+            const response = await api.createPost(body);
+            // socket.emit('local-notification', { to: props.userData._id });
+            // socket.emit('local-notification', { to: response.notificationTo });
+
+            // props.loading(false)
+            // props.navigation.pop()
+        } catch (error) {
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
     return (
         <>
             {openSelect && <SelectPanel open={openSelect}
@@ -151,13 +182,13 @@ function Uploadproduct(props) {
                     {/* </>
                     </ScrollView> */}
                     <View style={{ margin: 10 }}>
-                        <NativeDropDown data={constants.CATEGORIES} selectedValue={selectedValue} setSelectedValue={(value) => setSelectedValue(value)} />
-                        <TextInput_
+                        <NativeDropDown data={props.categories} selectedValue={selectedValue} setSelectedValue={(value) => setSelectedValue(value)} />
+                        {/* <TextInput_
                             placeholder='name'
                             onChangeText={(e) => handleChangeText(e, 'name')}
                             InputStyle={Style.textInput}
                             value={state.name}
-                        />
+                        /> */}
                         <TextInput_
                             placeholder='discription'
                             multiline={true}
@@ -172,7 +203,7 @@ function Uploadproduct(props) {
                             InputStyle={Style.textInput}
                             value={state.price}
                         />
-                        <Button_ title='Upload' rippleColor={constants.RIPPLE_COLOR} />
+                        <Button_ textStyle={{ color: 'white' }} onPress={uploadPost} title='Upload' rippleColor={constants.RIPPLE_COLOR} />
                     </View>
                 </ScrollView>
             </SafeAreaView >
@@ -183,10 +214,13 @@ function Uploadproduct(props) {
 
 const mapStateToProps = (store) => ({
     userData: store.auth.userData,
-    isLogin: store.auth.isLogin
+    isLogin: store.auth.isLogin,
+    categories: store.common.categories
 });
 
 const mapDispatchToProps = {
+    loading: CommonAction.loading,
+    apiresponse: CommonAction.apiresponse,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Uploadproduct);

@@ -30,7 +30,7 @@ function SelectOption(props) {
                         return (
                             <>
                                 {/* <View style={Style.line}></View> */}
-                                <TouchableOpacity onPress={() => props.selectitem(item.title)} style={[{
+                                <TouchableOpacity key={index} onPress={() => props.selectitem(item.title)} style={[{
                                     backgroundColor: 'white',
                                     justifyContent: 'center',
                                     borderBottomWidth: 0.35,

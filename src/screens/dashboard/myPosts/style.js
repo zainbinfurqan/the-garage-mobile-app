@@ -7,7 +7,7 @@ export default Styles = StyleSheet.create({
     scrollMain: { paddingLeft: 10, paddingRight: 10, flex: 1, borderColor: 'red', },
     mainCard: {
         borderWidth: 0.34, borderColor: constants.LIGHT_BORDER,
-        borderRadius: 2, marginBottom: 5, flexDirection: 'row'
+        borderRadius: 2, marginBottom: 5, flexDirection: 'column'
     },
     left: { flex: .9, padding: 5 },
     leftText1: {

@@ -42,6 +42,8 @@ function ProductDetailView(props) {
             const body = {
                 sender: props.userData._id,
                 receiver: otherUser._id,
+                postId: postData._id,
+                sharedMessage: true
             };
             const response = await apis.createRoom(body);
             props.loading(false)
@@ -64,14 +66,21 @@ function ProductDetailView(props) {
                             _id: postData._id,
                             name: helper.nameConcatenate(postData.user),
                             sendFrom: props.userData._id,
-                            sendTo: postData.user._id
+                            sendTo: postData.user._id,
+
                         })
 
                     if (response.message == "Successfull") {
                         props.navigation.pop()
                     }
                 } else {
-                    const response = await apis.markIntrested({ userId: props.userData._id, _id: postData._id })
+                    const response = await apis.markIntrested({
+                        userId: props.userData._id,
+                        _id: postData._id,
+                        name: helper.nameConcatenate(postData.user),
+                        sendFrom: props.userData._id,
+                        sendTo: postData.user._id,
+                    })
                     if (response.message == "Successfull") {
                         props.navigation.pop()
                     }
@@ -80,6 +89,38 @@ function ProductDetailView(props) {
         } catch (error) {
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
         }
+    }
+
+
+
+    function detailPostFotter() {
+        return <>
+            <TouchableOpacity onPress={props.isLogin ? fnIntrested : navigateToLogin}
+                style={[{
+                    borderWidth: 0.34,
+                    borderColor: constants.LIGHT_BORDER,
+                    flex: .45, padding: 5,
+                    justifyContent: 'center'
+                }, props.isLogin && postData.intrested.includes(props.userData._id) && { borderColor: constants.LIGHT_BLUE, backgroundColor: constants.LIGHT_BLUE }]}>
+                <Text
+                    style={[Style.intrested,
+                    props.isLogin && postData.intrested.includes(props.userData._id)
+                    && { color: 'white' }]}>{props.isLogin
+                        && postData.intrested.includes(props.userData._id)
+                        ? "Make Un-Intrested" : "Intrested?"}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={props.isLogin ? () => goToChatHandle(postData.user) : navigateToLogin} style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
+                <Text style={Style.textMe} >Text Me</Text>
+            </TouchableOpacity>
+        </>
+    }
+
+    function showViewFotterBeforLogin() {
+        return !props.isLogin && detailPostFotter()
+    }
+
+    function showViewFotter() {
+        return props.isLogin && props.userData._id !== postData.user._id && detailPostFotter()
     }
 
     return (
@@ -131,19 +172,8 @@ function ProductDetailView(props) {
                             justifyContent: 'space-around',
                             margin: 10
                         },]}>
-                            {/* <TouchableOpacity onPress={props.isLogin ? postData.intrested.includes(props.userData._id) ? markUnIntrested : markIntrested : navigateToLogin} */}
-                            <TouchableOpacity onPress={props.isLogin ? fnIntrested : navigateToLogin}
-                                style={[{
-                                    borderWidth: 0.34,
-                                    borderColor: constants.LIGHT_BORDER,
-                                    flex: .45, padding: 5,
-                                    justifyContent: 'center'
-                                }, props.isLogin && postData.intrested.includes(props.userData._id) && { borderColor: constants.LIGHT_BLUE, backgroundColor: constants.LIGHT_BLUE }]}>
-                                <Text style={[Style.intrested, props.isLogin && postData.intrested.includes(props.userData._id) && { color: 'white' }]}>{props.isLogin && postData.intrested.includes(props.userData._id) ? "Make Un-Intrested" : "Intrested?"}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={props.isLogin ? () => goToChatHandle(postData.user) : navigateToLogin} style={{ borderWidth: 0.34, borderColor: constants.LIGHT_BORDER, flex: .45, padding: 5, justifyContent: 'center' }}>
-                                <Text style={Style.textMe} >Text Me</Text>
-                            </TouchableOpacity>
+                            {showViewFotter()}
+                            {showViewFotterBeforLogin()}
                         </View>
                     </View>}
             </ScrollView>

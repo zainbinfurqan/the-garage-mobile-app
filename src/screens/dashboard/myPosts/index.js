@@ -44,9 +44,25 @@ function MyPosts(props) {
                                 <View style={Style.line}></View>
                                 <Text style={Style.leftText2}>{item.discription.substring(1, 100)}...</Text>
                             </View>
-                            <TouchableOpacity style={Style.right}>
+                            <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 5 }}>
+                                <TouchableOpacity style={{ flex: .5 }}>
+                                    <Text style={{
+                                        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                        fontSize: constants.SMALL_FONT * 1.2,
+                                        alignSelf: 'center'
+                                    }}>Edit</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ flex: .5 }}>
+                                    <Text style={{
+                                        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                        fontSize: constants.SMALL_FONT * 1.2,
+                                        alignSelf: 'center'
+                                    }}>Delete</Text>
+                                </TouchableOpacity>
+                            </View>
+                            {/* <TouchableOpacity style={Style.right}>
                                 <Image style={Style.openIcon} source={require('../../../assets/icons/back.png')} />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     )
                 })}

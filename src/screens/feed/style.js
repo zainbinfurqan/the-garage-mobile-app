@@ -100,6 +100,7 @@ export default Styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 10,
         paddingRight: 10,
+        marginBottom: 5,
         paddingTop: 5
     },
     price: { fontFamily: constants.FONT_SAMSUNG_LIGHT, color: constants.LIGHT_BLUE },

@@ -49,6 +49,7 @@ function Chat(props) {
 
         const body = { roomId: room._id, user: user._id, skip: skipValue, limit: limitValue };
         const response = await api.fetchMessage(body, null);
+        console.log("response=>", response)
         props.loading(false)
         dispatch({ type: 'ON_INITIAL_MESSAGE', payload: response.messages });
         setSkip(skip + 10)
@@ -93,6 +94,7 @@ function Chat(props) {
             message: state.message,
             userId: user._id,
             roomId: room._id,
+            sharedMessage: false
         };
 
         dispatch({
@@ -126,6 +128,7 @@ function Chat(props) {
 
     return (
         <>
+            {console.log("state.chatMessages=>", state.chatMessages)}
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <AfterLoginHeader backButton={true} menuButton={false} headerText='Faraz' notificationIcon={false} />
                 <FlatList
@@ -135,11 +138,13 @@ function Chat(props) {
                         <>
                             {item.userId == props.userData._id ?
                                 <View style={Style.messageMain1}>
+                                    {item.postLink && <Image style={{ borderWidth: 1, margin: 5, height: 50, width: 50 }} source={{ uri: 'https://i.ibb.co/XSdSKTV/200.jpg' }} />}
                                     <Text style={Style.textMessage}>{item.message}</Text>
                                     <Text style={Style.dateText}>{moment(new Date()).format('DD MMM YYYY')}</Text>
                                 </View> :
 
                                 <View style={Style.messageMain2}>
+                                    {item.postLink && <Image style={{ borderWidth: 1, margin: 5, height: 20, width: 20 }} source={{ uri: 'https://i.ibb.co/XSdSKTV/200.jpg' }} />}
                                     <Text style={Style.textMessage}>{item.message}</Text>
                                     <Text style={Style.dateText}>{moment(new Date()).format('DD MMM YYYY')}</Text>
                                 </View>}

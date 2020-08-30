@@ -155,10 +155,10 @@ function Registration(props) {
 
     return (
         <ImageBackground source={require('../../assets/images/bg-2.png')} style={[Styles.container]}>
-            <TouchableOpacity onPress={() => props.navigation.pop()}>
-                <Image style={{ height: 30, width: 30, margin: 10 }} source={require('../../assets/icons/back-white.png')} />
-            </TouchableOpacity>
             <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', }}>
+                <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => props.navigation.pop()}>
+                    <Image style={{ height: 30, width: 30, margin: 10 }} source={require('../../assets/icons/back-white.png')} />
+                </TouchableOpacity>
                 <View style={Styles.form}>
                     <View style={Styles.logoMain}>
                         <Image style={Styles.logo} source={require('../../assets/images/logo.png')} />
