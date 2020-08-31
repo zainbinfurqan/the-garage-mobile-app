@@ -4,15 +4,18 @@ import { connect } from 'react-redux'
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import CommonAction from '../../redux/common/action'
+import ImageView from '../../components/ImageView'
 import constants from '../../config/constants';
-import Style from './style'
-import apis from '../../utils/apis';
 import helper from '../../utils/helpers';
+import apis from '../../utils/apis';
+import Style from './style'
 const { width, height } = Dimensions.get('window')
 
 function ProductDetailView(props) {
     const postData_ = props.route.params.postData;
     const [postData, setPostData] = useState({})
+    const [showImageView, setShowImageView] = useState(false)
+    const [imageViewUrl, setImageViewUrl] = useState('')
 
     useEffect(() => {
         getPostDetail()
@@ -123,18 +126,45 @@ function ProductDetailView(props) {
         return props.isLogin && props.userData._id !== postData.user._id && detailPostFotter()
     }
 
+    function openImageView(url) {
+        setShowImageView(!showImageView)
+        setImageViewUrl(url)
+    }
+
+    function closeImageView() {
+        setShowImageView(!showImageView)
+    }
+
     return (
         <SafeAreaView style={Style.container}>
+            {showImageView && <ImageView imageViewUrl={imageViewUrl} back={closeImageView} />}
             <ScrollView>
                 {Object.keys(postData).length > 0 &&
                     <View style={{ borderColor: 'white', }}>
-                        {/* <BeforLoginHeader menuButton={false} backButton={true} headerText='Post Feed' /> */}
                         <TouchableOpacity onPress={() => props.navigation.pop()}>
                             <Image style={{ height: 30, width: 30, margin: 5 }} source={require('../../assets/icons/back.png')} />
                         </TouchableOpacity>
-                        <View style={{ borderColor: 'black', height: 200, margin: 10 }}>
-                            <Image style={{ height: 200, alignSelf: 'center' }} source={require('../../assets/images/default-post.png')} />
+                        <View style={Style.productImagesMain}>
+                            <TouchableOpacity onPress={() => openImageView(postData.picUrl[0])} style={Style.productImageMain1}>
+                                <Image style={Style.productImage1} source={{ uri: postData.picUrl[0] }} />
+                            </TouchableOpacity>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <TouchableOpacity onPress={() => openImageView(postData.picUrl[1])} style={Style.productImageMain2}>
+                                    <Image style={Style.productImage2} source={{ uri: postData.picUrl[1] }} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => openImageView(postData.picUrl[2])} style={Style.productImageMain3}>
+                                    <Image style={Style.productImage3} source={{ uri: postData.picUrl[2] }} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
+                        {/* <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            style={{ borderColor: 'black', height: 200, margin: 10, }}>
+                            <Image style={Style.productImage} source={{ uri: postData.picUrl[0] }} />
+                            <Image style={Style.productImage} source={{ uri: postData.picUrl[0] }} />
+                            <Image style={Style.productImage} source={{ uri: postData.picUrl[0] }} />
+                        </ScrollView> */}
                         <View style={{ margin: 10 }}>
                             <Text style={{
                                 color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
@@ -177,7 +207,7 @@ function ProductDetailView(props) {
                         </View>
                     </View>}
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 

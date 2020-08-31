@@ -11,11 +11,50 @@ export default Styles = StyleSheet.create({
     },
     line: { margin: 10, borderBottomWidth: 0.34, borderColor: constants.LINE_COLOR, },
     categoryMain: {
+
         backgroundColor: constants.LIGHT_BLUE,
         height: 25,
         justifyContent: 'center',
         borderRadius: 20,
 
+    },
+    productImagesMain: {
+        borderStyle: 'dashed',
+        borderRadius: 3,
+        borderColor: constants.RED,
+        padding: 5,
+        height: 320, margin: 10, borderWidth: 1
+
+    },
+    productImage1: {
+        borderRadius: 5,
+        height: 150, width: 200, alignSelf: 'center',
+    },
+    productImage2: {
+        borderRadius: 5,
+        height: 140, width: '100%', alignSelf: 'center',
+    },
+    productImage3: {
+        borderRadius: 5,
+        height: 140, width: '100%', alignSelf: 'center',
+    },
+    productImageMain1: {
+        alignSelf: 'center',
+        elevation: 2,
+        borderRadius: 5,
+        shadowColor: "#000",
+    },
+    productImageMain2: {
+        flex: .45, alignSelf: 'center',
+        elevation: 2,
+        borderRadius: 5,
+        shadowColor: "#000",
+    },
+    productImageMain3: {
+        alignSelf: 'center',
+        elevation: 2,
+        borderRadius: 5,
+        shadowColor: "#000",
     },
     categoryText: {
         color: 'white',

@@ -175,15 +175,6 @@ function Uploadproduct(props) {
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView style={{ flex: 1 }}>
                     <AfterLoginHeader menuButton={false} backButton={true} />
-                    {/* <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ borderWidth: 1, flexDirection: 'row' }}> */}
-                    {/* <> */}
-                    {/* {images.length > 0 && images.map((item, index) => {
-                                return (
-                                    <View style={{ borderWidth: 1, width: 100, height: 180 }} >
-                                        <Image style={{ width: 100, height: 180 }} source={{ uri: item.uri }} />
-                                    </View>
-                                )
-                            })} */}
                     <View style={{ flexDirection: 'column' }}>
                         <View style={{}}>
                             {images.length == 0 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain]}>
