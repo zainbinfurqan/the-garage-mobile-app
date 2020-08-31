@@ -155,6 +155,8 @@ function PostsFeed(props) {
         fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
     }
 
+
+
     return (
         <SafeAreaView style={Style.container}>
             {!props.isLogin && <BeforLoginHeader menuButton={true} backButton={false} headerText='Post Feed' />}
@@ -216,8 +218,7 @@ function PostsFeed(props) {
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => props.navigation.navigate('ProductDetailView', { postData: item })} style={Style.postMain}>
                             <View style={Style.left}>
-                                {/* <Image style={Style.post} source={require('../../assets/images/default-post.png')} /> */}
-                                <Image style={Style.post} source={{ uri: item.picUrl.url }} />
+                                <Image style={Style.post} source={{ uri: item.picUrl[0] }} />
                             </View>
                             {/* {console.log("item=>", item)} */}
                             <View style={{

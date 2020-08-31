@@ -3,6 +3,8 @@ import { SafeAreaView, View, Text, TouchableOpacity, Image, ScrollView } from 'r
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux'
 import io from 'socket.io-client';
+import RNFetchBlob from 'rn-fetch-blob';
+
 import AfterLoginHeader from '../../components/AfterLoginHeader';
 import NativeDropDown from '../../components/NativeDropDown'
 import TextInput_ from '../../components/Input/TextInput'
@@ -68,17 +70,24 @@ function Uploadproduct(props) {
     function onItmPress(item) {
         setOpenSelect(!openSelect)
         if (item == 'Take from camera') {
+            console.log(item)
             ImagePicker.launchCamera(options, (response) => {
+                console.log("camer")
                 if (response.uri) {
                     let data = {
-                        filename: response.fileName,
-                        path: response.path,
+                        // filename: response.fileName,
+                        name: response.fileName,
+                        // path: response.path,
                         type: response.type,
-                        data: response.path,
-                        uri: response.uri
+                        // data: response.path,
+                        // uri: response.uri
+                        uri: `file://${response.path}`
                     }
-                    images.push(data)
-                    setImages(images)
+                    if (images.length !== 3) {
+                        uploadImage(data)
+                    }
+                    // images.push(data)
+                    // setImages(images)
                 }
             });
         }
@@ -86,14 +95,19 @@ function Uploadproduct(props) {
             ImagePicker.launchImageLibrary(options, (response) => {
                 if (response.uri) {
                     let data = {
-                        filename: response.fileName,
-                        path: response.path,
+                        // filename: response.fileName,
+                        name: response.fileName,
+                        // path: response.path,
                         type: response.type,
-                        data: response.path,
-                        uri: response.uri
+                        // data: response.path,
+                        // uri: response.uri
+                        uri: `file://${response.path}`
                     }
-                    images.push(data)
-                    setImages(images)
+                    if (images.length !== 3) {
+                        uploadImage(data)
+                    }
+                    // images.push(data)
+                    // setImages(images)
                 }
             });
         }
@@ -104,33 +118,57 @@ function Uploadproduct(props) {
     }
 
     async function uploadPost() {
-        // props.loading(true)
+        props.loading(true)
         try {
             let body = {
-                data: {
-                    discription: state.discription,
-                    picUrl: '',
-                    priceRange: state.price,
-                    user: props.userData._id,
-                    category: selectedValue,
-                    sendTo: props.userData._id,
-                },
-                images: images
+                // data: {
+                discription: state.discription,
+                //     picUrl: '',
+                priceRange: state.price,
+                user: props.userData._id,
+                category: selectedValue,
+                sendTo: props.userData._id,
+                // },
+                picUrl: images
             }
             const response = await api.createPost(body);
-            // socket.emit('local-notification', { to: props.userData._id });
-            // socket.emit('local-notification', { to: response.notificationTo });
+            socket.emit('local-notification', { to: props.userData._id });
+            socket.emit('local-notification', { to: response.notificationTo });
 
-            // props.loading(false)
-            // props.navigation.pop()
+            props.loading(false)
+            props.navigation.pop()
         } catch (error) {
             props.loading(false)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
         }
     }
 
+    async function uploadImage(data) {
+        props.loading(true)
+        try {
+            let formData = new FormData();
+            formData.append('file', data);
+            formData.append('upload_preset', 'vfds5it9')
+            fetch('https://api.cloudinary.com/v1_1/zainahmed/image/upload', {
+                method: 'post',
+                body: formData,
+            })
+                .then(res => res.json())
+                .then(response => {
+                    console.log(response)
+                    images.push(response.secure_url)
+                    setImages(images)
+                    props.loading(false)
+                })
+        } catch (err) {
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: err })
+        }
+    }
+
     return (
         <>
+            {console.log("images=>", images)}
             {openSelect && <SelectPanel open={openSelect}
                 selectitem={onItmPress}
                 data={[{ title: 'Open gallery' }, { title: 'Take from camera' }, { title: 'Cancle' }]} />}
@@ -153,7 +191,7 @@ function Uploadproduct(props) {
                                 <Text style={Style.uploadText}>Upload picture</Text>
                             </TouchableOpacity>}
                             {images.length > 0 && <TouchableOpacity style={[Style.uploadMain,]}>
-                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[0].uri }} />
+                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[0] }} />
                                 {/* <Text style={Style.uploadText}>Upload picture</Text> */}
                             </TouchableOpacity>}
                         </View>
@@ -163,14 +201,14 @@ function Uploadproduct(props) {
                                 <Text style={Style.uploadText}>Upload picture</Text>
                             </TouchableOpacity>}
                             {images.length >= 2 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
-                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[1].uri }} />
+                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[1] }} />
                             </TouchableOpacity>}
                             {images.length >= 0 && images.length <= 2 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
                                 <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
                                 <Text style={Style.uploadText}>Upload picture</Text>
                             </TouchableOpacity>}
                             {images.length == 3 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
-                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[2].uri }} />
+                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[2] }} />
                             </TouchableOpacity>}
 
                         </View>
