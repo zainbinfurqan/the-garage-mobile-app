@@ -143,6 +143,10 @@ function Registration(props) {
         } else {
             if (!phoneNo.test(state.phoneNo.trim())) {
                 errors.phoneNo = 'Invalid number formate';
+            } else {
+                if (state.phoneNo.trim().length < 11) {
+                    errors.phoneNo = 'Phone no invalid';
+                }
             }
         }
 

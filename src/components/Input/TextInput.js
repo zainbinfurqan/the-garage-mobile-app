@@ -5,13 +5,18 @@ import constants from '../../config/constants';
 function TextInput_(props) {
     return (
         <View style={{ marginBottom: 5 }}>
-            {props.error && <Text style={{
+            {props.error && <><View style={{ flexDirection: 'row' }}><Text style={{
                 // marginTop: -6,
+                marginBottom: 5,
+                color: 'black',
+                fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                fontSize: constants.SMALLEST_FONT * .9
+            }}>{props.error}</Text><Text style={{
                 marginBottom: 5,
                 color: 'red',
                 fontFamily: constants.FONT_SAMSUNG_LIGHT,
                 fontSize: constants.SMALLEST_FONT * .9
-            }}>{props.error}</Text>}
+            }}> Error</Text></View></>}
             <TextInput
                 multiline={props.multiline}
                 numberOfLines={props.numberOfLines}

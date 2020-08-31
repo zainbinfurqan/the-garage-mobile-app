@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, Dimensions, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { View, SafeAreaView, Dimensions, Modal, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+// import ImageViewer from 'react-native-image-zoom-viewer';
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
 import CommonAction from '../../redux/common/action'
@@ -16,6 +17,7 @@ function ProductDetailView(props) {
     const [postData, setPostData] = useState({})
     const [showImageView, setShowImageView] = useState(false)
     const [imageViewUrl, setImageViewUrl] = useState('')
+    const [images, setImages] = useState([])
 
     useEffect(() => {
         getPostDetail()
@@ -31,6 +33,9 @@ function ProductDetailView(props) {
             const params = { postId: postData_._id }
             const response = await apis.fetchPostDetail(null, null, null, params)
             setPostData(response[0])
+            let images = [];
+            response[0].picUrl.filter(items => images.push({ url: items }))
+            setImages(images)
             props.loading(false)
         } catch (error) {
             props.loading(false)
@@ -137,7 +142,14 @@ function ProductDetailView(props) {
 
     return (
         <SafeAreaView style={Style.container}>
-            {showImageView && <ImageView imageViewUrl={imageViewUrl} back={closeImageView} />}
+            {showImageView && <ImageView imageViewUrl={imageViewUrl} back={closeImageView} images={images} />}
+            {/* {showImageView && <Modal visible={true} transparent={true}>
+                <TouchableOpacity >
+                    <Image source={require('../../assets/icons/back.png')} />
+                </TouchableOpacity>
+                <ImageViewer style={{ height: 100, width: '100%' }} imageUrls={images} />
+            </Modal>} */}
+
             <ScrollView>
                 {Object.keys(postData).length > 0 &&
                     <View style={{ borderColor: 'white', }}>

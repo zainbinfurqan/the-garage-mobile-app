@@ -12,7 +12,7 @@ export default StyleSheet.create({
         // backgroundColor: 'rgba(0,0,0,0.6)',
         // justifyContent: "center"
     },
-    backMain: { justifyContent: "center", padding: 10 },
+    backMain: { justifyContent: "center", padding: 10, backgroundColor: 'black' },
     backIcon: { height: 25, width: 25 },
     imageContainer: {
         flex: 1, justifyContent: "center",
