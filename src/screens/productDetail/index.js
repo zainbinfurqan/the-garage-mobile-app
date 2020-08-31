@@ -146,14 +146,14 @@ function ProductDetailView(props) {
                         </TouchableOpacity>
                         <View style={Style.productImagesMain}>
                             <TouchableOpacity onPress={() => openImageView(postData.picUrl[0])} style={Style.productImageMain1}>
-                                <Image resizeMode='contain' style={Style.productImage1} source={{ uri: postData.picUrl[0] }} />
+                                <Image resizeMode='cover' style={Style.productImage1} source={{ uri: postData.picUrl[0] }} />
                             </TouchableOpacity>
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <TouchableOpacity onPress={() => openImageView(postData.picUrl[1])} style={Style.productImageMain2}>
-                                    <Image resizeMode='contain' style={Style.productImage2} source={{ uri: postData.picUrl[1] }} />
+                                    <Image resizeMode='cover' style={Style.productImage2} source={{ uri: postData.picUrl[1] }} />
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => openImageView(postData.picUrl[2])} style={Style.productImageMain2}>
-                                    <Image resizeMode='contain' style={Style.productImage2} source={{ uri: postData.picUrl[2] }} />
+                                    <Image resizeMode='cover' style={Style.productImage2} source={{ uri: postData.picUrl[2] }} />
                                 </TouchableOpacity>
                             </View>
                         </View>

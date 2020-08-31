@@ -80,6 +80,19 @@ function AllPosts(props) {
         }
     }
 
+    async function deletePost(data) {
+        props.loading(true)
+        try {
+            let body = { postId: data._id }
+            const response = await api.deleteUserPost(body);
+            props.loading(false)
+            fetchAllPosts()
+        } catch (error) {
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
     return (
         <SafeAreaView style={Style.mainContainer}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='All Posts' />}
@@ -107,7 +120,7 @@ function AllPosts(props) {
                             </View>
                             <View style={Style.right}>
                                 <TouchableOpacity style={Style.openIcon}><Image style={Style.openIcon} source={require('../../../assets/icons/edit.png')} /></TouchableOpacity>
-                                <TouchableOpacity style={Style.openIcon}><Image style={Style.openIcon} source={require('../../../assets/icons/delete.png')} /></TouchableOpacity>
+                                <TouchableOpacity onPress={() => deletePost(item)} style={Style.openIcon}><Image style={Style.openIcon} source={require('../../../assets/icons/delete.png')} /></TouchableOpacity>
                             </View>
                         </View>
                     )

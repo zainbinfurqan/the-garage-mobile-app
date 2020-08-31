@@ -309,6 +309,28 @@ apis.searchUsersAdmin = async function (body = null, authorization = null, heade
     );
 };
 
+// update user product  api 
+apis.updateuserProductByAdmin = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/admin/updateuserpost`,
+    );
+};
+
+// delete user product  api 
+apis.deleteUserPost = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/admin/deleteuserpost`,
+    );
+};
+
 // fetch pending post
 apis.fetchPendingPost = async function (body = null, authorization = null, headers = null, params = null) {
     return await helper.apiMethod(

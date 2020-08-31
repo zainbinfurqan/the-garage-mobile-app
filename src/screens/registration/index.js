@@ -43,7 +43,7 @@ function Registration(props) {
         dispatch({
             type: 'ON_CHANGE_TEXT',
             payload: {
-                [label]: value.trim(),
+                [label]: value,
             },
         });
     }
@@ -74,12 +74,12 @@ function Registration(props) {
             if (isValidated) {
                 props.loading(true)
                 let body = {
-                    firstName: state.firstName,
-                    lastName: state.lastName,
-                    email: state.email,
-                    password: state.password,
-                    address: state.address,
-                    phoneNo: state.phoneNo,
+                    firstName: state.firstName.trim(),
+                    lastName: state.lastName.trim(),
+                    email: state.email.trim(),
+                    password: state.password.trim(),
+                    address: state.address.trim(),
+                    phoneNo: state.phoneNo.trim(),
                 }
                 const response = await api.registration(body);
                 response !== undefined && props.saveUserData(response)

@@ -130,6 +130,7 @@ function Uploadproduct(props) {
                 user: props.userData._id,
                 category: selectedValue,
                 sendTo: props.userData._id,
+                isApproved: props.userData.role.includes('admin') ? true : false,
                 // },
                 picUrl: images
             }

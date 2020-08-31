@@ -6,7 +6,7 @@ export default Styles = StyleSheet.create({
     container: { backgroundColor: 'white', flex: 1, padding: 5 },
     backMain: { paddingBottom: 10, paddingTop: 10 },
     images: { flexDirection: 'row', },
-    image1: { borderStyle: 'dashed', margin: 4, borderWidth: 1, borderRadius: 2, height: 150, flex: .33 },
+    image1: { borderStyle: 'dashed', margin: 4, padding: 2, borderWidth: 1, borderRadius: 2, height: 150, flex: .33 },
     nameMain: { margin: 4, },
     name: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,

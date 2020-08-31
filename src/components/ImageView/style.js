@@ -18,10 +18,10 @@ export default StyleSheet.create({
         flex: 1, justifyContent: "center",
     },
     imageMain: {
-        elevation: 2,
+        // elevation: 2,
         width: '90%',
         borderRadius: 5,
-        shadowColor: "#000",
+        // shadowColor: "#000",
         alignSelf: 'center',
     },
     image: {
