@@ -45,9 +45,11 @@ function Uploadproduct(props) {
     };
 
     const [state, dispatch] = useReducer(reducer, initialState)
-    const [selectedValue, setSelectedValue] = useState("");
+    const [selectedValue, setSelectedValue] = useState(props.categories[0]._id);
     const [openSelect, setOpenSelect] = useState(false)
     const [images, setImages] = useState([])
+
+
 
     function handleChangeText(value, label) {
         if (label == 'discription') {
@@ -168,7 +170,6 @@ function Uploadproduct(props) {
 
     return (
         <>
-            {console.log("images=>", images)}
             {openSelect && <SelectPanel open={openSelect}
                 selectitem={onItmPress}
                 data={[{ title: 'Open gallery' }, { title: 'Take from camera' }, { title: 'Cancle' }]} />}

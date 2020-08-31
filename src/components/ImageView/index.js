@@ -11,7 +11,7 @@ function ImageView(props) {
             </TouchableOpacity>
             <View style={Style.imageContainer}>
                 <View style={Style.imageMain}>
-                    <Image style={Style.image} source={{ uri: props.imageViewUrl }} />
+                    <Image resizeMode='contain' style={Style.image} source={{ uri: props.imageViewUrl }} />
                 </View>
             </View>
         </SafeAreaView>
