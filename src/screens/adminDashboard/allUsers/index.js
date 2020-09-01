@@ -30,7 +30,7 @@ function AllUsers(props) {
         setLaoding(true)
         try {
             let params = { firstName: value == '' ? searchText : value }
-            const response = await apis.searchUsersAdmin(null, null, null, params);
+            const response = await apis.searchUsersAdmin(null, props.userData.token, null, params);
             setUserList(response)
             setLaoding(false)
         } catch (error) {
@@ -43,7 +43,7 @@ function AllUsers(props) {
         props.loading(true)
         try {
             let body = { userId: value }
-            const response = await apis.blockUser(body)
+            const response = await apis.blockUser(body, props.userData.token)
             fetchAllUsers('')
             setUserList([])
             props.loading(false)
@@ -57,7 +57,7 @@ function AllUsers(props) {
         props.loading(true)
         try {
             let body = { userId: value }
-            const response = await apis.unBlockUser(body)
+            const response = await apis.unBlockUser(body, props.userData.token)
             fetchAllUsers('')
             setUserList([])
             props.loading(false)
@@ -73,6 +73,10 @@ function AllUsers(props) {
 
     function onSearch() {
         fetchAllUsers(searchText)
+    }
+
+    function openProfile(item) {
+        props.navigation.navigate('Profile', { userData: item })
     }
 
     return (
@@ -109,7 +113,7 @@ function AllUsers(props) {
                             <Text style={Style.name}>{helper.nameConcatenate(item)}</Text>
                         </View>
                         <View style={{ flex: .3, flexDirection: 'row', justifyContent: 'space-around', }}>
-                            <TouchableOpacity style={Style.option}><Text style={Style.option}>View</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => openProfile(item)} style={Style.option}><Text style={Style.option}>View</Text></TouchableOpacity>
                             <TouchableOpacity onPress={item.isBlocked ? () => unBlockUser(item._id) : () => blockUser(item._id)} style={[Style.option]}>
                                 <Text style={[Style.option,
                                 item.isBlocked ? { color: constants.RED } : { color: constants.GREEN }]}>{item.isBlocked ? 'Blocked' : 'Open'}</Text>

@@ -23,7 +23,7 @@ function MyPosts(props) {
             let params = {
                 userId: props.userData._id
             }
-            const response = await api.fetchMyPost(null, null, null, params);
+            const response = await api.fetchMyPost(null, props.userData.token, null, params);
             setMyPost(response)
             setLoading(false)
         } catch (error) {

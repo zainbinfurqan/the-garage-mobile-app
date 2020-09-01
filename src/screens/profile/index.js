@@ -7,6 +7,10 @@ import constants from '../../config/constants';
 import Style from './style'
 
 function Profile(props) {
+
+    const userData_ = props.route.params.userData
+    console.log(userData_)
+
     return (
         <SafeAreaView style={Style.containerMain}>
             <TouchableOpacity onPress={() => props.navigation.pop()} style={{ padding: 10, }}>
@@ -17,19 +21,19 @@ function Profile(props) {
             </View>
             <View style={{ padding: 10 }}>
                 <View style={{}}>
-                    <Text style={[Style.text, { fontSize: constants.MEDIUM_FONT }]}>{healpers.nameConcatenate(props.userData)}</Text>
+                    <Text style={[Style.text, { fontSize: constants.MEDIUM_FONT }]}>{healpers.nameConcatenate(!userData_ ? props.userData : userData_)}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>{props.userData.email}</Text>
+                    <Text style={Style.text}>{!userData_ ? props.userData.email : userData_.email}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>{props.userData.phoneNo}</Text>
+                    <Text style={Style.text}>{!userData_ ? props.userData.phoneNo : userData_.phoneNo}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{}}>
-                    <Text style={Style.text}>{props.userData.address}</Text>
+                    <Text style={Style.text}>{!userData_ ? props.userData.address : userData_.address}</Text>
                 </View>
                 <View style={Style.line} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>

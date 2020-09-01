@@ -31,7 +31,7 @@ function Notification(props) {
         props.loading(true)
         try {
             let body = { notification: data._id }
-            const response = await apis.markNotificationRead(body);
+            const response = await apis.markNotificationRead(body, props.userData.token);
             fetchNotification()
             setUnreadlocalNotification(data._id)
             props.loading(false)
@@ -45,7 +45,7 @@ function Notification(props) {
         props.loading(true)
         try {
             let body = { notification: data._id }
-            const response = await apis.markNotificationDelete(body);
+            const response = await apis.markNotificationDelete(body, props.userData.token);
             fetchNotification()
             props.loading(false)
         } catch (error) {
@@ -59,7 +59,7 @@ function Notification(props) {
         setLoadin(true)
         try {
             let params = { user: props.userData._id }
-            const response = await apis.fetchAllNotification(null, null, null, params);
+            const response = await apis.fetchAllNotification(null, props.userData.token, null, params);
             setNotification(response)
             props.loading(false)
             setLoadin(false)
@@ -75,7 +75,7 @@ function Notification(props) {
         setLoadin(true)
         try {
             let params = { user: props.userData._id }
-            const response = await apis.fetchUnReadLocalNotification_(null, null, null, params);
+            const response = await apis.fetchUnReadLocalNotification_(null, props.userData.token, null, params);
             console.log("response=>", response)
             setNotification(response)
             props.loading(false)

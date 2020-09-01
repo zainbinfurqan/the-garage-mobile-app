@@ -123,18 +123,16 @@ function Uploadproduct(props) {
         props.loading(true)
         try {
             let body = {
-                // data: {
                 discription: state.discription,
-                //     picUrl: '',
                 priceRange: state.price,
                 user: props.userData._id,
                 category: selectedValue,
                 sendTo: props.userData._id,
                 isApproved: props.userData.role.includes('admin') ? true : false,
-                // },
+                isAdmin: props.userData.role.includes('admin') ? true : false,
                 picUrl: images
             }
-            const response = await api.createPost(body);
+            const response = await api.createPost(body, props.userData.token);
             socket.emit('local-notification', { to: props.userData._id });
             socket.emit('local-notification', { to: response.notificationTo });
 

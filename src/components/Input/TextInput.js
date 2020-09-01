@@ -3,6 +3,7 @@ import { View, TextInput, Text } from 'react-native'
 import constants from '../../config/constants';
 
 function TextInput_(props) {
+    console.log(props.value)
     return (
         <View style={{ marginBottom: 5 }}>
             {props.error && <><View style={{ flexDirection: 'row' }}><Text style={{

@@ -31,7 +31,7 @@ function AllPosts(props) {
             let params = {
                 userId: props.userData._id
             }
-            const response = await api.fetchAllPosts(null, null, null, params);
+            const response = await api.fetchAllPosts(null, props.userData.token, null, params);
             setAllPosts(response)
             setLoading(false)
         } catch (error) {
@@ -42,7 +42,7 @@ function AllPosts(props) {
     async function fetchPendingPost() {
         setLoading(true)
         try {
-            const response = await api.fetchPendingPost();
+            const response = await api.fetchPendingPost(null, props.userData.token);
             setPendingPost(response)
             setLoading(false)
         } catch (error) {
@@ -70,7 +70,7 @@ function AllPosts(props) {
                 sendFrom: props.userData._id,
                 sendTo: value.user._id
             }
-            const response = await api.approvedPost(body);
+            const response = await api.approvedPost(body, props.userData.token);
             helper.sendAppLocalNotidication({ to: value.user._id })
             props.loading(false)
             fetchPendingPost()
@@ -84,7 +84,7 @@ function AllPosts(props) {
         props.loading(true)
         try {
             let body = { postId: data._id }
-            const response = await api.deleteUserPost(body);
+            const response = await api.deleteUserPost(body, props.userData.token);
             props.loading(false)
             fetchAllPosts()
         } catch (error) {
@@ -119,8 +119,12 @@ function AllPosts(props) {
                                 <Text style={Style.leftText2}>{item.discription.substring(1, 100)}...</Text>
                             </View>
                             <View style={Style.right}>
-                                <TouchableOpacity style={Style.openIcon}><Image style={Style.openIcon} source={require('../../../assets/icons/edit.png')} /></TouchableOpacity>
-                                <TouchableOpacity onPress={() => deletePost(item)} style={Style.openIcon}><Image style={Style.openIcon} source={require('../../../assets/icons/delete.png')} /></TouchableOpacity>
+                                <TouchableOpacity onPress={() => props.navigation.navigate('EditableView', { postData: item })} style={Style.openIcon}>
+                                    <Image style={Style.openIcon} source={require('../../../assets/icons/edit.png')} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => deletePost(item)} style={Style.openIcon}>
+                                    <Image style={Style.openIcon} source={require('../../../assets/icons/delete.png')} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )

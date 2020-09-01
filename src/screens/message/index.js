@@ -26,7 +26,7 @@ function MessageList(props) {
                 sender: props.userData._id,
                 receiver: otherUser._id,
             };
-            const response = await apis.createRoom(body);
+            const response = await apis.createRoom(body, props.userData.token);
             props.loading(false)
             props.navigation.navigate('Chat', { otherUser: otherUser, room: response });
         } catch (error) {
@@ -37,7 +37,7 @@ function MessageList(props) {
 
     async function fetchAllUsers() {
         try {
-            const response = await apis.fetchAllUsers();
+            const response = await apis.fetchAllUsers(null, props.userData.token);
             setUserList(response)
         } catch (error) {
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })

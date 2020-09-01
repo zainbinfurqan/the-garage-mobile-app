@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { SafeAreaView, Text, View, Image, TouchableOpacity } from 'react-native';
 
-import NativeDropDown from '../../components/NativeDropDown'
-import CommonAction from '../../redux/common/action'
-import FullEditableView from './FullEditableView'
-import AdminEditableView from './AdminEditableView'
-import constants from '../../config/constants';
-import Button_ from '../../components/Button'
-import helper from '../../utils/helpers'
-import apis from '../../utils/apis';
+import NativeDropDown from '../../../components/NativeDropDown'
+import CommonAction from '../../../redux/common/action'
+import constants from '../../../config/constants';
+import Button_ from '../../../components/Button'
+import helper from '../../../utils/helpers'
+import apis from '../../../utils/apis';
 import Style from './style'
 
-function EditableView(props) {
-    let postData = props.route.params.postData
+function AdminEditableView(props) {
+    let postData = props.postData
     const [selectedCategoryValue, setSelectedCategoryValue] = useState("");
 
     useEffect(() => {
@@ -42,12 +40,10 @@ function EditableView(props) {
 
     return (
         <SafeAreaView style={Style.container}>
-            <TouchableOpacity onPress={() => props.navigation.pop()} style={Style.backMain}>
+            {/* <TouchableOpacity onPress={() => props.navigation.pop()} style={Style.backMain}>
                 <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/back.png')} />
-            </TouchableOpacity>
-            {postData.user._id === props.userData._id && <FullEditableView postData={postData} />}
-            {postData.user._id !== props.userData._id && <AdminEditableView postData={postData} />}
-            {/* <View style={Style.images}>
+            </TouchableOpacity> */}
+            <View style={Style.images}>
                 <View style={Style.image1}>
                     <Image resizeMode="contain" style={{ height: '100%', width: '100%' }} source={{ uri: postData.picUrl[0] }} />
                 </View>
@@ -83,7 +79,7 @@ function EditableView(props) {
                 data={props.categories}
                 selectedValue={selectedCategoryValue}
                 setSelectedValue={(value) => categoryHandle(value)} />
-            <Button_ onPress={updateProduct} title='Update' textStyle={{ color: 'white' }} rippleColor={constants.RIPPLE_COLOR} /> */}
+            <Button_ onPress={updateProduct} title='Update' textStyle={{ color: 'white' }} rippleColor={constants.RIPPLE_COLOR} />
 
         </SafeAreaView>
     )
@@ -100,4 +96,4 @@ const mapDispatchToProps = {
     apiresponse: CommonAction.apiresponse,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditableView);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminEditableView);
