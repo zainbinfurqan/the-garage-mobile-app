@@ -44,8 +44,9 @@ function Login(props) {
                 // if (response) {
                 // if (Object.keys(props.userData).length) {
                 props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Login successfully' })
-                props.loading(false)
                 props.navigation.replace('MainScreen')
+                props.loading(false)
+
                 // }
                 // }
 

@@ -1,4 +1,13 @@
-import { SET_USERDATA, UPDATE_USERDATA, SET_API_ERROR, LOGOUT, SET_WANT_TO_IN_QUEUE, UPDATE_PROFILE_URL, ADD_FAVOURITE_DOCTOR, SET_INFO_NOTIFICATION } from './action';
+import {
+    SET_USERDATA,
+    UPDATE_USERDATA,
+    SET_API_ERROR,
+    LOGOUT,
+    SET_WANT_TO_IN_QUEUE,
+    UPDATE_PROFILE_URL,
+    ADD_FAVOURITE_DOCTOR,
+    SET_INFO_NOTIFICATION
+} from './action';
 const initialState = {
     userData: null,
     isLogin: false,
@@ -7,9 +16,9 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+    console.log("action=>", action)
     switch (action.type) {
         case SET_USERDATA:
-            // return { ...state, userData: action.payload.data, isLogin: true };
             return { ...state, userData: action.payload, isLogin: true };
         case SET_API_ERROR:
             return { ...state, apiResponseError: action.payload };

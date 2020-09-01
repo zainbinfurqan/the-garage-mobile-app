@@ -13,6 +13,25 @@ export default Styles = StyleSheet.create({
         borderRadius: 50,
         flex: 0.3, justifyContent: 'center'
     },
+    optionFalg: { zIndex: 1, alignSelf: 'flex-start', padding: 5, },
+    optionMain: {
+        borderWidth: 1,
+        backgroundColor: 'white',
+        height: 50,
+        width: 100,
+        position: 'absolute',
+        // marginLeft: 37,
+        marginTop: 20,
+    },
+    optionText: {
+        borderWidth: 0.34,
+        borderRadius: 10,
+        paddingLeft: 5,
+        paddingRight: 5,
+        fontSize: constant.SMALL_FONT * 1.2,
+        alignSelf: 'center',
+        fontFamily: constant.FONT_SAMSUNG_LIGHT
+    },
     optionLeftText: {
         padding: 3,
         color: 'black',

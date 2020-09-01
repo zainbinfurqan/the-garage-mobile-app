@@ -75,7 +75,7 @@ function PostsFeed(props) {
         setupListener()
         props.isLogin && props.fetchUnReadLocalNotification({
             user: props.userData._id
-        })
+        }, props.userData.token)
         // props.loading(false)
         // props.apiresponse(true)
         // props.logout(null)

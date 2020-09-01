@@ -1,13 +1,16 @@
 
-import React, { } from 'react';
+import React, { useState } from 'react';
 import { View, Image, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import constants from '../../config/constants';
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux'
+import Style from './style'
 
 function AfterLoginHeader(props) {
+    const [options, setOptions] = useState(false)
+
     const navigation = useNavigation();
     const route = useRoute();
     function openDrawer() {
@@ -31,6 +34,10 @@ function AfterLoginHeader(props) {
                         color: 'white',
                         fontFamily: constants.FONT_SAMSUNG_LIGHT
                     }}>{props.headerText}</Text>
+                    {/* {options &&
+                        <View style={Style.optionMain}>
+                        </View>
+                    } */}
                 </View>
                 {route.name !== 'Notification' && props.notificationIcon &&
                     <>
@@ -48,6 +55,17 @@ function AfterLoginHeader(props) {
                         </TouchableOpacity>
                     </>
                 }
+                {/* {route.name == 'Notification' &&
+                    <>
+                        <View style={Style.optionFalg}>
+                            <TouchableOpacity onPress={() => setOptions(!options)} style={{}} onPress={() => setOptions(!options)}>
+                                <Image style={{ alignSelf: 'center', height: 25, width: 25 }} source={require('../../assets/icons/option.png')} />
+                            </TouchableOpacity>
+
+                          
+                        </View>
+                    </>
+                } */}
             </ImageBackground>
             {/* <View style={{ width: '99.8%', alignSelf: 'center', }}>
                 <ImageBackground style={{ height: 5, opacity: 0.8, borderBottomEndRadius: 5 }} source={require('../../assets/images/header-2.png')}></ImageBackground>

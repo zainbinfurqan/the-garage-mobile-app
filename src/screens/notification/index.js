@@ -100,6 +100,16 @@ function Notification(props) {
     return (
         <SafeAreaView style={Style.containerMain}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='Notification' />}
+            <View style={Style.optionFalg}>
+                {/* <TouchableOpacity onPress={() => setOptions(!options)}>
+                    <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/option.png')} />
+                </TouchableOpacity>
+                {options &&
+                    <View style={Style.optionMain}>
+                        <Text style={Style.optionText}>Delete All</Text>
+                        <Text style={Style.optionText}>Read All</Text>
+                    </View>} */}
+            </View>
             <View style={Style.selectmain}>
                 <TouchableOpacity onPress={() => optionHandle('all')} style={[Style.optionLeftMain, status === 'all' && { backgroundColor: constant.LIGHT_BLUE }]}>
                     <Text style={[Style.optionLeftText, status === 'all' && { color: 'white' }]}>All</Text>
@@ -108,9 +118,14 @@ function Notification(props) {
                     <Text style={[Style.optionRightText, status === 'unread' && { color: 'white' }]}>Un Read</Text>
                 </TouchableOpacity>
             </View>
+            <View style={{ flexDirection: 'row' }}>
+                <TouchableOpacity style={{ padding: 5 }}><Text style={Style.optionText}>Delete All</Text></TouchableOpacity>
+                <TouchableOpacity style={{ padding: 5 }}><Text style={Style.optionText}>Read All</Text></TouchableOpacity>
+            </View>
+
             {notification.length == 0 && loading && <ActivityIndicator color={constant.LIGHT_BLUE} />}
             {!loading && notification.length == 0 && <NoDataFound text='No notification' />}
-            <ScrollView style={{ borderColor: 'red', padding: 10 }}>
+            <ScrollView style={{ borderColor: 'red', padding: 10, }}>
                 {notification.map((item, index) => {
                     return (
                         <>

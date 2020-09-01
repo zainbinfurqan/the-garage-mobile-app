@@ -27,9 +27,9 @@ action.fetchCategory = function (data) {
     };
 };
 
-action.fetchUnReadLocalNotification = function (data) {
+action.fetchUnReadLocalNotification = function (data, token) {
     return async function (dispatch) {
-        const response = await api.fetchUnReadLocalNotification_(null, null, null, data);
+        const response = await api.fetchUnReadLocalNotification_(null, token, null, data);
         dispatch({ type: SET_UNREAD_LOCAL_NOTIFICATION, payload: response });
     };
 }

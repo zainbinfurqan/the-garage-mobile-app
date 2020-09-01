@@ -159,7 +159,7 @@ apis.fetchUnReadLocalNotification_ = async function (body = null, authorization 
         'GET',
         body,
         authorization,
-        `${constant.BASE_URL}/notification/unred?user=${params.user}`,
+        `${constant.BASE_URL}/notification/unread?user=${params.user}`,
     );
 };
 

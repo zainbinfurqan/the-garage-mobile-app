@@ -23,7 +23,7 @@ function CustomDrawer(props) {
         setupListener()
         props.isLogin && props.fetchUnReadLocalNotification({
             user: props.userData._id
-        })
+        }, props.userData.token)
     }, [])
 
     function setupListener() {
@@ -33,7 +33,7 @@ function CustomDrawer(props) {
                 let params = {
                     user: props.userData._id
                 }
-                props.fetchUnReadLocalNotification(params)
+                props.fetchUnReadLocalNotification(params, props.userData.token)
             })
     }
 

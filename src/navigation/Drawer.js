@@ -26,7 +26,7 @@ function CustomDrawer(props) {
     async function logOut() {
         props.loading(true)
         try {
-            setInterval(() => {
+            setTimeout(() => {
                 props.logout()
                 props.loading(false)
             }, 2000);
@@ -74,7 +74,7 @@ function CustomDrawer(props) {
                 <View style={Style.line} />
             </>}
             {props.isLogin && <>
-                <Item itemText='Logout' icon={`${require('../assets/icons/login.png')}`} navigateTo={logOut} />
+                <Item itemText='Logout' icon={`${require('../assets/icons/login.png')}`} navigateTo={() => logOut()} />
                 <View style={Style.line} />
             </>}
         </ScrollView>
