@@ -19,7 +19,7 @@ function Notification(props) {
 
     useEffect(() => {
         // fetchNotification()
-        setNotification(props.unReadLocalNotification)
+        // setNotification(props.unReadLocalNotification)
     }, [])
 
     function setUnreadlocalNotification(id) {
@@ -32,6 +32,7 @@ function Notification(props) {
         try {
             let body = { notification: data._id }
             const response = await apis.markNotificationRead(body, props.userData.token);
+            // setUnreadlocalNotification(props.unReadLocalNotification)
             fetchNotification()
             setUnreadlocalNotification(data._id)
             props.loading(false)
@@ -46,6 +47,7 @@ function Notification(props) {
         try {
             let body = { notification: data._id }
             const response = await apis.markNotificationDelete(body, props.userData.token);
+            // setUnreadlocalNotification(props.unReadLocalNotification)
             fetchNotification()
             props.loading(false)
         } catch (error) {
@@ -76,7 +78,6 @@ function Notification(props) {
         try {
             let params = { user: props.userData._id }
             const response = await apis.fetchUnReadLocalNotification_(null, props.userData.token, null, params);
-            console.log("response=>", response)
             setNotification(response)
             props.loading(false)
             setLoadin(false)
@@ -94,6 +95,42 @@ function Notification(props) {
         }
         if (value === 'unread') {
             fetchUndReadNotifications()
+        }
+    }
+
+    async function deleteAll() {
+        props.loading(true)
+        setLoadin(true)
+        try {
+            let params = { user: props.userData._id }
+            const response = await apis.deleteAllNotificaitons(null, props.userData.token,);
+            fetchNotification()
+            props.updateUnReadLcoalNotification([])
+            // setUnreadlocalNotification(props.unReadLocalNotification)
+            props.loading(false)
+            setLoadin(false)
+        } catch (error) {
+            setLoadin(false)
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
+        }
+    }
+
+    async function readAll() {
+        props.loading(true)
+        setLoadin(true)
+        try {
+            let params = { user: props.userData._id }
+            const response = await apis.readAllNotifications(null, props.userData.token,);
+            fetchNotification()
+            props.updateUnReadLcoalNotification([])
+            // setUnreadlocalNotification(props.unReadLocalNotification)
+            props.loading(false)
+            setLoadin(false)
+        } catch (error) {
+            setLoadin(false)
+            props.loading(false)
+            props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
         }
     }
 
@@ -119,8 +156,8 @@ function Notification(props) {
                 </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={{ padding: 5 }}><Text style={Style.optionText}>Delete All</Text></TouchableOpacity>
-                <TouchableOpacity style={{ padding: 5 }}><Text style={Style.optionText}>Read All</Text></TouchableOpacity>
+                {notification.length > 0 && <TouchableOpacity onPress={deleteAll} style={{ padding: 5 }}><Text style={Style.optionText}>Delete All</Text></TouchableOpacity>}
+                {notification.length > 0 && <TouchableOpacity onPress={readAll} style={{ padding: 5 }}><Text style={Style.optionText}>Read All</Text></TouchableOpacity>}
             </View>
 
             {notification.length == 0 && loading && <ActivityIndicator color={constant.LIGHT_BLUE} />}
@@ -130,7 +167,7 @@ function Notification(props) {
                     return (
                         <>
                             <View key={index} style={[{ flexDirection: 'row', padding: 5, borderRadius: 3, }, item.isRead && { backgroundColor: constants.LIGHT_BACKGROUND_COLOR }]}>
-                                <TouchableOpacity style={{ flex: .9 }} onPress={() => markRead(item)}>
+                                <TouchableOpacity key={index} style={{ flex: .9 }} onPress={() => markRead(item)}>
                                     <Text style={{
                                         fontFamily: constants.FONT_SAMSUNG_LIGHT,
                                         fontSize: constants.SMALL_FONT * 1.4

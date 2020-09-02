@@ -9,7 +9,6 @@ import Style from './style'
 function Profile(props) {
 
     const userData_ = props.route.params.userData
-    console.log(userData_)
 
     return (
         <SafeAreaView style={Style.containerMain}>

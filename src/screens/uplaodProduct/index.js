@@ -72,9 +72,7 @@ function Uploadproduct(props) {
     function onItmPress(item) {
         setOpenSelect(!openSelect)
         if (item == 'Take from camera') {
-            console.log(item)
             ImagePicker.launchCamera(options, (response) => {
-                console.log("camer")
                 if (response.uri) {
                     let data = {
                         // filename: response.fileName,
@@ -156,7 +154,6 @@ function Uploadproduct(props) {
             })
                 .then(res => res.json())
                 .then(response => {
-                    console.log(response)
                     images.push(response.secure_url)
                     setImages(images)
                     props.loading(false)

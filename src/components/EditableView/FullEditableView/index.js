@@ -12,7 +12,6 @@ import apis from '../../../utils/apis';
 
 function FullEditableView(props) {
     let postData = props.postData
-    console.log("postData=>", postData.priceRange)
 
     const [error, setError] = useState({})
     const [discription, setDiscription] = useState('')
@@ -50,9 +49,6 @@ function FullEditableView(props) {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            {
-                console.log("price=>", price)
-            }
             <View style={{}}>
                 <TextInput_
                     placeholder='discription'

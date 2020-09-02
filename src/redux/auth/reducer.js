@@ -16,7 +16,6 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-    console.log("action=>", action)
     switch (action.type) {
         case SET_USERDATA:
             return { ...state, userData: action.payload, isLogin: true };

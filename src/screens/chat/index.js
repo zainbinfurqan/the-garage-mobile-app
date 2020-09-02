@@ -49,7 +49,6 @@ function Chat(props) {
 
         const body = { roomId: room._id, user: user._id, skip: skipValue, limit: limitValue };
         const response = await api.fetchMessage(body, null);
-        console.log("response=>", response)
         props.loading(false)
         dispatch({ type: 'ON_INITIAL_MESSAGE', payload: response.messages });
         setSkip(skip + 10)
@@ -128,7 +127,6 @@ function Chat(props) {
 
     return (
         <>
-            {console.log("state.chatMessages=>", state.chatMessages)}
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <AfterLoginHeader backButton={true} menuButton={false} headerText='Faraz' notificationIcon={false} />
                 <FlatList

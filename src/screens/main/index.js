@@ -29,7 +29,6 @@ function CustomDrawer(props) {
     function setupListener() {
         props.isLogin &&
             socket.on("app-local-notification", (socketData) => {
-                console.log("app-local-notification=>")
                 let params = {
                     user: props.userData._id
                 }

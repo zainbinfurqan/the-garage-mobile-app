@@ -163,6 +163,28 @@ apis.fetchUnReadLocalNotification_ = async function (body = null, authorization 
     );
 };
 
+// delete all local notification 
+apis.deleteAllNotificaitons = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/notification/deleteall`,
+    );
+};
+
+// read all local notification 
+apis.readAllNotifications = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/notification/readall`,
+    );
+};
+
 // markt  local notification read 
 apis.markNotificationRead = async function (body = null, authorization = null, headers = null, params = null) {
     return await helper.apiMethod(

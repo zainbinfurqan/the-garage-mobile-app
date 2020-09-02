@@ -21,8 +21,6 @@ function IconTextInput(props) {
             />
             <TouchableOpacity onPress={props.onPress} style={{ flex: 0.15, justifyContent: 'center', height: 40 }}>
                 <Image style={{ height: 22, width: 22, alignSelf: 'center' }} source={props.Icon} />
-                {/* {console.log(props.Icon)} */}
-                {/* <Image style={{ height: 22, width: 22, alignSelf: 'center' }} source={{ uri: props.Icon }} /> */}
             </TouchableOpacity>
         </View>
     )
