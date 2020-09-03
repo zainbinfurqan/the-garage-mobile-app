@@ -37,16 +37,10 @@ function Login(props) {
                     password: password
                 }
                 const response = await api.login(body);
-                // response !== undefined &&
                 props.saveUserData(response)
-                // if (response) {
-                // if (Object.keys(props.userData).length) {
                 props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Login successfully' })
                 props.navigation.replace('MainScreen')
                 props.loading(false)
-
-                // }
-                // }
 
             }
         } catch (error) {

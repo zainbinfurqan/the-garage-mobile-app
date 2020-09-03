@@ -12,6 +12,7 @@ import apis from '../../../utils/apis';
 
 function FullEditableView(props) {
     let postData = props.postData
+    console.log("postData=>", postData.category)
 
     const [error, setError] = useState({})
     const [discription, setDiscription] = useState('')
@@ -34,12 +35,13 @@ function FullEditableView(props) {
         try {
             let body = {
                 priceRange: price,
-                category: category,
+                category: selectedCategoryValue,
                 discription: discription,
                 postId: postData._id,
                 userId: postData.user._id
             }
-            const response = await apis.updateProductApi(body)
+            const response = await apis.updateProductApi(body, props.userData.token)
+            props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Update Successfully' })
             props.loading(false)
         } catch (error) {
             props.loading(false)
@@ -62,7 +64,7 @@ function FullEditableView(props) {
                     placeholder='price'
                     onChangeText={(e) => setPrice(e)}
                     InputStyle={Style.textInput}
-                    value={price}
+                    value={price.toString()}
                 />
                 <NativeDropDown
                     data={props.categories}

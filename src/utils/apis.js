@@ -328,6 +328,17 @@ apis.updateProductApi = async function (body = null, authorization = null, heade
     );
 };
 
+apis.deletePost = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'PUT',
+        body,
+        authorization,
+        `${constant.BASE_URL}/post/delete`,
+    );
+};
+
+
 
 //admin apis
 // search users api 

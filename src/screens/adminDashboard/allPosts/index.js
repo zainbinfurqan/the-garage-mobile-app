@@ -84,6 +84,7 @@ function AllPosts(props) {
         props.loading(true)
         try {
             let body = { postId: data._id }
+            props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Delete Successfully' })
             const response = await api.deleteUserPost(body, props.userData.token);
             props.loading(false)
             fetchAllPosts()

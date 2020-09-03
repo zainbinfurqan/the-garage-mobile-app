@@ -9,6 +9,11 @@ export default Styles = StyleSheet.create({
         borderWidth: 0.34, borderColor: constants.LIGHT_BORDER,
         borderRadius: 2, marginBottom: 5, flexDirection: 'column'
     },
+    optionText: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT * 1.2,
+        alignSelf: 'center'
+    },
     left: { flex: .9, padding: 5 },
     leftText1: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,

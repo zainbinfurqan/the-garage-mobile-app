@@ -47,9 +47,9 @@ function Dashboard(props) {
                 </TouchableOpacity>
             </View>
             {/* <View style={Style.line} /> */}
-            {tab1 && <MyPosts />}
-            {tab2 && <Intrested />}
-            {tab3 && <SoldOut />}
+            {tab1 && <MyPosts navigateProps={props} />}
+            {tab2 && <Intrested navigateProps={props} />}
+            {tab3 && <SoldOut navigateProps={props} />}
 
         </SafeAreaView>
     )

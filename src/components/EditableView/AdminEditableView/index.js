@@ -32,6 +32,7 @@ function AdminEditableView(props) {
             }
             const response = await apis.updateuserProductByAdmin(body);
             props.loading(false)
+            props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Update Successfully' })
         } catch (error) {
             props.loading(false)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
