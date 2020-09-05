@@ -29,6 +29,7 @@ helper.apiMethod = async function (path = null, method = null, body = null, auth
         if (body) {
             options['body'] = JSON.stringify(body);
         }
+        console.log("apiUrl=>", apiUrl)
         const response = await fetch(apiUrl, options);
         const json = await response.json();
         if (response.status !== 200) {

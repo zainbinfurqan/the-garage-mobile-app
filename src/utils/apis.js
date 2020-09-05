@@ -108,6 +108,28 @@ apis.fetchCategory = async function (body = null, authorization = null, headers 
     );
 };
 
+// fetch autoparts category api
+apis.fetchAutoPartsCategory = async function (body = null, authorization = null, headers = null, params = null) {
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/category/autoparts?category=${params.category}`,
+    );
+};
+
+// fetch subautoparts category api
+apis.fetchSubAutoPartsCategory = async function (body = null, authorization = null, headers = null,) {
+    return await helper.apiMethod(
+        null,
+        'GET',
+        body,
+        authorization,
+        `${constant.BASE_URL}/category/subautoparts?category=${params.category}&&autopartscategory=${params.autoPartsCategory}`,
+    );
+};
+
 // login api
 apis.login = async function (body = null, authorization = null, headers) {
     return await helper.apiMethod(

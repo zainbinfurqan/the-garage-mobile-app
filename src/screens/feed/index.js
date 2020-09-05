@@ -47,6 +47,8 @@ function PostsFeed(props) {
     const [category, setCategory] = useState([])
     const [posts, setPosts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('')
+    const [selectedAutoPartCategory, setSelectedAutoPartCategory] = useState('')
+    const [selectedSubAutoPartCategory, setSelectedSubAutoPartCategory] = useState('')
     const [loading, setLoading] = useState(false)
     const [refreshing, setRefreshing] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -122,12 +124,6 @@ function PostsFeed(props) {
 
     function handleChangeText(value, label) {
         setSearchText(value)
-        // dispatch({
-        //     type: 'ON_TEXT_CHANGE',
-        //     payload: {
-        //         [label]: value.trim(),
-        //     },
-        // });
     }
 
     function selectCategory(item, index) {
@@ -155,6 +151,23 @@ function PostsFeed(props) {
         fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
     }
 
+    async function getAutoPartCategory() {
+        try {
+            let params = { category: selectCategory }
+            let response = await api.fetchAutoPartsCategory(null, null, null, params)
+        } catch (error) {
+
+        }
+    }
+
+    async function getSubAutoPartCategory() {
+        try {
+            let params = { category: selectCategory ,autoPartsCategory:selectedAutoPartCategory}
+            let response = await api.fetchSubAutoPartsCategory(null,null,null,params)
+        } catch (error) {
+
+        }
+    }
 
 
     return (
@@ -205,11 +218,7 @@ function PostsFeed(props) {
                             </View>
                             <Text style={Style.filterText}>Clear Filters</Text>
                         </TouchableOpacity>
-                        {/* <View style={Style.clearFilterMain}>
-                            <Text style={Style.filterText}>Clear Filter</Text>
-                        </View> */}
                     </View>}
-
                 {!loading && <FlatList
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
