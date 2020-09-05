@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 // import ImageViewer from 'react-native-image-zoom-viewer';
 
 import BeforLoginHeader from '../../components/BeforLoginHeader'
+import ImagesCanas from '../../components/ImagesCanvas'
 import CommonAction from '../../redux/common/action'
 import ImageView from '../../components/ImageView'
 import constants from '../../config/constants';
@@ -133,7 +134,7 @@ function ProductDetailView(props) {
 
     function openImageView(url) {
         setShowImageView(!showImageView)
-        setImageViewUrl(url)
+        // setImageViewUrl(url)
     }
 
     function closeImageView() {
@@ -142,41 +143,18 @@ function ProductDetailView(props) {
 
     return (
         <SafeAreaView style={Style.container}>
-            {showImageView && <ImageView imageViewUrl={imageViewUrl} back={closeImageView} images={images} />}
-            {/* {showImageView && <Modal visible={true} transparent={true}>
-                <TouchableOpacity >
-                    <Image source={require('../../assets/icons/back.png')} />
-                </TouchableOpacity>
-                <ImageViewer style={{ height: 100, width: '100%' }} imageUrls={images} />
-            </Modal>} */}
-
+            {showImageView && <ImageView back={closeImageView} images={images} />}
             <ScrollView>
                 {Object.keys(postData).length > 0 &&
                     <View style={{ borderColor: 'white', }}>
                         <TouchableOpacity onPress={() => props.navigation.pop()}>
                             <Image style={{ height: 30, width: 30, margin: 5 }} source={require('../../assets/icons/back.png')} />
                         </TouchableOpacity>
-                        <View style={Style.productImagesMain}>
-                            <TouchableOpacity onPress={() => openImageView(postData.picUrl[0])} style={Style.productImageMain1}>
-                                <Image resizeMode='cover' style={Style.productImage1} source={{ uri: postData.picUrl[0] }} />
-                            </TouchableOpacity>
-                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <TouchableOpacity onPress={() => openImageView(postData.picUrl[1])} style={Style.productImageMain2}>
-                                    <Image resizeMode='cover' style={Style.productImage2} source={{ uri: postData.picUrl[1] }} />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => openImageView(postData.picUrl[2])} style={Style.productImageMain2}>
-                                    <Image resizeMode='cover' style={Style.productImage2} source={{ uri: postData.picUrl[2] }} />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        {/* <ScrollView
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            style={{ borderColor: 'black', height: 200, margin: 10, }}>
-                            <Image style={Style.productImage} source={{ uri: postData.picUrl[0] }} />
-                            <Image style={Style.productImage} source={{ uri: postData.picUrl[0] }} />
-                            <Image style={Style.productImage} source={{ uri: postData.picUrl[0] }} />
-                        </ScrollView> */}
+                        <ImagesCanas openImageView={openImageView} images={[
+                            'https://www.gstatic.com/webp/gallery/2.jpg',
+                            'https://www.gstatic.com/webp/gallery/4.jpg',
+                            'https://www.gstatic.com/webp/gallery/5.jpg'
+                        ]} />
                         <View style={{ margin: 10 }}>
                             <Text style={{
                                 color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,

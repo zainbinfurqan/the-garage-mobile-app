@@ -21,7 +21,8 @@ const initialState = {
     discription: '',
     picUrl: '',
     category: '',
-    price: 0
+    price: 0,
+    title: ''
 }
 
 function reducer(state, action) {
@@ -48,6 +49,10 @@ function Uploadproduct(props) {
     const [selectedValue, setSelectedValue] = useState(props.categories[0]._id);
     const [openSelect, setOpenSelect] = useState(false)
     const [images, setImages] = useState([])
+    const [autoPartsCategory, setAutoPartsCategory] = useState([])
+    const [subAutoPartsCategory, setSubAutoPartsCategory] = useState([])
+    const [selectedAutoPartCategory, setSelectedAutoPartCategory] = useState('');
+    const [selectedSubAutoPartCategory, setSelectedSubAutoPartCategory] = useState('');
 
 
 
@@ -164,6 +169,46 @@ function Uploadproduct(props) {
         }
     }
 
+    async function getAutoPartCategory(category) {
+        try {
+            let params = { category }
+            let response = await api.fetchAutoPartsCategory(null, null, null, params)
+            console.log("response auto part=>", response)
+            setAutoPartsCategory(response)
+        } catch (error) {
+        }
+    }
+
+    async function getSubAutoPartCategory(autopartcategory) {
+        try {
+            let params = { category: selectedValue, autoPartsCategory: autopartcategory }
+            let response = await api.fetchSubAutoPartsCategory(null, null, null, params)
+            console.log("response sub auto part=>", response)
+            setSubAutoPartsCategory(response)
+        } catch (error) {
+        }
+    }
+
+    async function selectCategoryHandle(value) {
+        setSelectedValue(value)
+        setAutoPartsCategory([]);
+        setSelectedAutoPartCategory('')
+        setSelectedSubAutoPartCategory('')
+        setSubAutoPartsCategory([])
+        getAutoPartCategory(value)
+    }
+
+    async function selectAutoPartCategoryHandle(value) {
+        setSelectedAutoPartCategory(value)
+        setSubAutoPartsCategory([])
+        setSelectedSubAutoPartCategory('')
+        await getSubAutoPartCategory(value)
+    }
+
+    async function selectSubAutoPartCategory(value) {
+        setSelectedSubAutoPartCategory(value)
+    }
+
     return (
         <>
             {openSelect && <SelectPanel open={openSelect}
@@ -172,7 +217,7 @@ function Uploadproduct(props) {
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView style={{ flex: 1 }}>
                     <AfterLoginHeader menuButton={false} backButton={true} />
-                    <View style={{ flexDirection: 'column' }}>
+                    {/* <View style={{ flexDirection: 'column' }}>
                         <View style={{}}>
                             {images.length == 0 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain]}>
                                 <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
@@ -180,7 +225,6 @@ function Uploadproduct(props) {
                             </TouchableOpacity>}
                             {images.length > 0 && <TouchableOpacity style={[Style.uploadMain,]}>
                                 <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[0] }} />
-                                {/* <Text style={Style.uploadText}>Upload picture</Text> */}
                             </TouchableOpacity>}
                         </View>
                         <View style={{ flexDirection: 'row' }}>
@@ -200,7 +244,7 @@ function Uploadproduct(props) {
                             </TouchableOpacity>}
 
                         </View>
-                    </View>
+                    </View> */}
                     {/* <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain]}>
                         <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
                         <Text style={Style.uploadText}>Upload picture</Text>
@@ -208,13 +252,14 @@ function Uploadproduct(props) {
                     {/* </>
                     </ScrollView> */}
                     <View style={{ margin: 10 }}>
-                        <NativeDropDown data={props.categories} selectedValue={selectedValue} setSelectedValue={(value) => setSelectedValue(value)} />
-                        {/* <TextInput_
-                            placeholder='name'
-                            onChangeText={(e) => handleChangeText(e, 'name')}
-                            InputStyle={Style.textInput}
-                            value={state.name}
-                        /> */}
+                        <TextInput_
+                            placeholder='Title'
+                            multiline={false}
+                            numberOfLines={1}
+                            onChangeText={(e) => handleChangeText(e, 'title')}
+                            InputStyle={Style.textInputArea}
+                            value={state.title}
+                        />
                         <TextInput_
                             placeholder='discription'
                             multiline={true}
@@ -229,6 +274,11 @@ function Uploadproduct(props) {
                             InputStyle={Style.textInput}
                             value={state.price}
                         />
+                        <NativeDropDown data={props.categories} selectedValue={selectedValue} setSelectedValue={(value) => selectCategoryHandle(value)} />
+                        {autoPartsCategory.length > 0 && <NativeDropDown data={autoPartsCategory} selectedValue={selectedAutoPartCategory} setSelectedValue={(value) => selectAutoPartCategoryHandle(value)} />}
+                        {subAutoPartsCategory.length > 0 && <NativeDropDown data={subAutoPartsCategory} selectedValue={selectedSubAutoPartCategory} setSelectedValue={(value) => selectSubAutoPartCategory(value)} />}
+                        <View style={{ borderWidth: 0.34, height: 150, marginBottom: 10, borderRadius: 5 }}>
+                        </View>
                         <Button_ textStyle={{ color: 'white' }} onPress={uploadPost} title='Upload' rippleColor={constants.RIPPLE_COLOR} />
                     </View>
                 </ScrollView>

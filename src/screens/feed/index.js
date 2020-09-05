@@ -45,6 +45,8 @@ function PostsFeed(props) {
 
     const [state, dispatch] = useReducer(reducer, initialState)
     const [category, setCategory] = useState([])
+    const [autoPartsCategory, setAutoPartsCategory] = useState([])
+    const [subAutoPartsCategory, setSubAutoPartsCategory] = useState([])
     const [posts, setPosts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('')
     const [selectedAutoPartCategory, setSelectedAutoPartCategory] = useState('')
@@ -126,11 +128,21 @@ function PostsFeed(props) {
         setSearchText(value)
     }
 
-    function selectCategory(item, index) {
+    async function selectCategory(item, index) {
         setSelectedCategory(item._id)
-        setTimeout(() => {
-            fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
-        }, 1000);
+        if (item.guid === 2) {
+            console.log(item.guid)
+            setAutoPartsCategory([])
+            setSelectedAutoPartCategory('')
+            await getAutoPartCategory(item._id)
+        } else {
+            setTimeout(() => {
+                setAutoPartsCategory([])
+                setSubAutoPartsCategory([])
+                fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
+            }, 1000);
+        }
+
     }
 
     function totalFilter() {
@@ -151,22 +163,34 @@ function PostsFeed(props) {
         fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
     }
 
-    async function getAutoPartCategory() {
+    async function getAutoPartCategory(category) {
         try {
-            let params = { category: selectCategory }
+            let params = { category }
             let response = await api.fetchAutoPartsCategory(null, null, null, params)
-        } catch (error) {
 
+            setAutoPartsCategory(response)
+        } catch (error) {
         }
     }
 
-    async function getSubAutoPartCategory() {
+    async function getSubAutoPartCategory(autopartcategory) {
         try {
-            let params = { category: selectCategory ,autoPartsCategory:selectedAutoPartCategory}
-            let response = await api.fetchSubAutoPartsCategory(null,null,null,params)
+            let params = { category: selectedCategory, autoPartsCategory: autopartcategory }
+            let response = await api.fetchSubAutoPartsCategory(null, null, null, params)
+            setSubAutoPartsCategory(response)
         } catch (error) {
-
         }
+    }
+
+    async function selectAutoPartCategory(item) {
+        setSelectedAutoPartCategory(item._id)
+        setSubAutoPartsCategory([])
+        setSelectedSubAutoPartCategory('')
+        await getSubAutoPartCategory(item._id)
+    }
+
+    async function selectSubAutoPartCategory(item) {
+        setSelectedSubAutoPartCategory(item._id)
     }
 
 
@@ -188,6 +212,7 @@ function PostsFeed(props) {
             </View>
             {/* <View style={Style.line} /> */}
             <View style={{}}>
+                <Text style={{ paddingLeft: 5, fontFamily: constants.FONT_SAMSUNG_LIGHT }}>Category</Text>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
                     {props.categories.map((item, index) => {
                         return (
@@ -199,6 +224,30 @@ function PostsFeed(props) {
                     })}
                 </ScrollView>
             </View>
+            {autoPartsCategory.length > 0 && <View style={{}}>
+                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
+                    {autoPartsCategory.map((item, index) => {
+                        return (
+                            <TouchableOpacity onPress={() => selectAutoPartCategory(item, index)} key={index}
+                                style={[Style.categoryMain, selectedAutoPartCategory == item._id && { backgroundColor: constants.LIGHT_BLUE }]}>
+                                <Text style={[Style.categoryText, selectedAutoPartCategory == item._id && { color: 'white' }]}>{item.name}</Text>
+                            </TouchableOpacity>
+                        )
+                    })}
+                </ScrollView>
+            </View>}
+            {subAutoPartsCategory.length > 0 && <View style={{}}>
+                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={Style.categoryScroll}>
+                    {subAutoPartsCategory.map((item, index) => {
+                        return (
+                            <TouchableOpacity onPress={() => selectSubAutoPartCategory(item, index)} key={index}
+                                style={[Style.categoryMain, selectedSubAutoPartCategory == item._id && { backgroundColor: constants.LIGHT_BLUE }]}>
+                                <Text style={[Style.categoryText, selectedSubAutoPartCategory == item._id && { color: 'white' }]}>{item.name}</Text>
+                            </TouchableOpacity>
+                        )
+                    })}
+                </ScrollView>
+            </View>}
             {/* <View style={Style.priceRangMain}>
                 <Text style={Style.priceRangText}>Price range:  {state.highPrice}</Text>
                 <Slider minimumValue={state.lowPrice} maximumValue={1000}
@@ -210,7 +259,7 @@ function PostsFeed(props) {
                 </Slider>
             </View> */}
             <View style={[Style.postListMain, {}]}>
-                {totalFilter() > 0 &&
+                {/* {totalFilter() > 0 &&
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <TouchableOpacity onPress={onRefresh} style={Style.filterMain}>
                             <View style={Style.filterNumberName}>
@@ -218,7 +267,7 @@ function PostsFeed(props) {
                             </View>
                             <Text style={Style.filterText}>Clear Filters</Text>
                         </TouchableOpacity>
-                    </View>}
+                    </View>} */}
                 {!loading && <FlatList
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

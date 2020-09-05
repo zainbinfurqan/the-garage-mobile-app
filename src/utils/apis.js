@@ -120,7 +120,7 @@ apis.fetchAutoPartsCategory = async function (body = null, authorization = null,
 };
 
 // fetch subautoparts category api
-apis.fetchSubAutoPartsCategory = async function (body = null, authorization = null, headers = null,) {
+apis.fetchSubAutoPartsCategory = async function (body = null, authorization = null, headers = null, params = null) {
     return await helper.apiMethod(
         null,
         'GET',

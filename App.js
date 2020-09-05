@@ -36,16 +36,10 @@ function App() {
 
   useEffect(() => {
     SplashScreen.hide();
-    // AppState.addEventListener('change', (e) => handleAppStateChange(e));
-    // return () => {
-    //   AppState.removeEventListener('change', (e) => handleAppStateChange(e));
-    // };
   }, []);
 
   return (
     <>
-      {/* <Login /> */}
-      {/* <Registration /> */}
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <StatusBar backgroundColor="#FFD40B" barStyle="dark-content" />
