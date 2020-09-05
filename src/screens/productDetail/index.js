@@ -150,11 +150,7 @@ function ProductDetailView(props) {
                         <TouchableOpacity onPress={() => props.navigation.pop()}>
                             <Image style={{ height: 30, width: 30, margin: 5 }} source={require('../../assets/icons/back.png')} />
                         </TouchableOpacity>
-                        <ImagesCanas openImageView={openImageView} images={[
-                            'https://www.gstatic.com/webp/gallery/2.jpg',
-                            'https://www.gstatic.com/webp/gallery/4.jpg',
-                            'https://www.gstatic.com/webp/gallery/5.jpg'
-                        ]} />
+                        <ImagesCanas openImageView={openImageView} images={postData_.picUrl} />
                         <View style={{ margin: 10 }}>
                             <Text style={{
                                 color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,

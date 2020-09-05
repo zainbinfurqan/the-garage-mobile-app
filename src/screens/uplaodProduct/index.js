@@ -53,10 +53,19 @@ function Uploadproduct(props) {
     const [subAutoPartsCategory, setSubAutoPartsCategory] = useState([])
     const [selectedAutoPartCategory, setSelectedAutoPartCategory] = useState('');
     const [selectedSubAutoPartCategory, setSelectedSubAutoPartCategory] = useState('');
+    const [error, setError] = useState('');
 
 
 
     function handleChangeText(value, label) {
+        if (label == 'title') {
+            dispatch({
+                type: 'ON_CHANGE_TEXT',
+                payload: {
+                    [label]: value
+                },
+            });
+        }
         if (label == 'discription') {
             dispatch({
                 type: 'ON_CHANGE_TEXT',
@@ -64,7 +73,8 @@ function Uploadproduct(props) {
                     [label]: value
                 },
             });
-        } else {
+        }
+        if (label == 'price') {
             dispatch({
                 type: 'ON_CHANGE_TEXT',
                 payload: {
@@ -72,6 +82,7 @@ function Uploadproduct(props) {
                 },
             });
         }
+
     }
 
     function onItmPress(item) {
@@ -81,15 +92,16 @@ function Uploadproduct(props) {
                 if (response.uri) {
                     let data = {
                         // filename: response.fileName,
-                        name: response.fileName,
-                        // path: response.path,
+                        filename: response.fileName,
+                        path: response.path,
                         type: response.type,
+                        uri: response.uri,
                         // data: response.path,
-                        // uri: response.uri
-                        uri: `file://${response.path}`
+                        // uri: `file://${response.path}`
                     }
-                    if (images.length !== 3) {
-                        uploadImage(data)
+                    if (images.length !== 5) {
+                        images.push(data)
+                        setImages(images)
                     }
                     // images.push(data)
                     // setImages(images)
@@ -100,47 +112,62 @@ function Uploadproduct(props) {
             ImagePicker.launchImageLibrary(options, (response) => {
                 if (response.uri) {
                     let data = {
-                        // filename: response.fileName,
-                        name: response.fileName,
-                        // path: response.path,
+                        // name: response.fileName,
+                        filename: response.fileName,
+                        path: response.path,
                         type: response.type,
+                        uri: response.uri,
                         // data: response.path,
-                        // uri: response.uri
-                        uri: `file://${response.path}`
+                        // uri: `file://${response.path}`
                     }
-                    if (images.length !== 3) {
-                        uploadImage(data)
+                    if (images.length !== 5) {
+                        images.push(data)
+                        setImages(images)
+
                     }
                     // images.push(data)
-                    // setImages(images)
                 }
             });
         }
     }
 
     function openSelectPanel() {
-        setOpenSelect(true)
+        images.length < 5 ? setOpenSelect(true) : setError('you cannot upload more then 5 images')
     }
 
     async function uploadPost() {
         props.loading(true)
         try {
             let body = {
-                discription: state.discription,
-                priceRange: state.price,
-                user: props.userData._id,
-                category: selectedValue,
-                sendTo: props.userData._id,
-                isApproved: props.userData.role.includes('admin') ? true : false,
-                isAdmin: props.userData.role.includes('admin') ? true : false,
-                picUrl: images
+                data: {
+                    discription: state.discription,
+                    priceRange: state.price,
+                    user: props.userData._id,
+                    category: selectedValue,
+                    sendTo: props.userData._id,
+                    isApproved: props.userData.role.includes('admin') ? true : false,
+                    isAdmin: props.userData.role.includes('admin') ? true : false,
+                },
+                images: images
+                // discription: state.discription,
+                // priceRange: state.price,
+                // user: props.userData._id,
+                // category: selectedValue,
+                // sendTo: props.userData._id,
+                // isApproved: props.userData.role.includes('admin') ? true : false,
+                // isAdmin: props.userData.role.includes('admin') ? true : false,
+                // picUrl: images
+            }
+            if (selectedValue !== '5f3a88e08b37cd378868643c' && selectedValue !== '5f3a89188b37cd378868643e') {
+                body.data.autoPartsCategory = selectedAutoPartCategory
+                body.data.subAutoPartsCategory = selectedSubAutoPartCategory
             }
             const response = await api.createPost(body, props.userData.token);
             socket.emit('local-notification', { to: props.userData._id });
             socket.emit('local-notification', { to: response.notificationTo });
 
             props.loading(false)
-            props.navigation.pop()
+            // props.navigation.pop()
         } catch (error) {
             props.loading(false)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
@@ -277,8 +304,21 @@ function Uploadproduct(props) {
                         <NativeDropDown data={props.categories} selectedValue={selectedValue} setSelectedValue={(value) => selectCategoryHandle(value)} />
                         {autoPartsCategory.length > 0 && <NativeDropDown data={autoPartsCategory} selectedValue={selectedAutoPartCategory} setSelectedValue={(value) => selectAutoPartCategoryHandle(value)} />}
                         {subAutoPartsCategory.length > 0 && <NativeDropDown data={subAutoPartsCategory} selectedValue={selectedSubAutoPartCategory} setSelectedValue={(value) => selectSubAutoPartCategory(value)} />}
-                        <View style={{ borderWidth: 0.34, height: 150, marginBottom: 10, borderRadius: 5 }}>
+                        <View style={Style.uploadMain}>
+                            <View style={{ flexDirection: 'row' }}>
+                                {images.length > 0 && images.map((_, i) => {
+                                    console.log(_)
+                                    return (
+                                        <View style={{ borderRadius: 5, height: 90, flex: 0.2, marginLeft: 2, }}>
+                                            <Image style={{ borderRadius: 4, height: '100%' }} resizeMode="cover" source={{ uri: _.uri }} />
+                                        </View>
+                                    )
+                                })}
+                            </View>
+                            <Button_ textStyle={{ color: 'white' }} onPress={openSelectPanel} buttonStyle={Style.addMore} title='Add more' rippleColor={constants.RIPPLE_COLOR} />
+
                         </View>
+                        {error.length > 0 && <Text style={{ fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{error}</Text>}
                         <Button_ textStyle={{ color: 'white' }} onPress={uploadPost} title='Upload' rippleColor={constants.RIPPLE_COLOR} />
                     </View>
                 </ScrollView>

@@ -253,55 +253,86 @@ apis.markUnIntrested = async function (body = null, authorization = null, header
 
 
 //create post api 
-apis.createPost = async function (body = null, authorization = null, headers = null) {
-    return await helper.apiMethod(
-        null,
-        'POST',
-        body,
-        authorization,
-        `${constant.BASE_URL}/post/create`,
-    );
-};
+// apis.createPost = async function (body = null, authorization = null, headers = null) {
+//     return await helper.apiMethod(
+//         null,
+//         'POST',
+//         body,
+//         authorization,
+//         `${constant.BASE_URL}/post/create`,
+//     );
+// };
 
 
 // create post api
-// apis.createPost = async function (body = null, authorization = null, headers) {
-//     console.log("body=>", body)
-//     return await RNFetchBlob.fetch(
-//         'POST',
-//         `${constant.BASE_URL}/post/create`,
-//         {
-//             'Content-Type': 'multipart/form-data',
-//         },
-//         [
-//             //--------1 line------//
-//             {
-//                 name: 'file1',
-//                 filename: body.images[0].filename,
-//                 type: body.images[0].type,
-//                 data: RNFetchBlob.wrap(body.images[0].path),
-//             },
-//             {
-//                 name: 'file2',
-//                 filename: body.images[1].filename,
-//                 type: body.images[1].type,
-//                 data: RNFetchBlob.wrap(body.images[1].path),
-//             },
-//             {
-//                 name: 'file3',
-//                 filename: body.images[2].filename,
-//                 type: body.images[2].type,
-//                 data: RNFetchBlob.wrap(body.images[2].path),
-//             },
-
-//             {
-//                 name: 'info',
-//                 data: JSON.stringify({ ...body.data }),
-//             },
-//             //--------2 line------//
-//         ],
-//     );
-// };
+apis.createPost = async function (body = null, authorization = null, headers) {
+    console.log("body=>", body)
+    let passData = [];
+    body.images.map((_, i) => {
+        passData.push(
+            {
+                name: `file${i + 1}`,
+                filename: body.images[i].filename,
+                type: body.images[i].type,
+                data: RNFetchBlob.wrap(body.images[i].path),
+            }
+        )
+    })
+    passData.push(
+        {
+            name: 'info',
+            data: JSON.stringify({ ...body.data }),
+        },
+    )
+    console.log("passData=>", passData)
+    return await RNFetchBlob.fetch(
+        'POST',
+        `${constant.BASE_URL}/post/create`,
+        {
+            'Content-Type': 'multipart/form-data',
+        },
+        passData
+        // [
+        //--------1 line------//
+        // {
+        //     name: 'file1',
+        //     filename: body.images[0].filename,
+        //     type: body.images[0].type,
+        //     data: RNFetchBlob.wrap(body.images[0].path),
+        // },
+        // {
+        //     name: 'file2',
+        //     filename: body.images[1].filename,
+        //     type: body.images[1].type,
+        //     data: RNFetchBlob.wrap(body.images[1].path),
+        // },
+        // {
+        //     name: 'file3',
+        //     filename: body.images[2].filename,
+        //     type: body.images[2].type,
+        //     data: RNFetchBlob.wrap(body.images[2].path),
+        // },
+        // {
+        //     name: 'file4',
+        //     filename: body.images[3].filename,
+        //     type: body.images[3].type,
+        //     data: RNFetchBlob.wrap(body.images[3].path),
+        // },
+        // {
+        //     name: 'file5',
+        //     filename: body.images[4].filename,
+        //     type: body.images[4].type,
+        //     data: RNFetchBlob.wrap(body.images[4].path),
+        // },
+        // ...passData,
+        // {
+        //     name: 'info',
+        //     data: JSON.stringify({ ...body.data }),
+        // },
+        //--------2 line------//
+        // ],
+    );
+};
 
 
 
