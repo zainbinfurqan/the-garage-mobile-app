@@ -28,23 +28,19 @@ function SelectOption(props) {
                     </View>
                     {props.data.map((item, index) => {
                         return (
-                            <>
-                                {/* <View style={Style.line}></View> */}
-                                <TouchableOpacity key={index} onPress={() => props.selectitem(item.title)} style={[{
-                                    backgroundColor: 'white',
-                                    justifyContent: 'center',
-                                    borderBottomWidth: 0.35,
-                                    borderColor: constants.LIGHT_BORDER,
-                                    margin: 5,
-                                    paddingBottom: 20, paddingTop: 20,
-                                }, index == props.data.length - 1 && { borderBottomStartRadius: 9, borderBottomEndRadius: 9, }]}>
-                                    <Text style={{
-                                        color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                        alignSelf: 'center'
-                                    }}>{item.title}</Text>
-                                </TouchableOpacity>
-                                {/* <View style={Style.line}></View> */}
-                            </>
+                            <TouchableOpacity key={index} onPress={() => props.selectitem(item.title)} style={[{
+                                backgroundColor: 'white',
+                                justifyContent: 'center',
+                                borderBottomWidth: 0.35,
+                                borderColor: constants.LIGHT_BORDER,
+                                margin: 5,
+                                paddingBottom: 20, paddingTop: 20,
+                            }, index == props.data.length - 1 && { borderBottomStartRadius: 9, borderBottomEndRadius: 9, }]}>
+                                <Text style={{
+                                    color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                                    alignSelf: 'center'
+                                }}>{item.title}</Text>
+                            </TouchableOpacity>
                         )
                     })}
                 </View>

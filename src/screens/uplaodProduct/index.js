@@ -16,6 +16,7 @@ import api from '../../utils/apis'
 const socket = io(constants.SOCKET_IO_URL, { forceNew: true });
 
 import Style from './style'
+import { cos } from 'react-native-reanimated';
 const initialState = {
     name: '',
     discription: '',
@@ -141,6 +142,7 @@ function Uploadproduct(props) {
             let body = {
                 data: {
                     discription: state.discription,
+                    title: state.title,
                     priceRange: state.price,
                     user: props.userData._id,
                     category: selectedValue,
@@ -200,7 +202,6 @@ function Uploadproduct(props) {
         try {
             let params = { category }
             let response = await api.fetchAutoPartsCategory(null, null, null, params)
-            console.log("response auto part=>", response)
             setAutoPartsCategory(response)
         } catch (error) {
         }
@@ -210,7 +211,6 @@ function Uploadproduct(props) {
         try {
             let params = { category: selectedValue, autoPartsCategory: autopartcategory }
             let response = await api.fetchSubAutoPartsCategory(null, null, null, params)
-            console.log("response sub auto part=>", response)
             setSubAutoPartsCategory(response)
         } catch (error) {
         }
@@ -234,6 +234,11 @@ function Uploadproduct(props) {
 
     async function selectSubAutoPartCategory(value) {
         setSelectedSubAutoPartCategory(value)
+    }
+
+    function removeImage(index) {
+        images.splice(index, 1)
+        setImages(images)
     }
 
     return (
@@ -281,8 +286,6 @@ function Uploadproduct(props) {
                     <View style={{ margin: 10 }}>
                         <TextInput_
                             placeholder='Title'
-                            multiline={false}
-                            numberOfLines={1}
                             onChangeText={(e) => handleChangeText(e, 'title')}
                             InputStyle={Style.textInputArea}
                             value={state.title}
@@ -307,16 +310,15 @@ function Uploadproduct(props) {
                         <View style={Style.uploadMain}>
                             <View style={{ flexDirection: 'row' }}>
                                 {images.length > 0 && images.map((_, i) => {
-                                    console.log(_)
                                     return (
-                                        <View style={{ borderRadius: 5, height: 90, flex: 0.2, marginLeft: 2, }}>
+                                        <View key={i} style={{ borderRadius: 5, height: 90, flex: 0.2, marginLeft: 2, }}>
+                                            <TouchableOpacity onPress={() => removeImage(i)} style={Style.removeImageMain}><Text style={Style.removeImagebuttonText}>X</Text></TouchableOpacity>
                                             <Image style={{ borderRadius: 4, height: '100%' }} resizeMode="cover" source={{ uri: _.uri }} />
                                         </View>
                                     )
                                 })}
                             </View>
                             <Button_ textStyle={{ color: 'white' }} onPress={openSelectPanel} buttonStyle={Style.addMore} title='Add more' rippleColor={constants.RIPPLE_COLOR} />
-
                         </View>
                         {error.length > 0 && <Text style={{ fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{error}</Text>}
                         <Button_ textStyle={{ color: 'white' }} onPress={uploadPost} title='Upload' rippleColor={constants.RIPPLE_COLOR} />

@@ -70,11 +70,17 @@ function PostsFeed(props) {
         });
         setSelectedCategory('')
         setSearchText('')
-        fetchPost('', 10, 10, '')
+        setSelectedAutoPartCategory('')
+        setSelectedSubAutoPartCategory('')
+        setAutoPartsCategory([])
+        setSubAutoPartsCategory([])
+        // fetchPost('', 10, 10, '')
+        fetchPost('', '', '', '')
     }, [refreshing]);
 
     useEffect(() => {
-        fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
+        // fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
+        fetchPost(selectedCategory, searchText)
         // fetchCategory()
         setupListener()
         props.isLogin && props.fetchUnReadLocalNotification({
@@ -94,35 +100,39 @@ function PostsFeed(props) {
         })
     }
 
-    async function fetchPost(category, lowPrice, highPrice, searchText) {
-        setLoading(true)
+    // async function fetchPost(category, lowPrice, highPrice, searchText) {
+    async function fetchPost(category, searchText, selectedAutoPartCategory = '', selectedSubAutoPartCategory = '') {
+        // setLoading(true)
         try {
             let params = {
-                category: category,
+                category: category.length > 0 ? category : '',
+                autoPartsCategory: selectedAutoPartCategory.length > 0 ? selectedAutoPartCategory : '',
+                subAutoPartsCategory: selectedSubAutoPartCategory.length > 0 ? selectedSubAutoPartCategory : '',
                 // priceLessThen: lowPrice,
                 // priceGraterThen: highPrice,
                 name: searchText
             };
             const response = await api.searchPost(null, null, null, params)
             setPosts(response)
-            setLoading(false)
-            setRefreshing(false)
+            // setLoading(false)
+            // setRefreshing(false)
         } catch (error) {
-            setLoading(false)
+            // setLoading(false)
         }
     }
 
-    function PriceRange(value, label) {
-        dispatch({
-            type: 'ON_PRICE_CHANGE',
-            payload: {
-                [label]: Math.floor(value),
-            },
-        });
-        setTimeout(() => {
-            fetchPost(selectedCategory, state.lowPrice, Math.floor(value))
-        }, 1000);
-    }
+    // function PriceRange(value, label) {
+    //     dispatch({
+    //         type: 'ON_PRICE_CHANGE',
+    //         payload: {
+    //             [label]: Math.floor(value),
+    //         },
+    //     });
+    //     setTimeout(() => {
+    //         // fetchPost(selectedCategory, state.lowPrice, Math.floor(value))
+    //         fetchPost(selectedCategory,)
+    //     }, 1000);
+    // }
 
     function handleChangeText(value, label) {
         setSearchText(value)
@@ -131,55 +141,16 @@ function PostsFeed(props) {
     async function selectCategory(item, index) {
         setSelectedCategory(item._id)
         if (item.guid === 2) {
-            console.log(item.guid)
             setAutoPartsCategory([])
+            setSubAutoPartsCategory([])
             setSelectedAutoPartCategory('')
+            setSelectedSubAutoPartCategory('')
             await getAutoPartCategory(item._id)
-        } else {
-            setTimeout(() => {
-                setAutoPartsCategory([])
-                setSubAutoPartsCategory([])
-                fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
-            }, 1000);
         }
-
-    }
-
-    function totalFilter() {
-        let number = 0
-        if (searchText !== '' && selectedCategory !== '') {
-            number = 2
-        }
-        if (searchText !== '' && selectedCategory === '') {
-            number = 1
-        }
-        if (searchText === '' && selectedCategory !== '') {
-            number = 1
-        }
-        return number
-    }
-
-    function searchHandle() {
-        fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
-    }
-
-    async function getAutoPartCategory(category) {
-        try {
-            let params = { category }
-            let response = await api.fetchAutoPartsCategory(null, null, null, params)
-
-            setAutoPartsCategory(response)
-        } catch (error) {
-        }
-    }
-
-    async function getSubAutoPartCategory(autopartcategory) {
-        try {
-            let params = { category: selectedCategory, autoPartsCategory: autopartcategory }
-            let response = await api.fetchSubAutoPartsCategory(null, null, null, params)
-            setSubAutoPartsCategory(response)
-        } catch (error) {
-        }
+        setTimeout(() => {
+            // fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
+            fetchPost(item._id, searchText)
+        }, 1000);
     }
 
     async function selectAutoPartCategory(item) {
@@ -187,11 +158,63 @@ function PostsFeed(props) {
         setSubAutoPartsCategory([])
         setSelectedSubAutoPartCategory('')
         await getSubAutoPartCategory(item._id)
+        setTimeout(() => {
+            // fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
+            fetchPost(selectedCategory, searchText, item._id)
+        }, 1000);
     }
 
     async function selectSubAutoPartCategory(item) {
         setSelectedSubAutoPartCategory(item._id)
+        setTimeout(() => {
+            // fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
+            fetchPost(selectedCategory, searchText, selectedAutoPartCategory, item_id)
+        }, 1000);
     }
+
+    // function totalFilter() {
+    //     let number = 0
+    //     if (searchText !== '' && selectedCategory !== '') {
+    //         number = 2
+    //     }
+    //     if (searchText !== '' && selectedCategory === '') {
+    //         number = 1
+    //     }
+    //     if (searchText === '' && selectedCategory !== '') {
+    //         number = 1
+    //     }
+    //     return number
+    // }
+
+    function searchHandle() {
+        fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
+    }
+
+    async function getAutoPartCategory(category) {
+        props.loading(true)
+        try {
+            let params = { category }
+            let response = await api.fetchAutoPartsCategory(null, null, null, params)
+            setAutoPartsCategory(response)
+            props.Loadiloadingng(false)
+        } catch (error) {
+            props.loading(false)
+        }
+    }
+
+    async function getSubAutoPartCategory(autopartcategory) {
+        props.loading(true)
+        try {
+            let params = { category: selectedCategory, autoPartsCategory: autopartcategory }
+            let response = await api.fetchSubAutoPartsCategory(null, null, null, params)
+            setSubAutoPartsCategory(response)
+            props.loading(false)
+        } catch (error) {
+            props.loading(false)
+        }
+    }
+
+
 
 
     return (
@@ -293,7 +316,10 @@ function PostsFeed(props) {
                                 </View>
                                 <View style={{}}>
                                     {/* {console.log("item.category=>", item)} */}
-                                    <Text style={Style.category}>o {item.category.name}</Text>
+                                    <Text
+                                        style={Style.category}>
+                                        o {item.category.name} {item.autoPartsCategory && `- ${item.autoPartsCategory.name}`} {item.subAutoPartsCategory && `- ${item.subAutoPartsCategory.name}`}
+                                    </Text>
                                 </View>
                                 <View style={[Style.footerMain, {}]}>
                                     <View style={Style.footer1left}>

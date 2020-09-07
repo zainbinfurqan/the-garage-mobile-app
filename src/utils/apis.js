@@ -88,12 +88,28 @@ apis.fetchMyIntrest = async function (body = null, authorization = null, headers
 
 //seach post api
 apis.searchPost = async function (body = null, authorization = null, headers = null, params) {
+    let url = `post/search?`;
+    if ('category' in params) {
+        url = url + '' + `category=${params.category}`
+    }
+    if ('priceGraterThen' in params) {
+        url = url + `&&priceGraterThen=${params.priceGraterThen}`
+    }
+    if ('priceLessThen' in params) {
+        url = url + `&&priceLessThen=${params.priceLessThen}`
+    }
+    if ('autoPartsCategory' in params) {
+        url = url + `&&autopartscategory=${params.autoPartsCategory}`
+    }
+    if ('subAutoPartsCategory' in params) {
+        url = url + `&&subautopartscategory=${params.subAutoPartsCategory}`
+    }
     return await helper.apiMethod(
         null,
         'GET',
         body,
         authorization,
-        `${constant.BASE_URL}/post/search?category=${params.category}&&priceGraterThen=${params.priceGraterThen}&&priceLessThen=${params.priceLessThen}&&firstName=${params.name}`,
+        `${constant.BASE_URL}/${url}`,
     );
 };
 
@@ -266,7 +282,6 @@ apis.markUnIntrested = async function (body = null, authorization = null, header
 
 // create post api
 apis.createPost = async function (body = null, authorization = null, headers) {
-    console.log("body=>", body)
     let passData = [];
     body.images.map((_, i) => {
         passData.push(
@@ -284,7 +299,6 @@ apis.createPost = async function (body = null, authorization = null, headers) {
             data: JSON.stringify({ ...body.data }),
         },
     )
-    console.log("passData=>", passData)
     return await RNFetchBlob.fetch(
         'POST',
         `${constant.BASE_URL}/post/create`,
@@ -407,7 +421,7 @@ apis.searchUsersAdmin = async function (body = null, authorization = null, heade
 };
 
 // update user product  api 
-apis.updateuserProductByAdmin = async function (body = null, authorization = null, headers = null, params = null) {
+apis.updateuserProductByAdmin = async function (body = null, authorization = null, headers = null,) {
     return await helper.apiMethod(
         null,
         'PUT',
@@ -417,7 +431,7 @@ apis.updateuserProductByAdmin = async function (body = null, authorization = nul
     );
 };
 // delete user product  api 
-apis.deleteUserPost = async function (body = null, authorization = null, headers = null, params = null) {
+apis.deleteUserPost = async function (body = null, authorization = null, headers = null,) {
     return await helper.apiMethod(
         null,
         'PUT',

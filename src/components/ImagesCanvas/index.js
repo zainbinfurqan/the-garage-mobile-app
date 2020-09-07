@@ -4,15 +4,13 @@ import Style from './style'
 import { Props } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 
 function ImagesCanas({ images, openImageView }) {
-    console.log(openImageView)
-    console.log("images=>", images)
     let rotate = 10;
     return (
         <TouchableOpacity onPress={() => openImageView()} style={[Style.productImagesMain, { alignSelf: 'center' }]}>
             {images.map((_, i) => {
                 return (
                     <>
-                        <Image source={{ uri: _ }}
+                        <Image key={i} source={{ uri: _ }}
                             style={{
                                 borderWidth: 1,
                                 position: 'absolute',

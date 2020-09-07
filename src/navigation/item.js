@@ -5,7 +5,7 @@ function Item(props) {
     return (
         <TouchableOpacity onPress={props.navigateTo} style={{ flexDirection: 'row', marginBottom: 10, marginTop: 10 }}>
             <View style={{ padding: 5, flex: .2 }}>
-                <Image style={{ height: 25, width: 25 }} source={`${props.icon}`} />
+                <Image style={{ height: 25, width: 25 }} source={props.icon} />
             </View>
             <View style={{ justifyContent: 'center', flex: .8 }}>
                 <Text style={{

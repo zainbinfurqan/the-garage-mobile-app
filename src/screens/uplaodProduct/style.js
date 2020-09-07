@@ -13,9 +13,25 @@ export default Styles = StyleSheet.create({
     //     height: 140,
     //     margin: 10
     // },
+    removeImageMain: {
+        borderWidth: 0.34,
+        backgroundColor: 'black',
+        height: 15,
+        alignSelf: 'flex-end',
+        borderRadius: 10,
+        justifyContent: 'center',
+        marginRight: -10,
+        width: 15,
+    },
+    removeImagebuttonText: {
+        fontSize: constants.SMALLEST_FONT,
+        alignSelf: 'center',
+        color: 'white',
+        fontFamily: constants.FONT_SAMSUNG_LIGHT
+    },
     uploadMain: {
         borderWidth: 0.34,
-        height: 150,
+        height: 160,
         marginBottom: 10,
         padding: 5,
         top: 0,
