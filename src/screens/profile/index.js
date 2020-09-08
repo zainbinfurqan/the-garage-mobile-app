@@ -7,8 +7,7 @@ import constants from '../../config/constants';
 import Style from './style'
 
 function Profile(props) {
-
-    const userData_ = props.route.params.userData
+    const userData_ = props.route.params !== undefined && props.route.params.userData
 
     return (
         <SafeAreaView style={Style.containerMain}>

@@ -161,12 +161,16 @@ function Uploadproduct(props) {
                 // picUrl: images
             }
             if (selectedValue !== '5f3a88e08b37cd378868643c' && selectedValue !== '5f3a89188b37cd378868643e') {
+                // console.log("selectedSubAutoPartCategory=>", selectedSubAutoPartCategory)
+
                 body.data.autoPartsCategory = selectedAutoPartCategory
                 body.data.subAutoPartsCategory = selectedSubAutoPartCategory
             }
+            // console.log("body=>", body)
             const response = await api.createPost(body, props.userData.token);
-            socket.emit('local-notification', { to: props.userData._id });
-            socket.emit('local-notification', { to: response.notificationTo });
+            console.log(response.data)
+            // socket.emit('local-notification', { to: props.userData._id });
+            // socket.emit('local-notification', { to: response.data.notificationTo });
 
             props.loading(false)
             // props.navigation.pop()
@@ -199,20 +203,26 @@ function Uploadproduct(props) {
     }
 
     async function getAutoPartCategory(category) {
+        props.loading(true)
         try {
             let params = { category }
             let response = await api.fetchAutoPartsCategory(null, null, null, params)
             setAutoPartsCategory(response)
+            props.loading(false)
         } catch (error) {
+            props.loading(false)
         }
     }
 
     async function getSubAutoPartCategory(autopartcategory) {
+        props.loading(true)
         try {
             let params = { category: selectedValue, autoPartsCategory: autopartcategory }
             let response = await api.fetchSubAutoPartsCategory(null, null, null, params)
             setSubAutoPartsCategory(response)
+            props.loading(false)
         } catch (error) {
+            props.loading(false)
         }
     }
 
@@ -233,6 +243,7 @@ function Uploadproduct(props) {
     }
 
     async function selectSubAutoPartCategory(value) {
+        console.log("selectSubAutoPartCategory=>", value)
         setSelectedSubAutoPartCategory(value)
     }
 
@@ -287,7 +298,7 @@ function Uploadproduct(props) {
                         <TextInput_
                             placeholder='Title'
                             onChangeText={(e) => handleChangeText(e, 'title')}
-                            InputStyle={Style.textInputArea}
+                            InputStyle={Style.textInput}
                             value={state.title}
                         />
                         <TextInput_

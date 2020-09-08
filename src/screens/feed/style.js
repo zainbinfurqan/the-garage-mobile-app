@@ -96,6 +96,10 @@ export default Styles = StyleSheet.create({
     name: {
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
     },
+    title: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT
+    },
     searchTextMain: {
         flexDirection: 'row',
         paddingLeft: 10,

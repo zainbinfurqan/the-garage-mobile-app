@@ -14,6 +14,7 @@ import Style from './style'
 
 function EditableView(props) {
     let postData = props.route.params.postData
+    console.log(postData)
     const [selectedCategoryValue, setSelectedCategoryValue] = useState("");
 
     useEffect(() => {

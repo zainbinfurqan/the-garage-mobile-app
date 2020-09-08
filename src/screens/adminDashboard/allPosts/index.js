@@ -71,7 +71,7 @@ function AllPosts(props) {
                 sendTo: value.user._id
             }
             const response = await api.approvedPost(body, props.userData.token);
-            helper.sendAppLocalNotidication({ to: value.user._id })
+            // helper.sendAppLocalNotidication({ to: value.user._id })
             props.loading(false)
             fetchPendingPost()
         } catch (error) {
@@ -84,8 +84,8 @@ function AllPosts(props) {
         props.loading(true)
         try {
             let body = { postId: data._id }
-            props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Delete Successfully' })
             const response = await api.deleteUserPost(body, props.userData.token);
+            props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Delete Successfully' })
             props.loading(false)
             fetchAllPosts()
         } catch (error) {

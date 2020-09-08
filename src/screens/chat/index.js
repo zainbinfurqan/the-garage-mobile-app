@@ -10,6 +10,7 @@ import CommonAction from '../../redux/common/action'
 import constants from '../../config/constants'
 import api from '../../utils/apis'
 import Style from './style'
+import helper from '../../utils/helpers';
 
 const initialState = {
     chatMessages: [],
@@ -128,7 +129,7 @@ function Chat(props) {
     return (
         <>
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-                <AfterLoginHeader backButton={true} menuButton={false} headerText='Faraz' notificationIcon={false} />
+                <AfterLoginHeader backButton={true} menuButton={false} headerText={helper.nameConcatenate(props.route.params.otherUser)} notificationIcon={false} />
                 <FlatList
                     inverted={true}
                     data={state.chatMessages}

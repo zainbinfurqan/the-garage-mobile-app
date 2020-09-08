@@ -88,9 +88,13 @@ apis.fetchMyIntrest = async function (body = null, authorization = null, headers
 
 //seach post api
 apis.searchPost = async function (body = null, authorization = null, headers = null, params) {
+    console.log("params===>", params)
     let url = `post/search?`;
     if ('category' in params) {
         url = url + '' + `category=${params.category}`
+    }
+    if ('name' in params) {
+        url = url + '' + `&&title=${params.name}`
     }
     if ('priceGraterThen' in params) {
         url = url + `&&priceGraterThen=${params.priceGraterThen}`
@@ -104,6 +108,7 @@ apis.searchPost = async function (body = null, authorization = null, headers = n
     if ('subAutoPartsCategory' in params) {
         url = url + `&&subautopartscategory=${params.subAutoPartsCategory}`
     }
+    console.log(url)
     return await helper.apiMethod(
         null,
         'GET',
@@ -284,67 +289,22 @@ apis.markUnIntrested = async function (body = null, authorization = null, header
 apis.createPost = async function (body = null, authorization = null, headers) {
     let passData = [];
     body.images.map((_, i) => {
-        passData.push(
-            {
-                name: `file${i + 1}`,
-                filename: body.images[i].filename,
-                type: body.images[i].type,
-                data: RNFetchBlob.wrap(body.images[i].path),
-            }
-        )
+        passData.push({
+            name: `file${i + 1}`,
+            filename: body.images[i].filename,
+            type: body.images[i].type,
+            data: RNFetchBlob.wrap(body.images[i].path),
+        })
     })
-    passData.push(
-        {
-            name: 'info',
-            data: JSON.stringify({ ...body.data }),
-        },
-    )
+    passData.push({
+        name: 'info',
+        data: JSON.stringify({ ...body.data }),
+    })
     return await RNFetchBlob.fetch(
         'POST',
         `${constant.BASE_URL}/post/create`,
-        {
-            'Content-Type': 'multipart/form-data',
-        },
+        { 'Content-Type': 'multipart/form-data', },
         passData
-        // [
-        //--------1 line------//
-        // {
-        //     name: 'file1',
-        //     filename: body.images[0].filename,
-        //     type: body.images[0].type,
-        //     data: RNFetchBlob.wrap(body.images[0].path),
-        // },
-        // {
-        //     name: 'file2',
-        //     filename: body.images[1].filename,
-        //     type: body.images[1].type,
-        //     data: RNFetchBlob.wrap(body.images[1].path),
-        // },
-        // {
-        //     name: 'file3',
-        //     filename: body.images[2].filename,
-        //     type: body.images[2].type,
-        //     data: RNFetchBlob.wrap(body.images[2].path),
-        // },
-        // {
-        //     name: 'file4',
-        //     filename: body.images[3].filename,
-        //     type: body.images[3].type,
-        //     data: RNFetchBlob.wrap(body.images[3].path),
-        // },
-        // {
-        //     name: 'file5',
-        //     filename: body.images[4].filename,
-        //     type: body.images[4].type,
-        //     data: RNFetchBlob.wrap(body.images[4].path),
-        // },
-        // ...passData,
-        // {
-        //     name: 'info',
-        //     data: JSON.stringify({ ...body.data }),
-        // },
-        //--------2 line------//
-        // ],
     );
 };
 

@@ -96,28 +96,29 @@ function PostsFeed(props) {
             let params = {
                 user: props.userData._id
             }
-            props.fetchUnReadLocalNotification(params)
+            props.fetchUnReadLocalNotification(params, props.userData.token)
         })
     }
 
     // async function fetchPost(category, lowPrice, highPrice, searchText) {
-    async function fetchPost(category, searchText, selectedAutoPartCategory = '', selectedSubAutoPartCategory = '') {
-        // setLoading(true)
+    async function fetchPost(category, searchText, AutoPartCategory = '', SubAutoPartCategory = '') {
+        setLoading(true)
         try {
             let params = {
                 category: category.length > 0 ? category : '',
-                autoPartsCategory: selectedAutoPartCategory.length > 0 ? selectedAutoPartCategory : '',
-                subAutoPartsCategory: selectedSubAutoPartCategory.length > 0 ? selectedSubAutoPartCategory : '',
+                autoPartsCategory: AutoPartCategory.length > 0 ? AutoPartCategory : '',
+                subAutoPartsCategory: SubAutoPartCategory.length > 0 ? SubAutoPartCategory : '',
                 // priceLessThen: lowPrice,
                 // priceGraterThen: highPrice,
                 name: searchText
             };
+            console.log("params=>", params)
             const response = await api.searchPost(null, null, null, params)
             setPosts(response)
-            // setLoading(false)
+            setLoading(false)
             // setRefreshing(false)
         } catch (error) {
-            // setLoading(false)
+            setLoading(false)
         }
     }
 
@@ -135,6 +136,7 @@ function PostsFeed(props) {
     // }
 
     function handleChangeText(value, label) {
+        console.log(value)
         setSearchText(value)
     }
 
@@ -146,6 +148,11 @@ function PostsFeed(props) {
             setSelectedAutoPartCategory('')
             setSelectedSubAutoPartCategory('')
             await getAutoPartCategory(item._id)
+        } else {
+            setAutoPartsCategory([])
+            setSubAutoPartsCategory([])
+            setSelectedAutoPartCategory('')
+            setSelectedSubAutoPartCategory('')
         }
         setTimeout(() => {
             // fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
@@ -154,6 +161,7 @@ function PostsFeed(props) {
     }
 
     async function selectAutoPartCategory(item) {
+        console.log("item=>", item)
         setSelectedAutoPartCategory(item._id)
         setSubAutoPartsCategory([])
         setSelectedSubAutoPartCategory('')
@@ -168,7 +176,7 @@ function PostsFeed(props) {
         setSelectedSubAutoPartCategory(item._id)
         setTimeout(() => {
             // fetchPost(item._id, state.lowPrice, state.highPrice, searchText)
-            fetchPost(selectedCategory, searchText, selectedAutoPartCategory, item_id)
+            fetchPost(selectedCategory, searchText, selectedAutoPartCategory, item._id)
         }, 1000);
     }
 
@@ -187,7 +195,7 @@ function PostsFeed(props) {
     // }
 
     function searchHandle() {
-        fetchPost(selectedCategory, state.lowPrice, state.highPrice, searchText)
+        fetchPost(selectedCategory, searchText)
     }
 
     async function getAutoPartCategory(category) {
@@ -225,7 +233,7 @@ function PostsFeed(props) {
                 <View style={{ justifyContent: 'center', flex: 1 }}>
                     <IconsInput
                         viewStyle={{ borderRadius: 50 }}
-                        placeholder='Enter name'
+                        placeholder='Search by title'
                         onPress={searchHandle}
                         onChangeText={(e) => handleChangeText(e, 'searchText')}
                         value={searchText}
@@ -301,7 +309,7 @@ function PostsFeed(props) {
                             <View style={Style.left}>
                                 <Image style={Style.post} source={{ uri: item.picUrl[0] }} />
                             </View>
-                            {/* {console.log("item=>", item)} */}
+                            {console.log("item=>", item.discription)}
                             <View style={{
                                 flexDirection: "column", flex: .7, padding: 5,
                             }}>
@@ -312,7 +320,10 @@ function PostsFeed(props) {
                                     <Text style={Style.price}>${item.priceRange}</Text>
                                 </View>
                                 <View style={{}}>
-                                    <Text style={Style.discription}>{item.discription.substring(1, 100)}...</Text>
+                                    <Text style={Style.title}>Title: {item.title}</Text>
+                                </View>
+                                <View style={{}}>
+                                    <Text style={Style.discription}>{item.discription.substring(0, 100)}...</Text>
                                 </View>
                                 <View style={{}}>
                                     {/* {console.log("item.category=>", item)} */}

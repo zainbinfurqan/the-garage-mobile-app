@@ -54,7 +54,7 @@ function ProductDetailView(props) {
                 postId: postData._id,
                 sharedMessage: true
             };
-            const response = await apis.createRoom(body);
+            const response = await apis.createRoom(body, props.userData.token);
             props.loading(false)
             props.navigation.navigate('Chat', { otherUser: otherUser, room: response });
         } catch (error) {
@@ -77,7 +77,7 @@ function ProductDetailView(props) {
                             sendFrom: props.userData._id,
                             sendTo: postData.user._id,
 
-                        })
+                        }, props.userData.token)
 
                     if (response.message == "Successfull") {
                         props.navigation.pop()
@@ -89,7 +89,7 @@ function ProductDetailView(props) {
                         name: helper.nameConcatenate(postData.user),
                         sendFrom: props.userData._id,
                         sendTo: postData.user._id,
-                    })
+                    }, props.userData.token)
                     if (response.message == "Successfull") {
                         props.navigation.pop()
                     }

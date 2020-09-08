@@ -3,9 +3,9 @@ import { Dimensions, Platform } from 'react-native';
 
 const constants = {
     SOCKET_IO_URL: 'https://serene-savannah-02158.herokuapp.com/socketio',
-    BASE_URL: 'https://9b62c6290182.ngrok.io/api',
+    // BASE_URL: 'https://49f1c3dc4d61.ngrok.io/api',
     // BASE_URL: 'https://192.168.0.105:3000/api',
-    // BASE_URL: 'https://serene-savannah-02158.herokuapp.com/api',
+    BASE_URL: 'https://serene-savannah-02158.herokuapp.com/api',
     INPUT_LIGHT_BORDER: '#000000',
     LIGHT_BORDER: '#B5B6BA',
     GREEN: '#17B75B',
