@@ -138,14 +138,6 @@ function Notification(props) {
         <SafeAreaView style={Style.containerMain}>
             {props.isLogin && <AfterLoginHeader menuButton={false} backButton={true} headerText='Notification' />}
             <View style={Style.optionFalg}>
-                {/* <TouchableOpacity onPress={() => setOptions(!options)}>
-                    <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/option.png')} />
-                </TouchableOpacity>
-                {options &&
-                    <View style={Style.optionMain}>
-                        <Text style={Style.optionText}>Delete All</Text>
-                        <Text style={Style.optionText}>Read All</Text>
-                    </View>} */}
             </View>
             <View style={Style.selectmain}>
                 <TouchableOpacity onPress={() => optionHandle('all')} style={[Style.optionLeftMain, status === 'all' && { backgroundColor: constant.LIGHT_BLUE }]}>
@@ -165,7 +157,7 @@ function Notification(props) {
             <ScrollView style={{ borderColor: 'red', padding: 10, }}>
                 {notification.map((item, index) => {
                     return (
-                        <>
+                        <View key={index}>
                             <View key={index} style={[{ flexDirection: 'row', padding: 5, borderRadius: 3, }, item.isRead && { backgroundColor: constants.LIGHT_BACKGROUND_COLOR }]}>
                                 <TouchableOpacity key={index} style={{ flex: .9 }} onPress={() => markRead(item)}>
                                     <Text style={{
@@ -187,7 +179,7 @@ function Notification(props) {
                                 </TouchableOpacity>
                             </View>
                             <View style={Style.line}></View>
-                        </>
+                        </View>
                     )
                 })}
             </ScrollView>

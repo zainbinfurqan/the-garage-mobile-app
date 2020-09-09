@@ -14,5 +14,14 @@ export default Styles = StyleSheet.create({
         height: 320,
 
     },
+    image: {
+        borderWidth: 1,
+        position: 'absolute',
+        height: 250,
+        width: '50%',
+        borderRadius: 5,
+        alignSelf: 'center',
+
+    },
 
 });

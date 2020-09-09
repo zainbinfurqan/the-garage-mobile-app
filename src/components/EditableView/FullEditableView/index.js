@@ -79,6 +79,7 @@ function FullEditableView(props) {
                 body.autoPartsCategory = selectedAutoPartsCategoryValue
                 body.subAutoPartsCategory = selectedSubAutoPartsCategoryValue
             }
+            // console.log(body)
             const response = await apis.updateProductApi(body, props.userData.token)
             props.apiresponse({ flag: true, isError: false, isSuccess: true, message: 'Update Successfully' })
             props.loading(false)

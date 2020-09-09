@@ -9,18 +9,8 @@ function ImagesCanas({ images, openImageView }) {
         <TouchableOpacity onPress={() => openImageView()} style={[Style.productImagesMain, { alignSelf: 'center' }]}>
             {images.map((_, i) => {
                 return (
-                    <>
-                        <Image key={i} source={{ uri: _ }}
-                            style={{
-                                borderWidth: 1,
-                                position: 'absolute',
-                                height: 250,
-                                width: '50%',
-                                borderRadius: 5,
-                                alignSelf: 'center',
-                                transform: [{ rotate: `${rotate * i}deg` }]
-                            }} />
-                    </>
+                    <Image key={i} source={{ uri: images[images.length - (i + 1)] }}
+                        style={[Style.image, { transform: [{ rotate: `${rotate * i}deg` }] }]} />
                 )
             })}
         </TouchableOpacity>

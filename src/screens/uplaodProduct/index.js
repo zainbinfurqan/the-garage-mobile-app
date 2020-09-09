@@ -92,20 +92,15 @@ function Uploadproduct(props) {
             ImagePicker.launchCamera(options, (response) => {
                 if (response.uri) {
                     let data = {
-                        // filename: response.fileName,
                         filename: response.fileName,
                         path: response.path,
                         type: response.type,
                         uri: response.uri,
-                        // data: response.path,
-                        // uri: `file://${response.path}`
                     }
                     if (images.length !== 5) {
                         images.push(data)
                         setImages(images)
                     }
-                    // images.push(data)
-                    // setImages(images)
                 }
             });
         }
@@ -113,18 +108,14 @@ function Uploadproduct(props) {
             ImagePicker.launchImageLibrary(options, (response) => {
                 if (response.uri) {
                     let data = {
-                        // name: response.fileName,
                         filename: response.fileName,
                         path: response.path,
                         type: response.type,
                         uri: response.uri,
-                        // data: response.path,
-                        // uri: `file://${response.path}`
                     }
                     if (images.length !== 5) {
                         let a = images;
                         a.push(data)
-                        // images.push(data)
                         setImages(a)
 
                     }
@@ -155,8 +146,6 @@ function Uploadproduct(props) {
                 images: images
             }
             if (selectedValue !== '5f3a88e08b37cd378868643c' && selectedValue !== '5f3a89188b37cd378868643e') {
-                // console.log("selectedAutoPartCategory=>", selectedAutoPartCategory)
-                // console.log("selectedSubAutoPartCategory=>", selectedSubAutoPartCategory)
                 if (selectedAutoPartCategory.length > 0) {
                     body.data.autoPartsCategory = selectedAutoPartCategory
                 }
@@ -164,7 +153,6 @@ function Uploadproduct(props) {
                     body.data.subAutoPartsCategory = selectedSubAutoPartCategory
                 }
             }
-            // console.log("body=>", body)
             const response = await api.createPost(body, props.userData.token);
             // socket.emit('local-notification', { to: props.userData._id });
             // socket.emit('local-notification', { to: response.data.notificationTo });
@@ -258,40 +246,6 @@ function Uploadproduct(props) {
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView style={{ flex: 1 }}>
                     <AfterLoginHeader menuButton={false} backButton={true} />
-                    {/* <View style={{ flexDirection: 'column' }}>
-                        <View style={{}}>
-                            {images.length == 0 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain]}>
-                                <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
-                                <Text style={Style.uploadText}>Upload picture</Text>
-                            </TouchableOpacity>}
-                            {images.length > 0 && <TouchableOpacity style={[Style.uploadMain,]}>
-                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[0] }} />
-                            </TouchableOpacity>}
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            {images.length >= 0 && images.length <= 1 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
-                                <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
-                                <Text style={Style.uploadText}>Upload picture</Text>
-                            </TouchableOpacity>}
-                            {images.length >= 2 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
-                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[1] }} />
-                            </TouchableOpacity>}
-                            {images.length >= 0 && images.length <= 2 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
-                                <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
-                                <Text style={Style.uploadText}>Upload picture</Text>
-                            </TouchableOpacity>}
-                            {images.length == 3 && <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain, { flex: .5 }]}>
-                                <Image style={[Style.uploadIcon, { height: 125, width: 125 }]} source={{ uri: images[2] }} />
-                            </TouchableOpacity>}
-
-                        </View>
-                    </View> */}
-                    {/* <TouchableOpacity onPress={openSelectPanel} style={[Style.uploadMain]}>
-                        <Image style={Style.uploadIcon} source={require('../../assets/icons/upload.png')} />
-                        <Text style={Style.uploadText}>Upload picture</Text>
-                    </TouchableOpacity> */}
-                    {/* </>
-                    </ScrollView> */}
                     <View style={{ margin: 10 }}>
                         <TextInput_
                             placeholder='Title'
@@ -313,7 +267,10 @@ function Uploadproduct(props) {
                             InputStyle={Style.textInput}
                             value={state.price}
                         />
-                        <NativeDropDown data={props.categories} selectedValue={selectedValue} setSelectedValue={(value) => selectCategoryHandle(value)} />
+                        <NativeDropDown
+                            data={props.categories}
+                            selectedValue={selectedValue}
+                            setSelectedValue={(value) => selectCategoryHandle(value)} />
                         {autoPartsCategory.length > 0 && <NativeDropDown data={autoPartsCategory} selectedValue={selectedAutoPartCategory} setSelectedValue={(value) => selectAutoPartCategoryHandle(value)} />}
                         {subAutoPartsCategory.length > 0 && <NativeDropDown data={subAutoPartsCategory} selectedValue={selectedSubAutoPartCategory} setSelectedValue={(value) => selectSubAutoPartCategory(value)} />}
                         <View style={Style.uploadMain}>
@@ -327,7 +284,7 @@ function Uploadproduct(props) {
                                     )
                                 })}
                             </View>
-                            <Button_ textStyle={{ color: 'white' }} onPress={openSelectPanel} buttonStyle={Style.addMore} title='Add more' rippleColor={constants.RIPPLE_COLOR} />
+                            <Button_ textStyle={{ color: 'white' }} onPress={openSelectPanel} buttonStyle={Style.addMore} title={images.length > 0 ? 'Add More' : 'Upload Image'} rippleColor={constants.RIPPLE_COLOR} />
                         </View>
                         {error.length > 0 && <Text style={{ fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{error}</Text>}
                         <Button_ textStyle={{ color: 'white' }} onPress={uploadPost} title='Upload' rippleColor={constants.RIPPLE_COLOR} />

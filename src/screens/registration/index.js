@@ -173,6 +173,9 @@ function Registration(props) {
                         onChangeText={(e) => handleChangeText(e, 'firstName')}
                         InputStyle={Styles.textInput}
                         value={state.firstName}
+                        error1Color='white'
+                        error2Color='#FFD40B'
+                        placeholderColor='white'
                         error={error && error.firstName}
                     />
                     <TextInput_
@@ -180,6 +183,9 @@ function Registration(props) {
                         onChangeText={(e) => handleChangeText(e, 'lastName')}
                         InputStyle={Styles.textInput}
                         value={state.lastName}
+                        error1Color='white'
+                        error2Color='#FFD40B'
+                        placeholderColor='white'
                         error={error && error.lastName}
                     />
                     <TextInput_
@@ -187,6 +193,9 @@ function Registration(props) {
                         onChangeText={(e) => handleChangeText(e, 'email')}
                         InputStyle={Styles.textInput}
                         value={state.email}
+                        error1Color='white'
+                        error2Color='#FFD40B'
+                        placeholderColor='white'
                         error={error && error.email}
                     />
                     <TextInput_
@@ -194,6 +203,9 @@ function Registration(props) {
                         onChangeText={(e) => handleChangeText(e, 'password')}
                         InputStyle={Styles.textInput}
                         value={state.password}
+                        error1Color='white'
+                        error2Color='#FFD40B'
+                        placeholderColor='white'
                         error={error && error.password}
                     />
                     <TextInput_
@@ -201,6 +213,9 @@ function Registration(props) {
                         onChangeText={(e) => handleChangeText(e, 'address')}
                         InputStyle={Styles.textInput}
                         value={state.address}
+                        error1Color='white'
+                        error2Color='#FFD40B'
+                        placeholderColor='white'
                         error={error && error.address}
                     />
                     <TextInput_
@@ -208,11 +223,21 @@ function Registration(props) {
                         onChangeText={(e) => handleChangeText(e, 'phoneNo')}
                         InputStyle={Styles.textInput}
                         value={state.phoneNo}
+                        error1Color='white'
+                        error2Color='#FFD40B'
+                        placeholderColor='white'
                         error={error && error.phoneNo}
                     />
-                    <Button_ onPress={userRegistration} title='Registration' textStyle={{ color: 'white' }} rippleColor={constants.RIPPLE_COLOR} />
+                    <Button_ bgColor={'white'}
+                        onPress={userRegistration}
+                        title='Registration'
+                        textStyle={{ color: constants.RED }}
+                        rippleColor={constants.RIPPLE_COLOR} />
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <Text style={Styles.footerText1}>Already have an Account?  </Text>
+                        <TouchableOpacity
+                            onPress={() => props.navigation.navigate('Login')}>
+                            <Text style={Styles.footerText1}>Already have an Account?</Text>
+                        </TouchableOpacity>
                         <Text style={Styles.footerText2}>Login</Text>
                     </View>
                 </View>

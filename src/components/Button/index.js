@@ -9,7 +9,7 @@ function Button_(props) {
             onPress={props.onPress}
             rippleColor={props.rippleColor}
             style={[{
-                backgroundColor: constants.LIGHT_BLUE,
+                backgroundColor: props.bgColor,
                 height: 40,
                 borderRadius: 5,
                 justifyContent: 'center'
@@ -24,6 +24,7 @@ function Button_(props) {
 
 Button_.defaultProps = {
     onPress: function () { },
+    bgColor: constants.LIGHT_BLUE
 };
 
 

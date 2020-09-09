@@ -11,11 +11,6 @@ function ImageView(props) {
                 <Image style={Style.backIcon} source={require('../../assets/icons/back-white.png')} />
             </TouchableOpacity>
             <ImageViewer style={{ height: 100, width: '100%' }} imageUrls={props.images} />
-            {/* <View style={Style.imageContainer}>
-                <View style={Style.imageMain}>
-                    <Image resizeMode='contain' style={Style.image} source={{ uri: props.imageViewUrl }} />
-                </View>
-            </View> */}
         </SafeAreaView>
     )
 }

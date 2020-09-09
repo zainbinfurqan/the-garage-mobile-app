@@ -11,12 +11,24 @@ export default Styles = StyleSheet.create({
     },
     line: { margin: 10, borderBottomWidth: 0.34, borderColor: constants.LINE_COLOR, },
     categoryMain: {
-
+        marginBottom: 5,
         backgroundColor: constants.LIGHT_BLUE,
         height: 25,
         justifyContent: 'center',
         borderRadius: 20,
 
+    },
+    titleText: {
+        color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT * 1.5
+    },
+    nameText: {
+        color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT * 1.2
+    },
+    descriptionText: {
+        color: constants.GERY, fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT * 1.2
     },
     productImagesMain: {
         borderStyle: 'dashed',

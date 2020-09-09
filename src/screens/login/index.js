@@ -75,6 +75,9 @@ function Login(props) {
 
     return (
         <ImageBackground source={require('../../assets/images/bg-2.png')} style={Styles.container}>
+            <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => props.navigation.pop()}>
+                <Image style={{ height: 30, width: 30, margin: 10 }} source={require('../../assets/icons/back-white.png')} />
+            </TouchableOpacity>
             <View style={Styles.form}>
                 <View style={Styles.logoMain}>
                     <Image style={Styles.logo} source={require('../../assets/images/logo.png')} />
@@ -84,6 +87,9 @@ function Login(props) {
                     placeholder='Email'
                     onChangeText={(e) => handleChangeText(e, 'email')}
                     value={email}
+                    error1Color='white'
+                    error2Color='#FFD40B'
+                    placeholderColor='white'
                     InputStyle={Styles.textInput}
                     error={error && error.email}
                 />
@@ -91,6 +97,9 @@ function Login(props) {
                     placeholder='Password'
                     onChangeText={(e) => handleChangeText(e, 'passsword')}
                     value={password}
+                    error1Color='white'
+                    error2Color='#FFD40B'
+                    placeholderColor='white'
                     secureTextEntry={true}
                     InputStyle={Styles.textInput}
                     error={error && error.password}
@@ -98,14 +107,19 @@ function Login(props) {
                 <View style={{ flexDirection: 'row', }}>
                     <View style={{ flex: .7, flexDirection: 'row', }}>
                         <Text style={Styles.footerText1}>Dont have a Account?  </Text>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('Registration')}><Text style={Styles.footerText2}>Signup here</Text></TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => props.navigation.navigate('Registration')}>
+                            <Text style={Styles.footerText2}>Signup here</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={{ flex: .3 }}>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('Registration')}><Text style={[Styles.footerText2, { alignSelf: 'flex-end' }]}>Forget password</Text></TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => props.navigation.navigate('Registration')}>
+                            <Text style={[Styles.footerText2, { alignSelf: 'flex-end' }]}>Forget password</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-
-                <Button_ title='Login' onPress={userLogin} rippleColor={constants.RIPPLE_COLOR} textStyle={{ color: 'white' }} />
+                <Button_ title='Login' bgColor={'white'} onPress={userLogin} rippleColor={'white'} textStyle={{ color: constants.RED }} />
             </View>
         </ImageBackground>
     )

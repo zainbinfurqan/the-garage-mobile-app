@@ -15,6 +15,7 @@ const { width, height } = Dimensions.get('window')
 
 function ProductDetailView(props) {
     const postData_ = props.route.params.postData;
+    console.log("postData_=>", postData_)
     const [postData, setPostData] = useState({})
     const [showImageView, setShowImageView] = useState(false)
     const [imageViewUrl, setImageViewUrl] = useState('')
@@ -151,35 +152,34 @@ function ProductDetailView(props) {
                             <Image style={{ height: 30, width: 30, margin: 5 }} source={require('../../assets/icons/back.png')} />
                         </TouchableOpacity>
                         <ImagesCanas openImageView={openImageView} images={postData_.picUrl} />
-                        <View style={{ margin: 10 }}>
-                            <Text style={{
-                                color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                fontSize: constants.SMALL_FONT * 1.2
-                            }}>{helper.nameConcatenate(postData.user)}</Text>
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={Style.titleText}>{postData.title}</Text>
+                        </View>
+                        <View style={Style.line} />
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={Style.nameText}>{helper.nameConcatenate(postData.user)}</Text>
+                        </View>
+                        <View style={Style.line} />
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{postData.user.phoneNo}</Text>
                         </View>
                         <View style={{ margin: 10 }}>
-                            <Text style={{
-                                color: constants.GERY, fontFamily: constants.FONT_SAMSUNG_LIGHT,
-                                fontSize: constants.SMALL_FONT * 1.2
-                            }}>{postData.discription}</Text>
+                            <Text style={Style.descriptionText}>{postData.discription}</Text>
                         </View>
                         <View style={{ margin: 10 }}>
                             <View style={Style.categoryMain}>
-                                <Text style={Style.categoryText}>{postData.category.name}</Text>
+                                <Text style={Style.categoryText}>{postData_.category.name}</Text>
                             </View>
+                            {postData_.autoPartsCategory && <View style={Style.categoryMain}>
+                                <Text style={Style.categoryText}>{postData_.autoPartsCategory && `${postData_.autoPartsCategory.name}`}</Text>
+                            </View>}
+                            {postData_.subAutoPartsCategory && <View style={Style.categoryMain}>
+                                <Text style={Style.categoryText}>{postData_.subAutoPartsCategory && `${postData_.subAutoPartsCategory.name}`}</Text>
+                            </View>}
                             <View style={Style.line} />
-                            <View style={{}}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Image style={{ height: 20, width: 20 }} source={require('../../assets/icons/money.png')} />
-                                    <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{postData.priceRange}</Text>
-                                </View>
-                            </View>
-                            <View style={Style.line} />
-                            <View style={{}}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Image style={{ height: 20, width: 20 }} source={require('../../assets/icons/mobile.png')} />
-                                    <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{postData.user.phoneNo}</Text>
-                                </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Image style={{ height: 20, width: 20 }} source={require('../../assets/icons/money.png')} />
+                                <Text style={{ color: 'black', fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{postData.priceRange}</Text>
                             </View>
                         </View>
                         <View style={Style.line} />
