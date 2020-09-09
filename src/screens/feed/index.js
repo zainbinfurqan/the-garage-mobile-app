@@ -112,7 +112,6 @@ function PostsFeed(props) {
                 // priceGraterThen: highPrice,
                 name: searchText
             };
-            console.log("params=>", params)
             const response = await api.searchPost(null, null, null, params)
             setPosts(response)
             setLoading(false)
@@ -136,7 +135,6 @@ function PostsFeed(props) {
     // }
 
     function handleChangeText(value, label) {
-        console.log(value)
         setSearchText(value)
     }
 
@@ -161,7 +159,6 @@ function PostsFeed(props) {
     }
 
     async function selectAutoPartCategory(item) {
-        console.log("item=>", item)
         setSelectedAutoPartCategory(item._id)
         setSubAutoPartsCategory([])
         setSelectedSubAutoPartCategory('')
@@ -309,7 +306,6 @@ function PostsFeed(props) {
                             <View style={Style.left}>
                                 <Image style={Style.post} source={{ uri: item.picUrl[0] }} />
                             </View>
-                            {console.log("item=>", item.discription)}
                             <View style={{
                                 flexDirection: "column", flex: .7, padding: 5,
                             }}>

@@ -122,8 +122,10 @@ function Uploadproduct(props) {
                         // uri: `file://${response.path}`
                     }
                     if (images.length !== 5) {
-                        images.push(data)
-                        setImages(images)
+                        let a = images;
+                        a.push(data)
+                        // images.push(data)
+                        setImages(a)
 
                     }
                     // images.push(data)
@@ -151,29 +153,24 @@ function Uploadproduct(props) {
                     isAdmin: props.userData.role.includes('admin') ? true : false,
                 },
                 images: images
-                // discription: state.discription,
-                // priceRange: state.price,
-                // user: props.userData._id,
-                // category: selectedValue,
-                // sendTo: props.userData._id,
-                // isApproved: props.userData.role.includes('admin') ? true : false,
-                // isAdmin: props.userData.role.includes('admin') ? true : false,
-                // picUrl: images
             }
             if (selectedValue !== '5f3a88e08b37cd378868643c' && selectedValue !== '5f3a89188b37cd378868643e') {
+                // console.log("selectedAutoPartCategory=>", selectedAutoPartCategory)
                 // console.log("selectedSubAutoPartCategory=>", selectedSubAutoPartCategory)
-
-                body.data.autoPartsCategory = selectedAutoPartCategory
-                body.data.subAutoPartsCategory = selectedSubAutoPartCategory
+                if (selectedAutoPartCategory.length > 0) {
+                    body.data.autoPartsCategory = selectedAutoPartCategory
+                }
+                if (selectedSubAutoPartCategory.length > 0) {
+                    body.data.subAutoPartsCategory = selectedSubAutoPartCategory
+                }
             }
             // console.log("body=>", body)
             const response = await api.createPost(body, props.userData.token);
-            console.log(response.data)
             // socket.emit('local-notification', { to: props.userData._id });
             // socket.emit('local-notification', { to: response.data.notificationTo });
 
             props.loading(false)
-            // props.navigation.pop()
+            props.navigation.pop()
         } catch (error) {
             props.loading(false)
             props.apiresponse({ flag: true, isError: true, isSuccess: false, message: error.message })
@@ -243,13 +240,14 @@ function Uploadproduct(props) {
     }
 
     async function selectSubAutoPartCategory(value) {
-        console.log("selectSubAutoPartCategory=>", value)
         setSelectedSubAutoPartCategory(value)
     }
 
     function removeImage(index) {
-        images.splice(index, 1)
-        setImages(images)
+        let a = images;
+        a.splice(index, 1);
+        // images.splice(index, 1)
+        setImages(a)
     }
 
     return (
@@ -320,11 +318,11 @@ function Uploadproduct(props) {
                         {subAutoPartsCategory.length > 0 && <NativeDropDown data={subAutoPartsCategory} selectedValue={selectedSubAutoPartCategory} setSelectedValue={(value) => selectSubAutoPartCategory(value)} />}
                         <View style={Style.uploadMain}>
                             <View style={{ flexDirection: 'row' }}>
-                                {images.length > 0 && images.map((_, i) => {
+                                {images.map((_, i) => {
                                     return (
                                         <View key={i} style={{ borderRadius: 5, height: 90, flex: 0.2, marginLeft: 2, }}>
-                                            <TouchableOpacity onPress={() => removeImage(i)} style={Style.removeImageMain}><Text style={Style.removeImagebuttonText}>X</Text></TouchableOpacity>
-                                            <Image style={{ borderRadius: 4, height: '100%' }} resizeMode="cover" source={{ uri: _.uri }} />
+                                            <TouchableOpacity onPress={() => removeImage(i)} style={[Style.removeImageMain,]}><Text style={Style.removeImagebuttonText}>X</Text></TouchableOpacity>
+                                            <Image style={{ borderRadius: 4, width: '100%', height: '100%' }} resizeMode="cover" source={{ uri: _.uri, isStatic: true }} />
                                         </View>
                                     )
                                 })}

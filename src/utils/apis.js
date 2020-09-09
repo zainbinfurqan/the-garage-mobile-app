@@ -88,7 +88,6 @@ apis.fetchMyIntrest = async function (body = null, authorization = null, headers
 
 //seach post api
 apis.searchPost = async function (body = null, authorization = null, headers = null, params) {
-    console.log("params===>", params)
     let url = `post/search?`;
     if ('category' in params) {
         url = url + '' + `category=${params.category}`
@@ -108,7 +107,6 @@ apis.searchPost = async function (body = null, authorization = null, headers = n
     if ('subAutoPartsCategory' in params) {
         url = url + `&&subautopartscategory=${params.subAutoPartsCategory}`
     }
-    console.log(url)
     return await helper.apiMethod(
         null,
         'GET',
