@@ -13,6 +13,12 @@ export default Styles = StyleSheet.create({
     //     height: 140,
     //     margin: 10
     // },
+    imageMain: {
+        borderRadius: 5
+        , height: 90, flex: 0.2,
+        marginLeft: 2,
+    },
+    image: { borderRadius: 4, width: '100%', height: '100%' },
     removeImageMain: {
         borderWidth: 0.34,
         backgroundColor: 'black',
@@ -22,6 +28,23 @@ export default Styles = StyleSheet.create({
         justifyContent: 'center',
         marginRight: -10,
         width: 15,
+    },
+    errorText2: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT,
+        color: constants.RED
+    },
+    errorText1: {
+        fontFamily: constants.FONT_SAMSUNG_LIGHT,
+        fontSize: constants.SMALL_FONT,
+    },
+    selectAutoPartsCateogy: {
+        borderWidth: 0.34,
+        height: 50,
+        marginBottom: 5,
+        justifyContent: 'center',
+        borderRadius: 5,
+        borderColor: constants.LIGHT_BORDER
     },
     removeImagebuttonText: {
         fontSize: constants.SMALLEST_FONT,

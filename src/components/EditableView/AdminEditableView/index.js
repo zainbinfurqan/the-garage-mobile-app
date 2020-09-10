@@ -26,10 +26,10 @@ function AdminEditableView(props) {
         if (postData.category.guid === 2) {
             setGuid(postData.category.guid)
             setSelectedCategoryValue(postData.category._id)
-            setSelectedAutoPartsCategoryValue(postData.autoPartsCategory._id)
-            setSelectedSubAutoPartsCategoryValue(postData.subAutoPartsCategory._id)
+            postData.autoPartsCategory && setSelectedAutoPartsCategoryValue(postData.autoPartsCategory._id)
+            postData.subAutoPartsCategory && setSelectedSubAutoPartsCategoryValue(postData.subAutoPartsCategory._id)
             getAutoPartCategory(postData.category._id)
-            getSubAutoPartCategory(postData.category._id, postData.autoPartsCategory._id)
+            postData.category && postData.autoPartsCategory && getSubAutoPartCategory(postData.category._id, postData.autoPartsCategory._id)
         } else {
             setSelectedCategoryValue(postData.category._id)
         }
@@ -112,10 +112,7 @@ function AdminEditableView(props) {
     return (
         <SafeAreaView style={Style.container}>
             <ScrollView>
-                {/* <TouchableOpacity onPress={() => props.navigation.pop()} style={Style.backMain}>
-                <Image style={{ height: 25, width: 25 }} source={require('../../assets/icons/back.png')} />
-            </TouchableOpacity> */}
-                <View style={Style.images}>
+                {/* <View style={Style.images}>
                     <View style={Style.image1}>
                         <Image resizeMode="contain" style={{ height: '100%', width: '100%' }} source={{ uri: postData.picUrl[0] }} />
                     </View>
@@ -125,8 +122,11 @@ function AdminEditableView(props) {
                     <View style={Style.image1}>
                         <Image resizeMode="contain" style={{ height: '100%', width: '100%' }} source={{ uri: postData.picUrl[2] }} />
                     </View>
+                </View> */}
+                <View style={{ margin: 4, }}>
+                    <Text style={Style.name}>Title: {postData.title}</Text>
                 </View>
-                <View style={Style.nameMain}>
+                <View style={{ margin: 4, }}>
                     <Text style={Style.name}>Name: {helper.nameConcatenate(postData.user)}</Text>
                 </View>
                 <View style={{ margin: 4, }}>

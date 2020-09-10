@@ -9,6 +9,7 @@ export default Styles = StyleSheet.create({
     image1: { borderStyle: 'dashed', margin: 4, padding: 2, borderWidth: 1, borderRadius: 2, height: 150, flex: .33 },
     nameMain: { margin: 4, },
     name: {
+        color: 'black',
         fontFamily: constants.FONT_SAMSUNG_LIGHT,
         fontSize: constants.SMALL_FONT * 1.3
     },

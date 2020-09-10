@@ -137,13 +137,13 @@ function Chat(props) {
                         <>
                             {item.userId == props.userData._id ?
                                 <View style={Style.messageMain1}>
-                                    {item.postLink && <Image style={{ borderWidth: 1, margin: 5, height: 50, width: 50 }} source={{ uri: 'https://i.ibb.co/XSdSKTV/200.jpg' }} />}
+                                    {item.postLink && <Image style={{ borderWidth: 1, margin: 5, height: 50, width: '90%' }} source={{ uri: item.postLink.picUrl[0] }} />}
                                     <Text style={Style.textMessage}>{item.message}</Text>
                                     <Text style={Style.dateText}>{moment(new Date()).format('DD MMM YYYY')}</Text>
                                 </View> :
 
                                 <View style={Style.messageMain2}>
-                                    {item.postLink && <Image style={{ borderWidth: 1, margin: 5, height: 20, width: 20 }} source={{ uri: 'https://i.ibb.co/XSdSKTV/200.jpg' }} />}
+                                    {item.postLink && <Image style={{ borderWidth: 1, margin: 5, height: 20, width: 20 }} source={{ uri: item.postLink.picUrl[0] }} />}
                                     <Text style={Style.textMessage}>{item.message}</Text>
                                     <Text style={Style.dateText}>{moment(new Date()).format('DD MMM YYYY')}</Text>
                                 </View>}

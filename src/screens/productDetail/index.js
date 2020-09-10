@@ -15,7 +15,6 @@ const { width, height } = Dimensions.get('window')
 
 function ProductDetailView(props) {
     const postData_ = props.route.params.postData;
-    console.log("postData_=>", postData_)
     const [postData, setPostData] = useState({})
     const [showImageView, setShowImageView] = useState(false)
     const [imageViewUrl, setImageViewUrl] = useState('')
