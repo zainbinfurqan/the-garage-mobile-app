@@ -42,7 +42,7 @@ function App() {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <StatusBar backgroundColor="#FFD40B" barStyle="dark-content" />
+          <StatusBar backgroundColor="#ffd100" barStyle="dark-content" />
           <Navigation />
         </PersistGate>
       </Provider>

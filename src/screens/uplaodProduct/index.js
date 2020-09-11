@@ -65,6 +65,13 @@ function Uploadproduct(props) {
     const [error, setError] = useState({});
     const numberRegx = /^[0-9]*$/
 
+    useEffect(() => {
+        dispatch({
+            type: 'ON_SELECT_IMAGE',
+            payload: [],
+        });
+    }, [])
+
     function handleChangeText(value, label) {
         if (label == 'title') {
             dispatch({
@@ -137,8 +144,6 @@ function Uploadproduct(props) {
                             type: 'ON_SELECT_IMAGE',
                             payload: a,
                         });
-
-
                     }
                 }
             });
@@ -175,11 +180,15 @@ function Uploadproduct(props) {
                         body.data.subAutoPartsCategory = selectedSubAutoPartCategory._id
                     }
                 }
-                // const response = await api.createPost(body, props.userData.token);
+                const response = await api.createPost(body, props.userData.token);
+                dispatch({
+                    type: 'ON_SELECT_IMAGE',
+                    payload: [],
+                });
                 // socket.emit('local-notification', { to: props.userData._id });
                 // socket.emit('local-notification', { to: response.data.notificationTo });
                 props.loading(false)
-                // props.navigation.pop()
+                props.navigation.pop()
             }
 
         } catch (error) {
@@ -405,9 +414,15 @@ function Uploadproduct(props) {
                                     )
                                 })}
                             </View>
-                            <Button_ textStyle={{ color: 'white' }} onPress={openSelectPanel} buttonStyle={Style.addMore} title={images.length > 0 ? 'Add More' : 'Upload Image'} rippleColor={constants.RIPPLE_COLOR} />
+                            <Button_
+                                disabled={state.images.length == 5 ? true : false}
+                                textStyle={{ color: 'white' }}
+                                onPress={openSelectPanel}
+                                buttonStyle={Style.addMore}
+                                bgColor={state.images.length == 5 ? constants.DISABLE_RIPPLE_COLOR : constants.RED}
+                                title={state.images.length > 0 ? 'Add More' : 'Upload Image'}
+                                rippleColor={state.images.length == 5 ? constants.RIPPLE_COLOR : constants.DISABLE_RIPPLE_COLOR} />
                         </View>
-                        {/* {error.length > 0 && <Text style={{ fontFamily: constants.FONT_SAMSUNG_LIGHT }}>{error}</Text>} */}
                         <Button_ textStyle={{ color: 'white' }} onPress={uploadPost} title='Upload' rippleColor={constants.RIPPLE_COLOR} />
                     </View>
                 </ScrollView>

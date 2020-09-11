@@ -6,6 +6,7 @@ import constants from '../../config/constants';
 function Button_(props) {
     return (
         <Ripple
+            disabled={props.disabled}
             onPress={props.onPress}
             rippleColor={props.rippleColor}
             style={[{
