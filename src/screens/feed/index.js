@@ -357,6 +357,24 @@ function PostsFeed(props) {
                 {loading && <ActivityIndicator color={constants.LIGHT_BLUE} />}
                 {posts.length == 0 && !loading && <NoDataFound />}
             </View>
+            <View style={{
+                height: 40,
+                padding: 5,
+                borderRadius: 5,
+                alignSelf: 'center',
+                position: 'absolute',
+                justifyContent: 'center',
+                backgroundColor: constants.YELLOW,
+                bottom: 5,
+                flexDirection: 'row'
+            }}>
+                <Image style={{ alignSelf: 'center', height: 30, width: 30 }} source={require('../../assets/icons/camera.png')} />
+                <Text style={{
+                    fontFamily: constants.FONT_SAMSUNG_LIGHT,
+                    alignSelf: 'center',
+                    fontSize: constants.SMALL_FONT,
+                }}>Add post</Text>
+            </View>
         </SafeAreaView >
     )
 }

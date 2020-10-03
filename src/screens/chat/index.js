@@ -161,9 +161,6 @@ function Chat(props) {
                             Icon={require('../../assets/icons/send.png')}
                             InputStyle={Style.textInput} />
                     </View>
-                    {/* <TouchableOpacity onPress={sendMessage} style={{ flex: .15, height: 45, justifyContent: 'center' }}>
-                        <Image style={{ height: 30, width: 30, alignSelf: 'center' }} source={require('../../assets/icons/send.png')} />
-                    </TouchableOpacity> */}
                 </View>
             </SafeAreaView>
         </>
